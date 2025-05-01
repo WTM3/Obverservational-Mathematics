@@ -2,7 +2,7 @@
 
 ## Overview
 
-This documentation is tailored specifically for qs^3 cognitive processing as implemented in NJSON.js. While GNJSDocs covers the general framework (BMqs = qs^x), these personal NJSDocs focus on the specific implementation details for quantum speed cubed processing.
+This documentation is tailored specifically for qs^3 cognitive processing as implemented in WThomas.js. While GNJSDocs covers the general framework (BMqs = qs^x), these personal NJSDocs focus on the specific implementation details for quantum speed cubed processing.
 
 ## Core Implementation Features
 

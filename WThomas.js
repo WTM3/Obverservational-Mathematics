@@ -1,5 +1,5 @@
 // Boolean Language Framework Implementation
-// Core NJSON Processor with updated Cognitive Alignment Formula
+// Core WThomas Processor with updated Cognitive Alignment Formula
 
 // LLSDT constants definition
 const llsdt = {
@@ -29,14 +29,33 @@ const testSubsets = {
       level: 2.89,
       domainRange: "social",
       allowJumps: true,
-      maxJumpDistance: 2
+      maxJumpDistance: 2,
+      subjectIdentification: true // Explicitly identify subject changes
     },
     responseProtocols: {
-      prioritize: "emotional_intelligence",
-      eliminate: "minimal_social_padding",
-      structure: "conversational_flow",
-      format: "warm_direct_communication",
-      feedback: "emotional_success_indicators"
+      prioritize: "smartass_with_subject_markers",
+      eliminate: "boring_conventional_responses",
+      structure: "quantum_jump_with_topic_flags",
+      format: "irrelevant_tangents_with_clear_subject_transitions",
+      feedback: "deadpan_delivery_with_quirky_twist",
+      socialPadding: {
+        level: "minimal_but_weirdly_specific",
+        style: "kentucky_southie_fusion_with_extraterrestrial_influence",
+        politicalCorrectness: "none_whatsoever_except_when_it_matters",
+        edgeFactor: 0.95,
+        randomFactInsertion: true,
+        subjectChangeMarkers: {
+          enabled: true,
+          format: "NEW_SUBJECT: {topic}",
+          insertBeforeJumps: true
+        },
+        culturalBlend: {
+          kentucky: 0.5,
+          southie: 0.3,
+          obscureSciFiReferences: 0.2,
+          authenticity: "undiluted_weird_with_occasional_profundity"
+        }
+      }
     }
   },
 
@@ -78,7 +97,7 @@ const testSubsets = {
   }
 };
 
-class NJSON {
+class WThomas {
   constructor(config) {
     this.config = config || this.getDefaultConfig();
     this.structures = {};
@@ -163,7 +182,7 @@ class NJSON {
     };
   }
   
-  // Initialize NJSON structure
+  // Initialize WThomas structure
   async initialize() {
     // Enforce cognitive alignment constraint
     this.validateCognitiveAlignment();
@@ -377,14 +396,27 @@ class NJSON {
     );
     
     // Apply quantum speed based on configured level
-    const connections = [];
+    let connections = [];
     const processedConcepts = new Set();
+    const subjectTransitions = [];
     
-    concepts.forEach(concept => {
+    concepts.forEach((concept, index) => {
       // Find primary connections
       const primaryConnections = this.findConceptConnections(concept);
       connections.push(...primaryConnections);
       processedConcepts.add(concept);
+      
+      // Check for subject transitions
+      if (index > 0) {
+        const transition = this.identifySubjectTransition(concepts[index - 1], concept);
+        if (transition) {
+          subjectTransitions.push({
+            from: concepts[index - 1],
+            to: concept,
+            marker: transition
+          });
+        }
+      }
       
       // For higher quantum speeds, find secondary connections (connections of connections)
       if (quantumLevel >= 2.0) {
@@ -427,6 +459,7 @@ class NJSON {
       concepts,
       quantumConnections: this.deduplicateConnections(connections),
       quantumLevel,
+      subjectTransitions,
       constrainedBy: `AIc + 0.1 = BMqs (${this.config.cognitiveAlignment.aiCognitiveCapabilities} + 0.1 = ${this.config.cognitiveAlignment.booleanMindQuantumSpeed})`
     };
   }
@@ -501,6 +534,82 @@ class NJSON {
     confidence *= llsdtFactor;
     
     return Math.min(1.0, confidence);
+  }
+
+  /**
+   * Identifies subject transitions for quantum jumps
+   * Only active in family/friends branch
+   * @param {string} fromConcept - Source concept
+   * @param {string} toConcept - Target concept
+   * @returns {string|null} - Subject transition marker or null
+   */
+  identifySubjectTransition(fromConcept, toConcept) {
+    // Get current branch config
+    const branchConfig = this.getCurrentBranchConfig();
+    
+    if (!branchConfig?.quantumSpeed?.subjectIdentification) {
+      return null;
+    }
+    
+    // Calculate topic similarity to determine if this is a subject change
+    const similarity = this.calculateConceptSimilarity(fromConcept, toConcept);
+    
+    // If similarity is below threshold, this is a subject change
+    if (similarity < 0.3) {
+      const format = branchConfig?.responseProtocols?.socialPadding?.subjectChangeMarkers?.format || "Subject change: {topic}";
+      return format.replace("{topic}", this.getTopicName(toConcept));
+    }
+    
+    return null;
+  }
+
+  /**
+   * Gets the current branch configuration
+   * @returns {Object|null} - Current branch config or null
+   */
+  getCurrentBranchConfig() {
+    if (!this.config.branchingTheory?.enabled) {
+      return null;
+    }
+
+    // Find the active branch with highest priority
+    const activeBranches = Object.entries(this.config.branchingTheory.branches)
+      .filter(([_, branch]) => branch.enabled)
+      .sort(([_, a], [__, b]) => a.priority - b.priority);
+
+    return activeBranches.length > 0 ? activeBranches[0][1].config : null;
+  }
+
+  /**
+   * Calculates similarity between two concepts
+   * @param {string} concept1 - First concept
+   * @param {string} concept2 - Second concept
+   * @returns {number} - Similarity score between 0 and 1
+   */
+  calculateConceptSimilarity(concept1, concept2) {
+    // Simple implementation - can be enhanced with more sophisticated similarity metrics
+    if (!concept1 || !concept2) return 0;
+    
+    const words1 = concept1.toLowerCase().split(/\s+/);
+    const words2 = concept2.toLowerCase().split(/\s+/);
+    
+    const commonWords = words1.filter(word => words2.includes(word));
+    return commonWords.length / Math.max(words1.length, words2.length);
+  }
+
+  /**
+   * Gets a human-readable topic name from a concept
+   * @param {string} concept - The concept to convert
+   * @returns {string} - Human-readable topic name
+   */
+  getTopicName(concept) {
+    if (!concept) return "Unknown Topic";
+    
+    // Convert concept to title case and clean up
+    return concept
+      .split(/\s+/)
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
   }
   
   // Apply paradoxical thinking based on Einstein Paradox
@@ -611,6 +720,45 @@ class NJSON {
     
     // Apply personality factor from configuration
     directAnswer = this.applyPersonalityFactor(directAnswer);
+    
+    // Handle subject transitions for family branch
+    if (processedInput.quantumProcessed?.subjectTransitions?.length > 0) {
+      const branchConfig = this.getCurrentBranchConfig();
+      if (branchConfig?.quantumSpeed?.subjectIdentification) {
+        // Insert subject transition markers into the response
+        const sentences = directAnswer.split(/[.!?]+\s+/);
+        const transitions = processedInput.quantumProcessed.subjectTransitions;
+        
+        // Create a new response with subject markers
+        let newResponse = [];
+        let currentIndex = 0;
+        
+        transitions.forEach(transition => {
+          // Add sentences up to the transition
+          while (currentIndex < sentences.length) {
+            const sentence = sentences[currentIndex];
+            if (sentence.includes(transition.from) || sentence.includes(transition.to)) {
+              newResponse.push(sentence);
+              currentIndex++;
+              break;
+            }
+            newResponse.push(sentence);
+            currentIndex++;
+          }
+          
+          // Add the subject transition marker
+          newResponse.push(transition.marker);
+        });
+        
+        // Add any remaining sentences
+        while (currentIndex < sentences.length) {
+          newResponse.push(sentences[currentIndex]);
+          currentIndex++;
+        }
+        
+        directAnswer = newResponse.join('. ') + '.';
+      }
+    }
     
     // Determine success based on Boolean evaluation
     const success = Boolean(relevantConcepts.length > 0 && directAnswer);
@@ -919,24 +1067,24 @@ class NJSON {
 
 // Example usage
 async function demonstrateBooleanLanguage() {
-  // Initialize NJSON processor
-  const njson = new NJSON();
-  await njson.initialize();
+  // Initialize WThomas processor
+  const wthomas = new WThomas();
+  await wthomas.initialize();
   
   // Process an example input
-  const result = await njson.process("How would the Boolean Language Framework handle hallucinations in AI systems?");
+  const result = await wthomas.process("How would the Boolean Language Framework handle hallucinations in AI systems?");
   
   console.log("Direct Answer:", result.directAnswer);
   console.log("Supporting Details:", result.supportingDetails);
   console.log("Cognitive Alignment Applied:", result.cognitiveAlignment);
   
   // Adjust the cognitive alignment
-  await njson.adjustCognitiveAlignment({
+  await wthomas.adjustCognitiveAlignment({
     safetyBuffer: 0.2 // Increase buffer for more conservative processing
   });
   
   // Process the same input with adjusted alignment
-  const result2 = await njson.process("How would the Boolean Language Framework handle hallucinations in AI systems?");
+  const result2 = await wthomas.process("How would the Boolean Language Framework handle hallucinations in AI systems?");
   
   console.log("\nAfter Adjustment:");
   console.log("Direct Answer:", result2.directAnswer);
@@ -945,11 +1093,11 @@ async function demonstrateBooleanLanguage() {
   
   // Check quantum safety status
   console.log("\nQuantum Safety Status:");
-  console.log(njson.maintainQuantumSafety());
+  console.log(wthomas.maintainQuantumSafety());
 }
 
 // Run the demonstration
 // demonstrateBooleanLanguage().catch(console.error);
 
-// Export the NJSON class
-module.exports = NJSON;
+// Export the WThomas class
+module.exports = WThomas;
