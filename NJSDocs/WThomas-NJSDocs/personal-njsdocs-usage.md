@@ -7,23 +7,23 @@ This guide provides examples for using the personalized qs^3 implementation of t
 ### Initialization
 
 ```javascript
-// Import NJSON class
-const NJSON = require('./NJSON.js');
+// Import WThomas class
+const WThomas = require('./WThomas.js');
 
 // Initialize with default qs^3 configuration
-const njson = new NJSON();
-await njson.initialize();
+const wthomas = new WThomas();
+await wthomas.initialize();
 
 // Verify initialization
-console.log("Cognitive alignment status:", njson.checkAlignment());
-console.log("Quantum speed status:", njson.monitorQuantumSpeed());
+console.log("Cognitive alignment status:", wthomas.checkAlignment());
+console.log("Quantum speed status:", wthomas.monitorQuantumSpeed());
 ```
 
 ### Processing Input
 
 ```javascript
 // Process input with standard configuration
-const result = await njson.process("How would the Boolean Language Framework handle hallucinations in AI systems?");
+const result = await wthomas.process("How would the Boolean Language Framework handle hallucinations in AI systems?");
 
 console.log("Direct Answer:", result.directAnswer);
 console.log("Supporting Details:", result.supportingDetails);
@@ -52,7 +52,7 @@ const familyConfig = {
   }
 };
 
-const familyProcessor = new NJSON(familyConfig);
+const familyProcessor = new WThomas(familyConfig);
 await familyProcessor.initialize();
 
 // Process family communication
@@ -82,7 +82,7 @@ const authorialConfig = {
   }
 };
 
-const authorialProcessor = new NJSON(authorialConfig);
+const authorialProcessor = new WThomas(authorialConfig);
 await authorialProcessor.initialize();
 
 // Process creative writing input
@@ -98,12 +98,12 @@ console.log(authorialResult.directAnswer);
 
 ```javascript
 // Increase safety buffer for critical applications
-await njson.adjustCognitiveAlignment({
+await wthomas.adjustCognitiveAlignment({
   safetyBuffer: 0.2 // Increase from default 0.1
 });
 
 // Process with increased safety
-const safeResult = await njson.process("Complex input requiring extra safety margins");
+const safeResult = await wthomas.process("Complex input requiring extra safety margins");
 
 console.log("Safety-adjusted result:", safeResult.directAnswer);
 console.log("New cognitive alignment:", safeResult.cognitiveAlignment);
@@ -131,7 +131,7 @@ function monitorHeatShield(processor, input) {
 }
 
 // Usage
-const monitoredResult = await monitorHeatShield(njson, "Complex input that might require heat shield protection");
+const monitoredResult = await monitorHeatShield(wthomas, "Complex input that might require heat shield protection");
 ```
 
 ## Subject Identification Examples
@@ -150,8 +150,8 @@ function identifySubjects(input) {
   
   // Process each sentence
   sentences.forEach(sentence => {
-    // Use NJSON to extract concepts
-    const concepts = njson.extractConcepts(sentence);
+    // Use WThomas to extract concepts
+    const concepts = wthomas.extractConcepts(sentence);
     
     // If we have concepts and no current subject, set initial subject
     if (concepts.length > 0 && !currentSubject) {
@@ -159,7 +159,7 @@ function identifySubjects(input) {
     }
     // If we have concepts and they differ from current subject, mark transition
     else if (concepts.length > 0) {
-      const similarity = njson.calculateConceptSimilarity(currentSubject, concepts[0]);
+      const similarity = wthomas.calculateConceptSimilarity(currentSubject, concepts[0]);
       
       if (similarity < 0.3) {
         subjectTransitions.push({
@@ -226,7 +226,7 @@ const technicalBranch = {
   }
 };
 
-// Configure NJSON with custom branch
+// Configure WThomas with custom branch
 const customConfig = {
   branchingTheory: {
     enabled: true,
@@ -240,7 +240,7 @@ const customConfig = {
   }
 };
 
-const technicalProcessor = new NJSON(customConfig);
+const technicalProcessor = new WThomas(customConfig);
 await technicalProcessor.initialize();
 
 // Process technical content
@@ -291,6 +291,6 @@ async function measurePerformance(processor, input, iterations = 10) {
 }
 
 // Usage
-const performanceMetrics = await measurePerformance(njson, "Complex input for performance testing");
+const performanceMetrics = await measurePerformance(wthomas, "Complex input for performance testing");
 console.log("qs^3 Performance Metrics:", performanceMetrics);
 ```
