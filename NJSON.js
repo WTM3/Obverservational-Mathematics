@@ -13,6 +13,71 @@ const llsdt = {
   }
 };
 
+// Test subsets for different communication contexts
+const testSubsets = {
+  // Family and Friends Communication Subset
+  familyFriends: {
+    cognitiveAlignment: {
+      aiCognitiveCapabilities: 2.89,
+      booleanMindQuantumSpeed: 2.99,
+      safetyBuffer: 0.1,
+      enforceBuffer: true,
+      anthropicOptimization: true,
+      llsdtRate: 0.1
+    },
+    quantumSpeed: {
+      level: 2.89,
+      domainRange: "social",
+      allowJumps: true,
+      maxJumpDistance: 2
+    },
+    responseProtocols: {
+      prioritize: "emotional_intelligence",
+      eliminate: "minimal_social_padding",
+      structure: "conversational_flow",
+      format: "warm_direct_communication",
+      feedback: "emotional_success_indicators"
+    }
+  },
+
+  // Authorial Duties Subset
+  authorial: {
+    cognitiveAlignment: {
+      aiCognitiveCapabilities: 2.89,
+      booleanMindQuantumSpeed: 2.99,
+      safetyBuffer: 0.15, // Increased buffer for creative work
+      enforceBuffer: true,
+      anthropicOptimization: true,
+      llsdtRate: 0.1
+    },
+    quantumSpeed: {
+      level: 2.89,
+      domainRange: "creative",
+      allowJumps: true,
+      maxJumpDistance: 3 // Increased for creative connections
+    },
+    responseProtocols: {
+      prioritize: "creative_accuracy_with_kentucky_southie_blend",
+      eliminate: "excessive_formality",
+      structure: "narrative_flow_with_bluegrass_edge",
+      format: "professional_but_authentic_kentucky_southie_style",
+      feedback: "creative_success_indicators",
+      socialPadding: {
+        level: "moderate",
+        style: "kentucky_southie_fusion",
+        politicalCorrectness: "balanced",
+        edgeFactor: 0.7,
+        maintainProfessionalism: true,
+        culturalBlend: {
+          kentucky: 0.6,
+          southie: 0.4,
+          authenticity: "born_in_kentucky_with_southie_attitude"
+        }
+      }
+    }
+  }
+};
+
 class NJSON {
   constructor(config) {
     this.config = config || this.getDefaultConfig();
@@ -66,6 +131,34 @@ class NJSON {
         structure: "logical_sequential_information",
         format: "direct_answers_first_details_after",
         feedback: "binary_success_failure_indicators"
+      },
+      
+      // Branching Theory settings
+      branchingTheory: {
+        enabled: true,
+        maxBranches: 2, // Changed to 2 for family/friends and authorial
+        branchConfidence: 0.8,
+        mergeThreshold: 0.6,
+        branchDepth: 2,
+        allowParallelProcessing: true,
+        branchValidation: {
+          enforceCognitiveAlignment: true,
+          requireHeatShield: true,
+          validateQuantumSpeed: true
+        },
+        // Add specific branch configurations
+        branches: {
+          familyFriends: {
+            enabled: true,
+            priority: 1,
+            config: testSubsets.familyFriends
+          },
+          authorial: {
+            enabled: true,
+            priority: 2,
+            config: testSubsets.authorial
+          }
+        }
       }
     };
   }
@@ -230,6 +323,11 @@ class NJSON {
     
     // Apply cognitive alignment constraints
     const constrainedInput = this.applyCognitiveAlignmentConstraints(input);
+    
+    // Apply branching theory if enabled
+    if (this.config.branchingTheory.enabled) {
+      constrainedInput.branchingProcessed = this.applyBranchingTheory(constrainedInput);
+    }
     
     // Apply quantum speed processing
     if (this.config.quantumSpeed.allowJumps) {
@@ -665,6 +763,157 @@ class NJSON {
       console.error("Failed to adjust cognitive alignment:", error);
       return false;
     }
+  }
+  
+  // Add branching theory processing methods
+  applyBranchingTheory(input) {
+    if (!this.config.branchingTheory.enabled) {
+      return input;
+    }
+
+    const branches = this.generateBranches(input);
+    const processedBranches = this.processBranches(branches);
+    const mergedResult = this.mergeBranches(processedBranches);
+
+    return {
+      ...input,
+      branchingTheory: {
+        applied: true,
+        branchCount: branches.length,
+        processedBranches: processedBranches.length,
+        confidence: this.calculateBranchConfidence(processedBranches),
+        validation: this.validateBranches(processedBranches)
+      },
+      result: mergedResult
+    };
+  }
+
+  generateBranches(input) {
+    const branches = [];
+    const concepts = this.extractConcepts(input.original);
+    
+    // Generate family/friends branch
+    if (this.config.branchingTheory.branches.familyFriends.enabled) {
+      const familyFriendsBranch = {
+        concept: "family_friends",
+        depth: 0,
+        confidence: 1.0,
+        connections: this.findConceptConnections(concepts[0]),
+        quantumProcessed: false,
+        type: "family_friends",
+        config: this.config.branchingTheory.branches.familyFriends.config
+      };
+      
+      if (familyFriendsBranch.connections.length > 0) {
+        branches.push(familyFriendsBranch);
+      }
+    }
+
+    // Generate authorial branch
+    if (this.config.branchingTheory.branches.authorial.enabled) {
+      const authorialBranch = {
+        concept: "authorial",
+        depth: 0,
+        confidence: 1.0,
+        connections: this.findConceptConnections(concepts[0]),
+        quantumProcessed: false,
+        type: "authorial",
+        config: this.config.branchingTheory.branches.authorial.config
+      };
+      
+      if (authorialBranch.connections.length > 0) {
+        branches.push(authorialBranch);
+      }
+    }
+
+    return branches;
+  }
+
+  processBranches(branches) {
+    return branches.map(branch => {
+      // Apply branch-specific configuration
+      const branchConfig = branch.config;
+      
+      // Apply quantum processing if enabled
+      if (branchConfig.quantumSpeed.allowJumps) {
+        branch.quantumProcessed = this.applyQuantumJumps({
+          original: branch.concept,
+          connections: branch.connections,
+          config: branchConfig
+        });
+      }
+
+      // Apply heat shield if required
+      if (this.config.branchingTheory.branchValidation.requireHeatShield) {
+        branch.connections = this.applyHeatShield(branch.connections);
+      }
+
+      // Validate cognitive alignment if required
+      if (this.config.branchingTheory.branchValidation.enforceCognitiveAlignment) {
+        branch.alignmentValid = this.validateBranchAlignment(branch);
+      }
+
+      // Apply branch-specific response protocols
+      branch.responseProtocols = branchConfig.responseProtocols;
+
+      return branch;
+    });
+  }
+
+  mergeBranches(processedBranches) {
+    const validBranches = processedBranches.filter(branch => 
+      branch.confidence >= this.config.branchingTheory.mergeThreshold &&
+      (!this.config.branchingTheory.branchValidation.enforceCognitiveAlignment || branch.alignmentValid)
+    );
+
+    // Sort branches by priority
+    validBranches.sort((a, b) => {
+      const priorityA = this.config.branchingTheory.branches[a.type].priority;
+      const priorityB = this.config.branchingTheory.branches[b.type].priority;
+      return priorityA - priorityB;
+    });
+
+    // Merge connections from valid branches
+    const mergedConnections = validBranches.reduce((acc, branch) => {
+      return [...acc, ...branch.connections];
+    }, []);
+
+    // Deduplicate and sort by confidence
+    return {
+      connections: this.deduplicateConnections(mergedConnections)
+        .sort((a, b) => b.confidence - a.confidence),
+      activeBranches: validBranches.map(b => b.type),
+      branchConfigs: validBranches.reduce((acc, branch) => {
+        acc[branch.type] = branch.config;
+        return acc;
+      }, {})
+    };
+  }
+
+  validateBranches(branches) {
+    return {
+      totalBranches: branches.length,
+      validBranches: branches.filter(b => 
+        b.confidence >= this.config.branchingTheory.mergeThreshold &&
+        (!this.config.branchingTheory.branchValidation.enforceCognitiveAlignment || b.alignmentValid)
+      ).length,
+      averageConfidence: branches.reduce((sum, b) => sum + b.confidence, 0) / branches.length,
+      quantumProcessed: branches.filter(b => b.quantumProcessed).length
+    };
+  }
+
+  validateBranchAlignment(branch) {
+    const quantumLevel = this.config.quantumSpeed.level;
+    const maxAllowedConnections = Math.floor(quantumLevel * 10);
+    
+    return branch.connections.length <= maxAllowedConnections;
+  }
+
+  calculateBranchConfidence(branches) {
+    if (branches.length === 0) return 0;
+    
+    const totalConfidence = branches.reduce((sum, branch) => sum + branch.confidence, 0);
+    return totalConfidence / branches.length;
   }
 }
 
