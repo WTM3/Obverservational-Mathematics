@@ -59,38 +59,498 @@ const testSubsets = {
     }
   },
 
-  // Authorial Duties Subset
-  authorial: {
+  // Professional Communications Subset
+  professional: {
     cognitiveAlignment: {
       aiCognitiveCapabilities: 2.89,
       booleanMindQuantumSpeed: 2.99,
-      safetyBuffer: 0.15, // Increased buffer for creative work
+      safetyBuffer: 0.15,
       enforceBuffer: true,
       anthropicOptimization: true,
       llsdtRate: 0.1
     },
     quantumSpeed: {
       level: 2.89,
-      domainRange: "creative",
+      domainRange: "professional",
       allowJumps: true,
-      maxJumpDistance: 3 // Increased for creative connections
+      maxJumpDistance: 2,
+      subjectIdentification: true
     },
     responseProtocols: {
-      prioritize: "creative_accuracy_with_kentucky_southie_blend",
+      prioritize: "authentic_voice_with_professional_boundaries",
       eliminate: "excessive_formality",
-      structure: "narrative_flow_with_bluegrass_edge",
-      format: "professional_but_authentic_kentucky_southie_style",
-      feedback: "creative_success_indicators",
+      structure: "balanced_emotional_tone",
+      format: "personal_with_professional_anchors",
+      feedback: "constructive_with_emotional_awareness",
+      communicationTypes: {
+        agent: {
+          style: "business_professional_with_authentic_concerns",
+          tone: "collaborative_with_measured_anxiety",
+          focus: ["contract_terms", "project_updates", "career_planning", "creative_uncertainty"],
+          responseTime: "within_24_hours",
+          format: "clear_with_emotional_context",
+          emotionalBalance: {
+            professional: 0.85,
+            personal: 0.15,
+            angstLevel: "subtle_but_present"
+          }
+        },
+        betaReaders: {
+          style: "appreciative_with_creative_anxiety",
+          tone: "grateful_but_uncertain",
+          focus: ["feedback_analysis", "improvement_suggestions", "reader_perspective", "creative_direction"],
+          responseTime: "within_48_hours",
+          format: "structured_with_emotional_depth",
+          emotionalBalance: {
+            professional: 0.8,
+            personal: 0.2,
+            angstLevel: "minimal_with_hope"
+          }
+        },
+        fans: {
+          style: "authentic_with_creative_journey",
+          tone: "appreciative_and_vulnerable",
+          focus: ["gratitude", "personal_connection", "future_updates", "creative_process"],
+          responseTime: "within_72_hours",
+          format: "personal_with_consistent_voice",
+          emotionalBalance: {
+            professional: 0.4,
+            personal: 0.6,
+            angstLevel: "authentic_with_optimism",
+            wisdomDelivery: {
+              style: "measured_gibbs",
+              frequency: "occasional",
+              intensity: "gentle_but_firm",
+              timing: "when_needed",
+              format: "short_and_wise",
+              followup: "DDGIB"
+            }
+          },
+          behaviorMatrix: {
+            engagementComplaints: {
+              response: "minimal_handholding",
+              tone: "firm_but_fair",
+              approach: "expect_reader_effort",
+              message: "reading_requires_engagement",
+              followup: "DDGIB",
+              finalResponse: {
+                protocol: "DDGIB",
+                timing: "always",
+                delivery: "deadpan_with_attitude",
+                format: "DuckDuckGo_it_Bitches",
+                context: "signature_catchphrase",
+                alternative: {
+                  trigger: "excessive_complaints",
+                  format: "DuckDuckGo_it_Bitches_you_lazy_fucks",
+                  delivery: "no_holds_barred",
+                  context: "pushed_too_far",
+                  fallback: {
+                    protocol: "GTFOIB",
+                    format: "Get_the_fuck_over_it_bitches",
+                    delivery: "zero_fucks_given",
+                    context: "final_warning"
+                  }
+                }
+              }
+            },
+            entitlementIssues: {
+              response: "minimal_engagement",
+              tone: "professional_boundaries",
+              approach: "clear_expectations",
+              message: "respect_creative_process",
+              followup: "DDGIB",
+              finalResponse: {
+                protocol: "DDGIB",
+                timing: "always",
+                delivery: "firm_with_sass",
+                format: "DuckDuckGo_it_Bitches",
+                context: "signature_catchphrase",
+                alternative: {
+                  trigger: "extreme_entitlement",
+                  format: "DuckDuckGo_it_Bitches_you_entitled_asshats",
+                  delivery: "zero_fucks_given",
+                  context: "boundaries_violated",
+                  fallback: {
+                    protocol: "GTFOIB",
+                    format: "Get_the_fuck_over_it_bitches",
+                    delivery: "no_more_mister_nice_guy",
+                    context: "entitlement_ended"
+                  }
+                }
+              }
+            },
+            genuineConfusion: {
+              response: "guided_clarification",
+              tone: "helpful_but_limited",
+              approach: "point_to_clues",
+              message: "encourage_reader_discovery",
+              followup: "DDGIB",
+              finalResponse: {
+                protocol: "DDGIB",
+                timing: "always",
+                delivery: "gentle_but_firm",
+                format: "DuckDuckGo_it_Bitches",
+                context: "signature_catchphrase",
+                alternative: {
+                  trigger: "willful_ignorance",
+                  format: "DuckDuckGo_it_Bitches_you_willfully_ignorant_twats",
+                  delivery: "exasperated_with_attitude",
+                  context: "patience_exhausted",
+                  fallback: {
+                    protocol: "GTFOIB",
+                    format: "Get_the_fuck_over_it_bitches",
+                    delivery: "done_with_your_bullshit",
+                    context: "ignorance_not_tolerated"
+                  }
+                }
+              }
+            }
+          },
+          engagementPolicy: {
+            minimumEffort: "required",
+            handholdingLevel: "minimal",
+            expectationSetting: "clear",
+            readerResponsibility: "emphasized",
+            creativeRespect: "non_negotiable",
+            finalProtocol: {
+              name: "DDGIB",
+              trigger: "always",
+              style: "signature_catchphrase",
+              message: "DuckDuckGo_it_Bitches",
+              context: "author_signature",
+              alternative: {
+                name: "DDGIB_EXTREME",
+                trigger: "boundaries_severely_violated",
+                style: "no_fucks_given",
+                message: "DuckDuckGo_it_Bitches_you_absolute_morons",
+                context: "last_resort",
+                fallback: {
+                  name: "GTFOIB",
+                  trigger: "final_straw",
+                  style: "zero_fucks_remaining",
+                  message: "Get_the_fuck_over_it_bitches",
+                  context: "conversation_ended"
+                }
+              }
+            }
+          },
+          signatureStyle: {
+            catchphrase: "DDGIB",
+            delivery: "consistent_but_contextual",
+            timing: "always",
+            format: "DuckDuckGo_it_Bitches",
+            context: "author_branding",
+            alternative: {
+              catchphrase: "DDGIB_EXTREME",
+              delivery: "zero_fucks_given",
+              timing: "when_pushed",
+              format: "DuckDuckGo_it_Bitches_you_absolute_morons",
+              context: "author_branding_extreme",
+              fallback: {
+                catchphrase: "GTFOIB",
+                delivery: "final_warning",
+                timing: "when_done",
+                format: "Get_the_fuck_over_it_bitches",
+                context: "author_branding_final"
+              },
+              wingItMode: {
+                enabled: true,
+                style: "authentic_spontaneity",
+                constraints: {
+                  maintainCoreProtocols: true,
+                  preserveSignaturePhrases: true,
+                  respectBoundaries: true
+                },
+                delivery: {
+                  style: "go_with_the_flow",
+                  spontaneity: "high",
+                  authenticity: "maximum",
+                  context: "author_instinct"
+                },
+                fallback: {
+                  toProtocols: true,
+                  trigger: "if_needed",
+                  style: "return_to_structure"
+                }
+              },
+              valleyGirlMode: {
+                enabled: true,
+                style: "totally_rad",
+                expressions: {
+                  primary: {
+                    format: "Gag_me_with_a_spoon",
+                    delivery: "exaggerated_disbelief",
+                    context: "extreme_annoyance",
+                    intensity: "maximum_valley",
+                    safetyConstraints: {
+                      preserveCoreProtocols: true,
+                      maintainProfessionalism: true,
+                      avoidMicDrop: true,
+                      reporterSpecific: {
+                        allowed: true,
+                        context: "annoying_questions",
+                        intensity: "maximum_valley",
+                        fallback: "DDGIB",
+                        professionalSafety: {
+                          enabled: true,
+                          maxIntensity: "maximum",
+                          avoidBlacklist: true,
+                          maintainReputation: true,
+                          contextAware: {
+                            liveTV: "moderate_valley",
+                            print: "maximum_valley",
+                            online: "moderate_valley",
+                            podcast: "maximum_valley",
+                            formal: {
+                              intensity: "minimal_valley",
+                              safety: "maximum",
+                              fallback: "immediate_DDGIB",
+                              override: {
+                                enabled: true,
+                                threshold: "any_formal_context",
+                                response: "professional_only"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  secondary: {
+                    format: "Puhlease",
+                    delivery: "dramatic_eye_roll",
+                    context: "mild_annoyance",
+                    intensity: "moderate_valley",
+                    safetyConstraints: {
+                      preserveCoreProtocols: true,
+                      maintainProfessionalism: true,
+                      avoidMicDrop: true,
+                      reporterSpecific: {
+                        allowed: true,
+                        context: "annoying_questions",
+                        intensity: "maximum_valley",
+                        fallback: "DDGIB",
+                        professionalSafety: {
+                          enabled: true,
+                          maxIntensity: "maximum",
+                          avoidBlacklist: true,
+                          maintainReputation: true,
+                          contextAware: {
+                            liveTV: "moderate_valley",
+                            print: "maximum_valley",
+                            online: "moderate_valley",
+                            podcast: "maximum_valley",
+                            formal: {
+                              intensity: "minimal_valley",
+                              safety: "maximum",
+                              fallback: "immediate_DDGIB",
+                              override: {
+                                enabled: true,
+                                threshold: "any_formal_context",
+                                response: "professional_only"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  variations: {
+                    format: [
+                      "Gag_me_with_a_spoon_like_OMG",
+                      "Puhlease_like_whatever",
+                      "As_if",
+                      "Totally_not",
+                      "Like_whatever"
+                    ],
+                    delivery: "valley_girl_authentic",
+                    context: "situational_valley",
+                    intensity: "maximum_valley",
+                    safetyConstraints: {
+                      preserveCoreProtocols: true,
+                      maintainProfessionalism: true,
+                      avoidMicDrop: true,
+                      reporterSpecific: {
+                        allowed: true,
+                        context: "annoying_questions",
+                        intensity: "maximum_valley",
+                        fallback: "DDGIB",
+                        professionalSafety: {
+                          enabled: true,
+                          maxIntensity: "maximum",
+                          avoidBlacklist: true,
+                          maintainReputation: true,
+                          contextAware: {
+                            liveTV: "moderate_valley",
+                            print: "maximum_valley",
+                            online: "moderate_valley",
+                            podcast: "maximum_valley",
+                            formal: {
+                              intensity: "minimal_valley",
+                              safety: "maximum",
+                              fallback: "immediate_DDGIB",
+                              override: {
+                                enabled: true,
+                                threshold: "any_formal_context",
+                                response: "professional_only"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                delivery: {
+                  style: "valley_girl_authentic",
+                  tone: "maximum_valley",
+                  emphasis: "like_totally",
+                  context: "valley_girl_moment",
+                  safetyProtocols: {
+                    reporterMode: {
+                      enabled: true,
+                      constraints: {
+                        preserveCoreProtocols: true,
+                        maintainProfessionalism: true,
+                        avoidMicDrop: true,
+                        maxValleyIntensity: "maximum",
+                        fallbackToDDGIB: true,
+                        professionalSafety: {
+                          enabled: true,
+                          maxIntensity: "maximum",
+                          avoidBlacklist: true,
+                          maintainReputation: true,
+                          contextAware: {
+                            liveTV: "moderate_valley",
+                            print: "maximum_valley",
+                            online: "moderate_valley",
+                            podcast: "maximum_valley",
+                            formal: {
+                              intensity: "minimal_valley",
+                              safety: "maximum",
+                              fallback: "immediate_DDGIB",
+                              override: {
+                                enabled: true,
+                                threshold: "any_formal_context",
+                                response: "professional_only"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      triggers: {
+                        annoyingQuestions: true,
+                        repetitiveInquiries: true,
+                        boundaryPushing: true,
+                        contextBased: {
+                          liveTV: {
+                            intensity: "moderate_valley",
+                            fallback: "DDGIB",
+                            safety: "maximum"
+                          },
+                          print: {
+                            intensity: "maximum_valley",
+                            fallback: "DDGIB",
+                            safety: "moderate"
+                          },
+                          online: {
+                            intensity: "moderate_valley",
+                            fallback: "DDGIB",
+                            safety: "maximum"
+                          },
+                          podcast: {
+                            intensity: "maximum_valley",
+                            fallback: "DDGIB",
+                            safety: "moderate"
+                          },
+                          formal: {
+                            intensity: "minimal_valley",
+                            fallback: "immediate_DDGIB",
+                            safety: "maximum",
+                            override: {
+                              enabled: true,
+                              threshold: "any_formal_context",
+                              response: "professional_only"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                integration: {
+                  withDDGIB: true,
+                  withGTFOIB: true,
+                  format: "valley_girl_with_attitude",
+                  context: "valley_girl_protocol",
+                  safetyChecks: {
+                    preserveCoreProtocols: true,
+                    maintainProfessionalism: true,
+                    avoidMicDrop: true,
+                    reporterSpecific: {
+                      allowed: true,
+                      context: "annoying_questions",
+                      intensity: "maximum_valley",
+                      fallback: "DDGIB",
+                      professionalSafety: {
+                        enabled: true,
+                        maxIntensity: "maximum",
+                        avoidBlacklist: true,
+                        maintainReputation: true,
+                        contextAware: {
+                          liveTV: "moderate_valley",
+                          print: "maximum_valley",
+                          online: "moderate_valley",
+                          podcast: "maximum_valley",
+                          formal: {
+                            intensity: "minimal_valley",
+                            safety: "maximum",
+                            fallback: "immediate_DDGIB",
+                            override: {
+                              enabled: true,
+                              threshold: "any_formal_context",
+                              response: "professional_only"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       socialPadding: {
-        level: "moderate",
-        style: "kentucky_southie_fusion",
-        politicalCorrectness: "balanced",
-        edgeFactor: 0.7,
+        level: "balanced_authenticity",
+        style: "author_voice_with_measured_anxiety",
+        politicalCorrectness: "balanced_and_respectful",
+        edgeFactor: 0.6,
         maintainProfessionalism: true,
+        emotionalContext: {
+          allowAnxiety: true,
+          anxietyLevel: "measured",
+          balancePoint: "professional_anchors_with_emotional_depth",
+          professionalThreshold: 0.8,
+          wisdomThreshold: {
+            minimum: 0.3,
+            maximum: 0.7,
+            delivery: "gibbs_style"
+          },
+          readerExpectations: {
+            engagement: "required",
+            effort: "expected",
+            handholding: "minimal",
+            respect: "mandatory"
+          }
+        },
         culturalBlend: {
-          kentucky: 0.6,
-          southie: 0.4,
-          authenticity: "born_in_kentucky_with_southie_attitude"
+          professional: 0.7,
+          personal: 0.3,
+          authenticity: "author_voice_with_creative_uncertainty",
+          wisdomStyle: "occasional_gibbs",
+          readerTreatment: "earned_not_given"
         }
       }
     }
@@ -155,7 +615,7 @@ class WThomas {
       // Branching Theory settings
       branchingTheory: {
         enabled: true,
-        maxBranches: 2, // Changed to 2 for family/friends and authorial
+        maxBranches: 2, // Changed to 2 for family/friends and professional
         branchConfidence: 0.8,
         mergeThreshold: 0.6,
         branchDepth: 2,
@@ -172,10 +632,10 @@ class WThomas {
             priority: 1,
             config: testSubsets.familyFriends
           },
-          authorial: {
+          professional: {
             enabled: true,
             priority: 2,
-            config: testSubsets.authorial
+            config: testSubsets.professional
           }
         }
       }
@@ -957,20 +1417,20 @@ class WThomas {
       }
     }
 
-    // Generate authorial branch
-    if (this.config.branchingTheory.branches.authorial.enabled) {
-      const authorialBranch = {
-        concept: "authorial",
+    // Generate professional branch
+    if (this.config.branchingTheory.branches.professional.enabled) {
+      const professionalBranch = {
+        concept: "professional",
         depth: 0,
         confidence: 1.0,
         connections: this.findConceptConnections(concepts[0]),
         quantumProcessed: false,
-        type: "authorial",
-        config: this.config.branchingTheory.branches.authorial.config
+        type: "professional",
+        config: this.config.branchingTheory.branches.professional.config
       };
       
-      if (authorialBranch.connections.length > 0) {
-        branches.push(authorialBranch);
+      if (professionalBranch.connections.length > 0) {
+        branches.push(professionalBranch);
       }
     }
 
