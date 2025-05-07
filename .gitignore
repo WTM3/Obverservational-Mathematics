@@ -1,0 +1,29 @@
+# Note: All gitignore patterns should be consolidated in this file
+# Do not create separate .gitignore files in subdirectories
+
+# Existing ignores
+BLF Enhancements/Tests/
+
+# Dependencies
+node_modules/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Build outputs
+dist/
+build/
+*.log
