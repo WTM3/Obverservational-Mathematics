@@ -1,0 +1,18 @@
+{
+  "birthday": {
+    "family": "Happy Birthday! Hope you have a wonderful day celebrating. Love you!",
+    "friends": "Happy Birthday! Hope your day is awesome and filled with fun!",
+    "acquaintances": "Happy Birthday! Hope you have a great day."
+  },
+  "getWell": {
+    "family": "Sorry to hear you're not feeling well. Let me know if there's anything I can do to help. Sending love and healing thoughts.",
+    "friends": "Hope you feel better soon! Let me know if you need anything.",
+    "acquaintances": "Sorry to hear you're under the weather. Hope you feel better soon."
+  },
+  "congratulations": {
+    "default": "Congratulations on your achievement! That's awesome!"
+  },
+  "checkIn": {
+    "default": "Just checking in to see how you're doing."
+  }
+} 
