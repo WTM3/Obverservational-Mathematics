@@ -7,7 +7,7 @@ import os.log
 @available(macOS 10.15, *)
 actor BotController {
     // MARK: - Core Components
-    private let messageProcessor: MessageProcessor
+    private let njson: NJSON
     private let database: MessageDatabase
     
     // MARK: - State Management
@@ -28,7 +28,7 @@ actor BotController {
         checkInterval: TimeInterval = 1.0,
         metricsReportingInterval: TimeInterval = 300.0
     ) {
-        self.messageProcessor = MessageProcessor()
+        self.njson = NJSON()
         self.database = MessageDatabase()
         self.checkInterval = checkInterval
         self.metricsReportingInterval = metricsReportingInterval
@@ -138,9 +138,32 @@ actor BotController {
                 logger.debug("Processing high priority message: \(message.id)")
             }
             
-            // Dispatch to processor with appropriate priority
-            await messageProcessor.processIncomingMessage(message)
+            // Process message directly with NJSON
+            await processMessageWithNJSON(message, priority: priority)
             metrics.recordMessageProcessed()
+        }
+    }
+    
+    private func processMessageWithNJSON(_ message: Message, priority: MessagePriority) async {
+        do {
+            // Use NJSON directly for processing
+            logger.debug("Processing message: \(message.id) with priority: \(priority.rawValue)")
+            let startTime = CFAbsoluteTimeGetCurrent()
+            
+            // Process with NJSON
+            let response = try await njson.processIncomingMessage(message.content, from: message.sender)
+            
+            // Track performance metrics
+            let totalTime = CFAbsoluteTimeGetCurrent() - startTime
+            metrics.recordProcessingTime(totalTime)
+            
+            logger.debug("Message processed in \(totalTime)s")
+            
+            // Send the response
+            try await sendResponse(response, to: message.sender)
+        } catch {
+            logger.error("Error processing message: \(error.localizedDescription)")
+            metrics.recordError()
         }
     }
     
@@ -161,6 +184,50 @@ actor BotController {
         }
         
         return .normal
+    }
+    
+    // MARK: - Message Sending
+    private func sendResponse(_ response: String, to recipient: String) async throws {
+        // Create AppleScript command to send message
+        let script = """
+        tell application "Messages"
+            set targetService to 1st service whose service type = iMessage
+            set targetBuddy to buddy "\(recipient)" of targetService
+            send "\(response)" to targetBuddy
+        end tell
+        """
+        
+        // Execute AppleScript with proper error handling
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/usr/bin/osascript")
+        process.arguments = ["-e", script]
+        
+        let outputPipe = Pipe()
+        let errorPipe = Pipe()
+        
+        process.standardOutput = outputPipe
+        process.standardError = errorPipe
+        
+        // Track message sending performance
+        let startTime = CFAbsoluteTimeGetCurrent()
+        
+        do {
+            try process.run()
+            process.waitUntilExit()
+            
+            let sendTime = CFAbsoluteTimeGetCurrent() - startTime
+            metrics.recordSendTime(sendTime)
+            
+            if process.terminationStatus != 0 {
+                let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
+                let errorMessage = String(data: errorData, encoding: .utf8) ?? "Unknown error"
+                metrics.recordError()
+                throw NJSONError.messageSendingFailed(errorMessage)
+            }
+        } catch {
+            metrics.recordError()
+            throw NJSONError.messageSendingFailed(error.localizedDescription)
+        }
     }
     
     // MARK: - Adaptive Timing
@@ -190,18 +257,19 @@ actor BotController {
                     // Update uptime
                     metrics.uptime = Date().timeIntervalSince(metrics.startTime)
                     
-                    // Get processor metrics
-                    let processorMetrics = await messageProcessor.getPerformanceMetrics()
+                    // Get NJSON cognitive state
+                    let cognitiveState = await njson.getCognitiveState()
                     
                     // Log current metrics
                     logger.info("""
                     Performance report:
                     - Uptime: \(metrics.uptime)s
                     - Messages processed: \(metrics.messagesProcessed) (\(metrics.highPriorityMessages) high priority)
-                    - Average processing time: \(processorMetrics.averageProcessingTime)s
-                    - High priority processing time: \(processorMetrics.highPriorityAverageProcessingTime)s
                     - Database checks: \(metrics.databaseChecks) (avg \(metrics.averageCheckDuration)s)
                     - Errors: \(metrics.errorCount)
+                    - NJSON cycles: \(cognitiveState.processingCycles)
+                    - Subject changes: \(cognitiveState.subjectChanges)
+                    - Avg. response length: \(cognitiveState.averageResponseLength) chars
                     """)
                 } catch {
                     // Task cancelled or other error
@@ -234,6 +302,8 @@ struct BotMetrics {
     var errorCount: Int = 0
     var averageCheckDuration: Double = 0
     var lastFatalError: String = ""
+    private var totalProcessingTime: Double = 0
+    private var totalSendTime: Double = 0
     
     mutating func recordMessageProcessed() {
         messagesProcessed += 1
@@ -253,6 +323,14 @@ struct BotMetrics {
         averageCheckDuration = (totalDuration + duration) / Double(databaseChecks)
     }
     
+    mutating func recordProcessingTime(_ time: Double) {
+        totalProcessingTime += time
+    }
+    
+    mutating func recordSendTime(_ time: Double) {
+        totalSendTime += time
+    }
+    
     mutating func recordError() {
         errorCount += 1
     }
@@ -261,6 +339,21 @@ struct BotMetrics {
         errorCount += 1
         lastFatalError = description
     }
+}
+
+// No need for separate MessageProcessor - directly using NJSON
+
+enum MessagePriority: String {
+    case high = "high"
+    case normal = "normal"
+}
+
+struct Message: Identifiable, Hashable {
+    let id: String
+    let content: String
+    let sender: String
+    let timestamp: Date
+    let threadId: String
 }
 
 // MARK: - Message Database Access

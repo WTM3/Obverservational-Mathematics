@@ -17,8 +17,8 @@ struct BLFiMessageBot {
         // Banner
         printBanner()
         
-        // Initialize configuration
-        let config = loadConfiguration()
+        // Initialize configuration with NJSON compatibility
+        let config = await loadConfiguration()
         
         logger.info("Boolean Language Framework iMessage Bot \(version)")
         logger.info("Core engine: \(engineVersion) with 0.1 hallucination buffer")
@@ -67,14 +67,85 @@ struct BLFiMessageBot {
         """)
     }
     
-    /// Load system configuration (or use defaults)
-    static func loadConfiguration() -> BotConfiguration {
-        // In a real implementation, this would load from a configuration file
-        // For now, we'll use sensible defaults
-        return BotConfiguration(
+    /// Load system configuration from NJSON compatible format
+    static func loadConfiguration() async -> BotConfiguration {
+        let configFilePath = getConfigFilePath()
+        
+        if FileManager.default.fileExists(atPath: configFilePath) {
+            do {
+                // Read configuration from NJSON format
+                let configData = try Data(contentsOf: URL(fileURLWithPath: configFilePath))
+                
+                // Parse JSON with NJSON compatibility
+                if let configDict = try JSONSerialization.jsonObject(with: configData) as? [String: Any],
+                   let checkInterval = configDict["checkInterval"] as? Double,
+                   let metricsInterval = configDict["metricsInterval"] as? Double {
+                    
+                    logger.info("Loaded configuration from NJSON format")
+                    
+                    return BotConfiguration(
+                        checkInterval: checkInterval,
+                        metricsInterval: metricsInterval
+                    )
+                }
+            } catch {
+                logger.error("Error loading configuration: \(error.localizedDescription), using defaults")
+            }
+        }
+        
+        // If file doesn't exist or has errors, create default config and save it
+        let defaultConfig = BotConfiguration(
             checkInterval: 1.0,
             metricsInterval: 300.0
         )
+        
+        // Save default config
+        Task {
+            await saveConfiguration(defaultConfig)
+        }
+        
+        return defaultConfig
+    }
+    
+    /// Save configuration in NJSON compatible format
+    static func saveConfiguration(_ config: BotConfiguration) async {
+        let configFilePath = getConfigFilePath()
+        
+        do {
+            // Create NJSON compatible dictionary
+            let configDict: [String: Any] = [
+                "checkInterval": config.checkInterval,
+                "metricsInterval": config.metricsInterval,
+                "_meta": [
+                    "version": version,
+                    "engineVersion": engineVersion,
+                    "timestamp": ISO8601DateFormatter().string(from: Date())
+                ]
+            ]
+            
+            // Convert to JSON
+            let configData = try JSONSerialization.data(withJSONObject: configDict, options: .prettyPrinted)
+            
+            // Write to file
+            try configData.write(to: URL(fileURLWithPath: configFilePath))
+            
+            logger.info("Configuration saved in NJSON format")
+        } catch {
+            logger.error("Error saving configuration: \(error.localizedDescription)")
+        }
+    }
+    
+    /// Get the path to the config file
+    static func getConfigFilePath() -> String {
+        let homeDirectory = FileManager.default.homeDirectoryForCurrentUser.path
+        let configDirectory = "\(homeDirectory)/.blf"
+        
+        // Create directory if it doesn't exist
+        if !FileManager.default.fileExists(atPath: configDirectory) {
+            try? FileManager.default.createDirectory(atPath: configDirectory, withIntermediateDirectories: true)
+        }
+        
+        return "\(configDirectory)/iMessageBot.njson"
     }
     
     // MARK: - Runtime Functions
@@ -159,7 +230,7 @@ struct BLFiMessageBot {
     }
 }
 
-/// Bot Configuration
+/// Bot Configuration in NJSON compatible format
 struct BotConfiguration {
     let checkInterval: TimeInterval
     let metricsInterval: TimeInterval
