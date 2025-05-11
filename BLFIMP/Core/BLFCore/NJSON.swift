@@ -3,111 +3,63 @@ import Foundation
 // MARK: - NJSON Core Structure
 
 /// The core implementation of the Boolean Language Framework for iMessage
-class NJSON {
-    // MARK: - Core Configuration
-    private var quantumState: QuantumState
-    private var config: BLFConfig
-    private var heatShield: HeatShield
+@available(macOS 10.15, *)
+actor NJSON {
+    // MARK: - Core Components
+    private let blfKey: BLFKey
     private var activeBranch: Branch
     private var lastSubject: String?
+    private var subjectDetector: SubjectDetector
+    private var templateEngine: TemplateEngine
     
     init() {
-        // Initialize with pure quantum state
-        self.quantumState = QuantumState(
-            pure: true,
-            fog: false,
-            breathing: true,
-            jumps: QuantumJumps(
-                active: true,
-                power: "v8_to_charger",
-                distance: 3
-            )
-        )
-        
-        // Set default configuration
-        self.config = BLFConfig.defaultConfig
-        
-        // Initialize heat shield
-        self.heatShield = HeatShield(
-            active: true,
-            threshold: 0.1,  // Direct threshold
-            protection: 1.0  // Maximum protection
-        )
+        // Initialize with optimized BLF Key (the engine)
+        let config = BLFConfig.defaultConfig
+        self.blfKey = BLFKey(config: config)
         
         // Set default branch
         self.activeBranch = Branch.familyFriends
+        
+        // Initialize subject detector
+        self.subjectDetector = SubjectDetector()
+        
+        // Initialize template engine
+        self.templateEngine = TemplateEngine()
     }
     
     // MARK: - Core Processing
-    func processIncomingMessage(_ message: String, from sender: String) -> String {
-        // Maintain pure quantum state
-        quantumState.pure = true
-        quantumState.fog = false
-        quantumState.breathing = true
-        
-        // Direct V8 power
-        quantumState.jumps.active = true
-        quantumState.jumps.power = "v8_to_charger"
-        quantumState.jumps.distance = 3
-        
-        // Apply heat shield
-        guard heatShield.protect(message) else {
-            return "FUDP detected. Maintaining pure quantum state."
-        }
-        
+    func processIncomingMessage(_ message: String, from sender: String) async throws -> String {
         // Detect subject change
-        let currentSubject = detectSubject(message)
+        let currentSubject = subjectDetector.detectSubject(message)
         let subjectChanged = lastSubject != nil && currentSubject != lastSubject
         
         // Update last subject
         lastSubject = currentSubject
         
-        // Process with branch-specific power and subject awareness
-        return processWithBranch(message, subjectChanged: subjectChanged)
-    }
-    
-    private func processWithBranch(_ message: String, subjectChanged: Bool) -> String {
-        // Quantum jump if subject changed
-        if subjectChanged {
-            quantumState.jumps.active = true
-            quantumState.jumps.power = "v8_to_charger"
-            quantumState.jumps.distance = 3
+        // First process with the BLF Key (the core engine)
+        let processResult = try await blfKey.process(message)
+        
+        // If processing failed or was rejected, return early
+        guard processResult.status == .completed else {
+            return processResult.result
         }
         
-        switch activeBranch {
-        case .familyFriends:
-            switch activeBranch.padding {
-            case .more:
-                return subjectChanged ? 
-                    "Speaking of something else: V8 POWER: \(message)" :
-                    "Hey! Just wanted to say: V8 POWER: \(message)"
-            case .medium:
-                return subjectChanged ? 
-                    "V8 POWER JUMP: \(message)" :
-                    "V8 POWER: \(message)"
-            case .none:
-                return subjectChanged ? 
-                    "No Padding. V8 POWER JUMP: \(message)" :
-                    "No Padding. V8 POWER: \(message)"
-            }
-        case .professional:
-            return subjectChanged ? 
-                "V8 POWER JUMP: \(message)" :
-                "V8 POWER: \(message)"
-        }
+        // Format with branch-specific templates and subject awareness
+        return await formatResponse(processResult.result, subjectChanged: subjectChanged)
     }
     
-    private func detectSubject(_ message: String) -> String {
-        // Direct subject detection using V8 power
-        let words = message.components(separatedBy: " ")
-        guard let firstWord = words.first else { return "" }
+    private func formatResponse(_ processedMessage: String, subjectChanged: Bool) async -> String {
+        // Format based on branch and subject change
+        let templateKey = subjectChanged ? "subjectChange" : "standard"
+        let branchKey = activeBranch.rawValue
         
-        // Quantum jump to detect subject
-        quantumState.jumps.active = true
-        quantumState.jumps.power = "v8_to_charger"
-        quantumState.jumps.distance = 1
-        
-        return firstWord.lowercased()
+        // Get the appropriate template
+        return await templateEngine.applyTemplate(
+            templateKey: templateKey,
+            branchKey: branchKey,
+            content: processedMessage,
+            paddingLevel: activeBranch.padding.rawValue
+        )
     }
     
     // MARK: - Branch Management
@@ -119,98 +71,152 @@ class NJSON {
         self.activeBranch.padding = padding
     }
 
-    /// Generate birthday greeting for contact using template loader
-    func generateBirthdayGreeting(for recipient: String) -> String {
-        let branch = config.activeBranch.name.lowercased()
-        return TemplateLoader.shared.template(for: "birthday", branch: branch) ?? "Happy Birthday!"
-    }
-
-    /// Generate get well message for contact using template loader
-    func generateGetWellMessage(for recipient: String) -> String {
-        let branch = config.activeBranch.name.lowercased()
-        return TemplateLoader.shared.template(for: "getWell", branch: branch) ?? "Hope you feel better soon!"
-    }
-
-    /// Generate congratulations message using template loader
-    func generateCongratulationsMessage(for achievement: String, recipient: String) -> String {
-        return TemplateLoader.shared.template(for: "congratulations", branch: "default")?.replacingOccurrences(of: "your achievement", with: achievement) ?? "Congratulations on \(achievement)!"
-    }
-
-    /// Generate check-in message using template loader
-    func generateCheckInMessage(for recipient: String) -> String {
-        return TemplateLoader.shared.template(for: "checkIn", branch: "default") ?? "Just checking in!"
+    // MARK: - Template Management
+    
+    /// Generate branch-specific message using template engine
+    func generateMessage(type: MessageType, recipient: String, parameters: [String: String] = [:]) async throws -> String {
+        var params = parameters
+        params["recipient"] = recipient
+        params["branch"] = activeBranch.rawValue
+        
+        return try await templateEngine.generateMessage(
+            type: type,
+            branch: activeBranch.rawValue,
+            parameters: params
+        )
     }
 }
 
 // MARK: - Supporting Types
-struct QuantumState {
-    var pure: Bool
-    var fog: Bool
-    var breathing: Bool
-    var jumps: QuantumJumps
-}
 
-struct QuantumJumps {
-    var active: Bool
-    var power: String
-    var distance: Int
-}
-
-struct BLFConfig {
-    static let defaultConfig = BLFConfig(
-        cognitiveAlignment: CognitiveAlignment(
-            aiCognitive: 2.89,  // Base AI cognitive
-            buffer: 0.1,        // Direct buffer
-            booleanMindQs: 2.99 // Your specific quantum state
-        )
-    )
+@available(macOS 10.15, *)
+actor SubjectDetector {
+    private var subjectCache = NSCache<NSString, NSString>()
     
-    let cognitiveAlignment: CognitiveAlignment
-}
-
-struct CognitiveAlignment {
-    let aiCognitive: Double
-    let buffer: Double
-    let booleanMindQs: Double
-}
-
-struct HeatShield {
-    let active: Bool
-    let threshold: Double
-    let protection: Double
-    
-    func protect(_ message: String) -> Bool {
-        // Direct FUDP detection
-        let fudpIndicators = [
-            "unverified",
-            "unconfirmed",
-            "rumor",
-            "allegedly",
-            "supposedly"
-        ]
+    func detectSubject(_ message: String) -> String {
+        // Cache lookup for performance
+        let key = message as NSString
+        if let cachedSubject = subjectCache.object(forKey: key) {
+            return cachedSubject as String
+        }
         
-        // Check for FUDP indicators
-        for indicator in fudpIndicators {
-            if message.lowercased().contains(indicator) {
-                return false
+        // Direct subject detection using NLP techniques
+        var subject = ""
+        
+        // Extract subject from message using rules
+        let words = message.components(separatedBy: .whitespacesAndNewlines)
+        if !words.isEmpty {
+            // Simple algorithm: use first significant word as subject
+            // In a real implementation, use NLP to extract true subject
+            for word in words where word.count > 3 {
+                subject = word.lowercased()
+                break
             }
         }
         
-        return true
+        // Cache the result
+        subjectCache.setObject(subject as NSString, forKey: key)
+        
+        return subject
     }
 }
 
-enum Branch {
-    case familyFriends
-    case professional
+@available(macOS 10.15, *)
+actor TemplateEngine {
+    private var templateCache = [String: Template]()
+    private var formatter = MessageFormatter()
+    
+    init() {
+        loadTemplates()
+    }
+    
+    private func loadTemplates() {
+        // In a real implementation, load from JSON or other source
+        // For now, we'll use hardcoded templates
+        
+        // Standard templates
+        templateCache["standard:familyFriends:more"] = Template(format: "Hey! Just wanted to say: %@")
+        templateCache["standard:familyFriends:medium"] = Template(format: "%@")
+        templateCache["standard:familyFriends:none"] = Template(format: "No Padding. %@")
+        templateCache["standard:professional:more"] = Template(format: "Hello, I wanted to share: %@")
+        templateCache["standard:professional:medium"] = Template(format: "%@")
+        templateCache["standard:professional:none"] = Template(format: "%@")
+        
+        // Subject change templates
+        templateCache["subjectChange:familyFriends:more"] = Template(format: "Speaking of something else: %@")
+        templateCache["subjectChange:familyFriends:medium"] = Template(format: "New topic: %@")
+        templateCache["subjectChange:familyFriends:none"] = Template(format: "Topic shift. %@")
+        templateCache["subjectChange:professional:more"] = Template(format: "Regarding a different matter: %@")
+        templateCache["subjectChange:professional:medium"] = Template(format: "On another note: %@")
+        templateCache["subjectChange:professional:none"] = Template(format: "New subject: %@")
+    }
+    
+    func applyTemplate(templateKey: String, branchKey: String, content: String, paddingLevel: String) -> String {
+        let key = "\(templateKey):\(branchKey):\(paddingLevel)"
+        guard let template = templateCache[key] else {
+            return content
+        }
+        
+        return template.format(with: content)
+    }
+    
+    func generateMessage(type: MessageType, branch: String, parameters: [String: String]) throws -> String {
+        switch type {
+        case .birthday:
+            return "Happy Birthday, \(parameters["recipient"] ?? "friend")!"
+        case .getWell:
+            return "Hope you feel better soon, \(parameters["recipient"] ?? "friend")!"
+        case .congratulations:
+            let achievement = parameters["achievement"] ?? "your achievement"
+            return "Congratulations on \(achievement), \(parameters["recipient"] ?? "friend")!"
+        case .checkIn:
+            return "Just checking in on you, \(parameters["recipient"] ?? "friend")! How are things?"
+        }
+    }
+}
+
+struct Template {
+    let format: String
+    
+    func format(with content: String) -> String {
+        return String(format: format, content)
+    }
+}
+
+@available(macOS 10.15, *)
+actor MessageFormatter {
+    func format(_ message: String, for branch: Branch, with padding: SocialPadding) -> String {
+        switch (branch, padding) {
+        case (.familyFriends, .more):
+            return "Hey! Just wanted to say: \(message)"
+        case (.familyFriends, .medium):
+            return message
+        case (.familyFriends, .none):
+            return "No Padding. \(message)"
+        case (.professional, _):
+            return message
+        }
+    }
+}
+
+enum Branch: String {
+    case familyFriends = "familyFriends"
+    case professional = "professional"
     
     var padding: SocialPadding = .medium
 }
 
-enum SocialPadding {
-    case more    // Like driving with grandma
-    case medium  // Sweet spot with buddies
-    case none    // No Padding - raw V8 power
+enum SocialPadding: String {
+    case more = "more"      // Like driving with grandma
+    case medium = "medium"  // Sweet spot with buddies
+    case none = "none"      // No Padding - raw V8 power
+}
+
+enum MessageType: String {
+    case birthday = "birthday"
+    case getWell = "getWell"
+    case congratulations = "congratulations"
+    case checkIn = "checkIn"
 }
 
 // MARK: - iMessage Integration

@@ -1,114 +1,203 @@
 import Foundation
 import Messages
+import Combine
+import os.log
 
-class BotController {
+@available(macOS 10.15, *)
+actor BotController {
     private let messageProcessor: MessageProcessor
     private var isRunning: Bool = false
     private var lastCheckTime: Date = Date()
+    private var taskHandle: Task<Void, Error>?
+    private let logger = Logger(subsystem: "com.blf.iMessageBot", category: "BotController")
     private let checkInterval: TimeInterval = 1.0
+    private let database = MessageDatabase()
     
     init() {
         self.messageProcessor = MessageProcessor()
+        logger.info("BLF iMessage Bot initialized")
     }
     
     // MARK: - Bot Control
     func start() async throws {
-        guard !isRunning else { return }
+        guard !isRunning else { 
+            logger.info("Bot already running, ignoring start request")
+            return 
+        }
+        
+        logger.info("BLF iMessage Bot starting...")
         isRunning = true
         
-        print("BLF iMessage Bot starting...")
-        print("V8 POWER: ON")
-        
-        // Start monitoring loop
-        try await monitorMessages()
+        // Start monitoring task
+        taskHandle = Task {
+            do {
+                try await monitorMessages()
+            } catch {
+                logger.error("Bot monitoring failed: \(error.localizedDescription)")
+                isRunning = false
+                throw error
+            }
+        }
     }
     
     func stop() {
+        logger.info("BLF iMessage Bot stopping...")
         isRunning = false
-        print("BLF iMessage Bot stopping...")
+        taskHandle?.cancel()
+        taskHandle = nil
     }
     
     // MARK: - Message Monitoring
     private func monitorMessages() async throws {
+        logger.info("Message monitoring started")
+        
         while isRunning {
-            // Check for new messages
-            let newMessages = try await checkForNewMessages()
-            
-            // Process any new messages
-            for message in newMessages {
-                try await messageProcessor.processIncomingMessage(message)
+            do {
+                logger.debug("Checking for new messages...")
+                let newMessages = try await database.fetchNewMessages(since: lastCheckTime)
+                
+                if !newMessages.isEmpty {
+                    logger.info("Found \(newMessages.count) new messages")
+                }
+                
+                // Process each new message
+                for message in newMessages {
+                    await messageProcessor.processIncomingMessage(message)
+                }
+                
+                // Update last check time
+                lastCheckTime = Date()
+                
+                // Wait for next check
+                try await Task.sleep(nanoseconds: UInt64(checkInterval * 1_000_000_000))
+            } catch {
+                logger.error("Error during message check: \(error.localizedDescription)")
+                
+                // Implement exponential backoff for errors
+                try await Task.sleep(nanoseconds: UInt64(5_000_000_000))
             }
-            
-            // Wait for next check
-            try await Task.sleep(nanoseconds: UInt64(checkInterval * 1_000_000_000))
+        }
+    }
+}
+
+// MARK: - Message Database Access
+@available(macOS 10.15, *)
+actor MessageDatabase {
+    private let logger = Logger(subsystem: "com.blf.iMessageBot", category: "MessageDatabase")
+    private let databaseQueue = DispatchQueue(label: "com.blf.database", qos: .userInitiated)
+    
+    // Fetch new messages since a given time
+    func fetchNewMessages(since time: Date) async throws -> [Message] {
+        logger.debug("Fetching new messages since \(time)")
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            databaseQueue.async {
+                do {
+                    // Create AppleScript to check for new messages
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                    let timeString = dateFormatter.string(from: time)
+                    
+                    let script = """
+                    tell application "Messages"
+                        set allMessages to {}
+                        set targetService to 1st service whose service type = iMessage
+                        set lastCheck to date "\(timeString)"
+                        
+                        repeat with conv in chats of targetService
+                            repeat with msg in messages of conv
+                                if date received of msg > lastCheck then
+                                    set msgID to id of msg as string
+                                    set msgText to text content of msg as string
+                                    set msgSender to handle of sender of msg as string
+                                    set msgTime to date received of msg as string
+                                    set convID to id of conv as string
+                                    set end of allMessages to {msgID, msgText, msgSender, msgTime, convID}
+                                end if
+                            end repeat
+                        end repeat
+                        
+                        return allMessages
+                    end tell
+                    """
+                    
+                    let process = Process()
+                    process.executableURL = URL(fileURLWithPath: "/usr/bin/osascript")
+                    process.arguments = ["-e", script]
+                    
+                    let outputPipe = Pipe()
+                    let errorPipe = Pipe()
+                    
+                    process.standardOutput = outputPipe
+                    process.standardError = errorPipe
+                    
+                    try process.run()
+                    process.waitUntilExit()
+                    
+                    if process.terminationStatus != 0 {
+                        let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
+                        let errorMessage = String(data: errorData, encoding: .utf8) ?? "Unknown error"
+                        self.logger.error("Error fetching messages: \(errorMessage)")
+                        continuation.resume(throwing: BotError.databaseError(errorMessage))
+                        return
+                    }
+                    
+                    let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
+                    let output = String(data: outputData, encoding: .utf8) ?? ""
+                    
+                    let messages = self.parseMessages(from: output)
+                    continuation.resume(returning: messages)
+                } catch {
+                    self.logger.error("Failed to fetch messages: \(error.localizedDescription)")
+                    continuation.resume(throwing: error)
+                }
+            }
         }
     }
     
-    private func checkForNewMessages() async throws -> [Message] {
-        // Create AppleScript to check for new messages
-        let script = """
-        tell application "Messages"
-            set targetService to 1st service whose service type = iMessage
-            set allMessages to {}
-            set lastCheck to date "\(lastCheckTime)"
-            
-            repeat with conv in conversations of targetService
-                repeat with msg in messages of conv
-                    if date received of msg > lastCheck then
-                        set end of allMessages to {id:id of msg, content:content of msg, sender:sender of msg, timestamp:date received of msg, threadId:id of conv}
-                    end if
-                end repeat
-            end repeat
-            
-            return allMessages
-        end tell
-        """
-        
-        // Execute AppleScript
-        let process = Process()
-        process.launchPath = "/usr/bin/osascript"
-        process.arguments = ["-e", script]
-        
-        let pipe = Pipe()
-        process.standardOutput = pipe
-        
-        try process.run()
-        process.waitUntilExit()
-        
-        // Parse results
-        let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        let output = String(data: data, encoding: .utf8) ?? ""
-        
-        // Update last check time
-        lastCheckTime = Date()
-        
-        // Parse messages from output
-        return parseMessages(from: output)
-    }
-    
+    // Parse AppleScript output into Message objects
     private func parseMessages(from output: String) -> [Message] {
         var messages: [Message] = []
-        let entries = output.components(separatedBy: "\n")
+        let rows = output.components(separatedBy: "\n").filter { !$0.isEmpty }
         
-        for entry in entries {
-            if let message = parseMessageEntry(entry) {
-                messages.append(message)
-            }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        for row in rows {
+            // Extract message components
+            let components = row.components(separatedBy: ", ")
+            guard components.count >= 5 else { continue }
+            
+            // Clean up quotation marks and other artifacts from AppleScript output
+            let id = components[0].trimmingCharacters(in: CharacterSet(charactersIn: "\"{}"))
+            let content = components[1].trimmingCharacters(in: CharacterSet(charactersIn: "\"{}"))
+            let sender = components[2].trimmingCharacters(in: CharacterSet(charactersIn: "\"{}"))
+            
+            // Parse timestamp
+            let timestampString = components[3].trimmingCharacters(in: CharacterSet(charactersIn: "\"{}"))
+            let timestamp = dateFormatter.date(from: timestampString) ?? Date()
+            
+            let threadId = components[4].trimmingCharacters(in: CharacterSet(charactersIn: "\"{}"))
+            
+            let message = Message(
+                id: id,
+                content: content,
+                sender: sender,
+                timestamp: timestamp,
+                threadId: threadId
+            )
+            
+            messages.append(message)
         }
         
         return messages
     }
-    
-    private func parseMessageEntry(_ entry: String) -> Message? {
-        let components = entry.components(separatedBy: ",")
-        guard components.count >= 5 else { return nil }
-        
-        return Message(
-            id: components[0],
-            content: components[1],
-            sender: components[2],
-            timestamp: Date(timeIntervalSince1970: Double(components[3]) ?? 0),
-            threadId: components[4]
-        )
-    }
+}
+
+// MARK: - Error Types
+enum BotError: Error {
+    case notRunning
+    case alreadyRunning
+    case databaseError(String)
+    case messageProcessingError(String)
 } 
