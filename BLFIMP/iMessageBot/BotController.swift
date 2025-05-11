@@ -3,19 +3,38 @@ import Messages
 import Combine
 import os.log
 
+/// Boolean Language Framework Bot Controller optimized for qs³ processing
 @available(macOS 10.15, *)
 actor BotController {
+    // MARK: - Core Components
     private let messageProcessor: MessageProcessor
+    private let database: MessageDatabase
+    
+    // MARK: - State Management
     private var isRunning: Bool = false
     private var lastCheckTime: Date = Date()
     private var taskHandle: Task<Void, Error>?
-    private let logger = Logger(subsystem: "com.blf.iMessageBot", category: "BotController")
-    private let checkInterval: TimeInterval = 1.0
-    private let database = MessageDatabase()
     
-    init() {
+    // MARK: - Configuration
+    private let checkInterval: TimeInterval
+    private let metricsReportingInterval: TimeInterval
+    
+    // MARK: - Performance Monitoring
+    private let logger = Logger(subsystem: "com.blf.iMessageBot", category: "BotController")
+    private var metrics = BotMetrics()
+    private var metricsReportingTask: Task<Void, Never>?
+    
+    init(
+        checkInterval: TimeInterval = 1.0,
+        metricsReportingInterval: TimeInterval = 300.0
+    ) {
         self.messageProcessor = MessageProcessor()
-        logger.info("BLF iMessage Bot initialized")
+        self.database = MessageDatabase()
+        self.checkInterval = checkInterval
+        self.metricsReportingInterval = metricsReportingInterval
+        
+        logger.info("BLF iMessage Bot initialized with qs³ optimization")
+        logger.info("Message check interval: \(checkInterval)s")
     }
     
     // MARK: - Bot Control
@@ -25,16 +44,21 @@ actor BotController {
             return 
         }
         
-        logger.info("BLF iMessage Bot starting...")
+        logger.info("🚀 BLF iMessage Bot starting with V8 engine...")
         isRunning = true
+        metrics.startTime = Date()
         
-        // Start monitoring task
+        // Start monitoring metrics
+        startMetricsReporting()
+        
+        // Start message monitoring with error resilience
         taskHandle = Task {
             do {
                 try await monitorMessages()
             } catch {
                 logger.error("Bot monitoring failed: \(error.localizedDescription)")
                 isRunning = false
+                metrics.recordFatalError(error.localizedDescription)
                 throw error
             }
         }
@@ -45,38 +69,197 @@ actor BotController {
         isRunning = false
         taskHandle?.cancel()
         taskHandle = nil
+        metricsReportingTask?.cancel()
+        metricsReportingTask = nil
+        
+        // Calculate final uptime
+        metrics.uptime = Date().timeIntervalSince(metrics.startTime)
+        
+        // Log final metrics
+        logger.info("Final metrics: Uptime: \(metrics.uptime)s, Messages processed: \(metrics.messagesProcessed), Errors: \(metrics.errorCount)")
     }
     
     // MARK: - Message Monitoring
     private func monitorMessages() async throws {
-        logger.info("Message monitoring started")
+        logger.info("Message monitoring started with V8 optimization")
+        
+        // Initial metrics
+        metrics.startTime = Date()
         
         while isRunning {
             do {
-                logger.debug("Checking for new messages...")
+                let cycleName = UUID().uuidString
+                logger.debug("Check cycle \(cycleName): Checking for new messages...")
+                let checkStart = CFAbsoluteTimeGetCurrent()
+                
+                // Fetch new messages with performance tracking
                 let newMessages = try await database.fetchNewMessages(since: lastCheckTime)
+                
+                let checkDuration = CFAbsoluteTimeGetCurrent() - checkStart
+                metrics.recordDatabaseCheck(duration: checkDuration, messageCount: newMessages.count)
                 
                 if !newMessages.isEmpty {
                     logger.info("Found \(newMessages.count) new messages")
+                    metrics.recordNewMessages(count: newMessages.count)
                 }
                 
-                // Process each new message
-                for message in newMessages {
-                    await messageProcessor.processIncomingMessage(message)
-                }
+                // Process messages with priority handling
+                await processNewMessages(newMessages)
                 
                 // Update last check time
                 lastCheckTime = Date()
                 
-                // Wait for next check
-                try await Task.sleep(nanoseconds: UInt64(checkInterval * 1_000_000_000))
+                // Calculate ideal sleep time based on message volume and performance
+                let sleepTime = calculateOptimalSleepTime(
+                    baseInterval: checkInterval,
+                    messageCount: newMessages.count
+                )
+                
+                // Wait for next check with adaptive timing
+                try await Task.sleep(nanoseconds: UInt64(sleepTime * 1_000_000_000))
             } catch {
                 logger.error("Error during message check: \(error.localizedDescription)")
+                metrics.recordError()
                 
                 // Implement exponential backoff for errors
                 try await Task.sleep(nanoseconds: UInt64(5_000_000_000))
             }
         }
+    }
+    
+    // MARK: - Message Processing
+    private func processNewMessages(_ messages: [Message]) async {
+        // Process messages with proper prioritization
+        for message in messages {
+            let priority = determineMessagePriority(message)
+            
+            if priority == .high {
+                metrics.recordHighPriorityMessage()
+                logger.debug("Processing high priority message: \(message.id)")
+            }
+            
+            // Dispatch to processor with appropriate priority
+            await messageProcessor.processIncomingMessage(message)
+            metrics.recordMessageProcessed()
+        }
+    }
+    
+    private func determineMessagePriority(_ message: Message) -> MessagePriority {
+        // Determine message priority based on content and context
+        let content = message.content.lowercased()
+        
+        // Check for urgent keywords
+        if content.contains("urgent") || 
+           content.contains("emergency") ||
+           content.contains("important") {
+            return .high
+        }
+        
+        // Messages with questions get higher priority
+        if content.contains("?") || content.hasPrefix("how") || content.hasPrefix("what") {
+            return .high
+        }
+        
+        return .normal
+    }
+    
+    // MARK: - Adaptive Timing
+    private func calculateOptimalSleepTime(baseInterval: TimeInterval, messageCount: Int) -> TimeInterval {
+        // Implement adaptive timing based on message volume
+        // More messages = check more frequently
+        if messageCount > 10 {
+            return max(baseInterval * 0.5, 0.5) // Check at least twice as often but not faster than 0.5s
+        } else if messageCount > 5 {
+            return max(baseInterval * 0.75, 0.5) // Check 25% more often
+        } else if messageCount == 0 {
+            return min(baseInterval * 1.5, 3.0) // Slow down checks when no messages, but not more than 3s
+        }
+        
+        // Default: use base interval
+        return baseInterval
+    }
+    
+    // MARK: - Metrics Reporting
+    private func startMetricsReporting() {
+        metricsReportingTask = Task {
+            while isRunning {
+                do {
+                    // Sleep until next report
+                    try await Task.sleep(nanoseconds: UInt64(metricsReportingInterval * 1_000_000_000))
+                    
+                    // Update uptime
+                    metrics.uptime = Date().timeIntervalSince(metrics.startTime)
+                    
+                    // Get processor metrics
+                    let processorMetrics = await messageProcessor.getPerformanceMetrics()
+                    
+                    // Log current metrics
+                    logger.info("""
+                    Performance report:
+                    - Uptime: \(metrics.uptime)s
+                    - Messages processed: \(metrics.messagesProcessed) (\(metrics.highPriorityMessages) high priority)
+                    - Average processing time: \(processorMetrics.averageProcessingTime)s
+                    - High priority processing time: \(processorMetrics.highPriorityAverageProcessingTime)s
+                    - Database checks: \(metrics.databaseChecks) (avg \(metrics.averageCheckDuration)s)
+                    - Errors: \(metrics.errorCount)
+                    """)
+                } catch {
+                    // Task cancelled or other error
+                    break
+                }
+            }
+        }
+    }
+    
+    // MARK: - Metrics Access
+    
+    /// Get current bot performance metrics
+    func getCurrentMetrics() -> BotMetrics {
+        var currentMetrics = metrics
+        currentMetrics.uptime = Date().timeIntervalSince(metrics.startTime)
+        return currentMetrics
+    }
+}
+
+// MARK: - Bot Metrics
+
+/// Performance metrics for the BLF Bot
+struct BotMetrics {
+    var startTime: Date = Date()
+    var uptime: TimeInterval = 0
+    var messagesProcessed: Int = 0
+    var highPriorityMessages: Int = 0
+    var newMessageCount: Int = 0
+    var databaseChecks: Int = 0
+    var errorCount: Int = 0
+    var averageCheckDuration: Double = 0
+    var lastFatalError: String = ""
+    
+    mutating func recordMessageProcessed() {
+        messagesProcessed += 1
+    }
+    
+    mutating func recordHighPriorityMessage() {
+        highPriorityMessages += 1
+    }
+    
+    mutating func recordNewMessages(count: Int) {
+        newMessageCount += count
+    }
+    
+    mutating func recordDatabaseCheck(duration: Double, messageCount: Int) {
+        let totalDuration = averageCheckDuration * Double(databaseChecks)
+        databaseChecks += 1
+        averageCheckDuration = (totalDuration + duration) / Double(databaseChecks)
+    }
+    
+    mutating func recordError() {
+        errorCount += 1
+    }
+    
+    mutating func recordFatalError(_ description: String) {
+        errorCount += 1
+        lastFatalError = description
     }
 }
 
