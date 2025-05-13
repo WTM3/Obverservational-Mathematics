@@ -1,0 +1,165 @@
+{
+  "apiVersion": "BLF-1.0",
+  "eventBus": {
+    "channels": {
+      "llsdt": {
+        "type": "system",
+        "events": [
+          "data_received",
+          "data_processed",
+          "data_error",
+          "system_status"
+        ],
+        "queue": {
+          "maxSize": 1000,
+          "timeout": 30000
+        }
+      },
+      "heatShield": {
+        "type": "system",
+        "events": [
+          "temperature_update",
+          "shield_status",
+          "warning",
+          "critical"
+        ],
+        "queue": {
+          "maxSize": 500,
+          "timeout": 15000
+        }
+      },
+      "quantum": {
+        "type": "system",
+        "events": [
+          "state_change",
+          "entanglement",
+          "measurement",
+          "error"
+        ],
+        "queue": {
+          "maxSize": 200,
+          "timeout": 5000
+        }
+      },
+      "error": {
+        "type": "system",
+        "events": [
+          "system_error",
+          "handler_error",
+          "queue_error",
+          "timeout_error"
+        ],
+        "queue": {
+          "maxSize": 100,
+          "timeout": 10000
+        }
+      }
+    },
+    "handlers": {
+      "llsdt": {
+        "data_received": {
+          "type": "async",
+          "priority": "high",
+          "timeout": 5000
+        },
+        "data_processed": {
+          "type": "async",
+          "priority": "medium",
+          "timeout": 3000
+        },
+        "data_error": {
+          "type": "async",
+          "priority": "high",
+          "timeout": 2000
+        },
+        "system_status": {
+          "type": "sync",
+          "priority": "low",
+          "timeout": 1000
+        }
+      },
+      "heatShield": {
+        "temperature_update": {
+          "type": "sync",
+          "priority": "high",
+          "timeout": 1000
+        },
+        "shield_status": {
+          "type": "sync",
+          "priority": "medium",
+          "timeout": 2000
+        },
+        "warning": {
+          "type": "async",
+          "priority": "high",
+          "timeout": 1000
+        },
+        "critical": {
+          "type": "async",
+          "priority": "critical",
+          "timeout": 500
+        }
+      },
+      "quantum": {
+        "state_change": {
+          "type": "async",
+          "priority": "high",
+          "timeout": 1000
+        },
+        "entanglement": {
+          "type": "async",
+          "priority": "medium",
+          "timeout": 2000
+        },
+        "measurement": {
+          "type": "sync",
+          "priority": "high",
+          "timeout": 1000
+        },
+        "error": {
+          "type": "async",
+          "priority": "high",
+          "timeout": 1000
+        }
+      },
+      "error": {
+        "system_error": {
+          "type": "async",
+          "priority": "critical",
+          "timeout": 1000
+        },
+        "handler_error": {
+          "type": "async",
+          "priority": "high",
+          "timeout": 1000
+        },
+        "queue_error": {
+          "type": "async",
+          "priority": "high",
+          "timeout": 1000
+        },
+        "timeout_error": {
+          "type": "async",
+          "priority": "medium",
+          "timeout": 1000
+        }
+      }
+    },
+    "integration": {
+      "separation": {
+        "enforced": true,
+        "mechanism": "event_bus"
+      },
+      "communication": {
+        "protocol": "quantum_safe",
+        "validation": "cross_check"
+      }
+    },
+    "performance": {
+      "maxQueueSize": 1000,
+      "maxTimeout": 5000,
+      "maxRetries": 3,
+      "cleanupInterval": 60000
+    }
+  }
+} 

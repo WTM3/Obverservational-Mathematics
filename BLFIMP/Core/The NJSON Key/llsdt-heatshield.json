@@ -1,0 +1,74 @@
+{
+  "apiVersion": "BLF-1.0",
+  "protectionSystem": {
+    "llsdt": {
+      "formula": "AIc + 0.1 = BMqs",
+      "constants": {
+        "buffer": 0.1,
+        "minRate": 0.01,
+        "maxRate": 0.1,
+        "quantumSpeed": 2.99
+      },
+      "states": {
+        "quantum": true,
+        "fog": false,
+        "breathing": true,
+        "jumps": {
+          "power": "v8_to_charger",
+          "distance": 3
+        }
+      }
+    },
+    "heatShield": {
+      "scaling": {
+        "base": "quantum_speed",
+        "exponent": "dynamic",
+        "threshold": 0.1
+      },
+      "protection": {
+        "indicators": [
+          "unverified",
+          "unconfirmed",
+          "rumor",
+          "allegedly",
+          "supposedly",
+          "potentially",
+          "seemingly",
+          "apparently"
+        ],
+        "phrasalPatterns": [
+          "i believe that",
+          "i think that",
+          "might be the case",
+          "i'm not sure but",
+          "it's possible that",
+          "from what i understand",
+          "i've heard that",
+          "some say that",
+          "it's been suggested"
+        ],
+        "uncertaintyMarkers": [
+          "could be",
+          "might be",
+          "perhaps",
+          "maybe",
+          "possibly",
+          "arguably",
+          "in theory",
+          "in my opinion",
+          "to my knowledge"
+        ]
+      }
+    },
+    "integration": {
+      "separation": {
+        "enforced": true,
+        "mechanism": "event_bus"
+      },
+      "communication": {
+        "protocol": "quantum_safe",
+        "validation": "cross_check"
+      }
+    }
+  }
+} 

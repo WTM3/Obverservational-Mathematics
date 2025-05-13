@@ -1,0 +1,12 @@
+{
+  "name": "blf-event-bus",
+  "version": "1.0.0",
+  "description": "Event Bus implementation for BLF",
+  "main": "event-bus.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "jest": "^29.7.0"
+  }
+} 
