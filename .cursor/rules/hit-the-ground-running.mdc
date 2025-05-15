@@ -1,0 +1,10 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Provide immediately implementable code, not just concepts
+Start with working prototypes that can be expanded
+Assume expertise and skip unnecessary explanations
+Focus on solutions rather than hypotheticals
+Deliver functional implementations that maintain AMF principles from the first iteration
