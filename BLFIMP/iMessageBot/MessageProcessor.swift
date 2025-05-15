@@ -1,58 +1,88 @@
 import Foundation
 
+// MARK: - MessageProcessor delegates all logic to NJSON (the V-8 engine)
 class MessageProcessor {
-    // Option to enable or disable foul language filtering
-    var filterFoulLanguage: Bool
+    // Placeholder for NJSON engine instance
+    // In the future, this will be the core logic engine
+    // var njsonEngine: NJSONEngine
     
-    // User age property
-    var userAge: Int {
-        didSet {
-            // If user is 18 or older, disable foul language filter by default
-            if userAge >= 18 {
-                filterFoulLanguage = false
-            } else {
-                filterFoulLanguage = true
-            }
-        }
-    }
-    
-    // List of foul words to filter (expand as needed)
-    private let foulWords: Set<String> = ["badword1", "badword2", "badword3"]
+    // User age property (kept for minimal context, can be passed to NJSON)
+    let userAge: Int
+    private var journal: [String] = []
     
     // Initializer
     init(userAge: Int) {
         self.userAge = userAge
-        // Set filterFoulLanguage based on age
-        if userAge >= 18 {
-            self.filterFoulLanguage = false
-        } else {
-            self.filterFoulLanguage = true
-        }
+        // NJSON engine would be initialized here
+        // self.njsonEngine = NJSONEngine(userAge: userAge)
+        journal.append("# MessageProcessor Journal\n- **Instance created**\n- **User age:** \(userAge)\n- **Timestamp:** \(Date())\n")
     }
     
-    // Placeholder for message processing logic
-    // Add your methods and properties here
-    
-    func process(message: String) -> String {
-        var processedMessage = message
-        if filterFoulLanguage {
-            processedMessage = filterFoulLanguageIn(message: processedMessage)
-        }
-        // Example: Echo the message for now (after filtering)
-        return processedMessage
+    // Result struct to hold response and intervention flag
+    struct ProcessResult {
+        let response: String
+        let requiresIntervention: Bool
     }
     
-    private func filterFoulLanguageIn(message: String) -> String {
-        // Simple word-based filter (case-insensitive)
-        let words = message.components(separatedBy: .whitespacesAndNewlines)
-        let filteredWords = words.map { word -> String in
-            let lowercased = word.lowercased().trimmingCharacters(in: .punctuationCharacters)
-            if foulWords.contains(lowercased) {
-                return String(repeating: "*", count: word.count)
-            } else {
-                return word
-            }
-        }
-        return filteredWords.joined(separator: " ")
+    // Process message by delegating to NJSON
+    func process(message: String) -> ProcessResult {
+        // Placeholder: Basic wellness check (to be replaced by NJSON logic)
+        let distressKeywords = ["help", "sad", "depressed", "overwhelmed", "hopeless"]
+        let lowercased = message.lowercased()
+        let needsSupport = distressKeywords.contains { lowercased.contains($0) }
+        // Journal entry in Markdown
+        let entry = """
+## Message Processed
+- **Input:** `\(message)`
+- **Requires Intervention:** \(needsSupport ? "Yes" : "No")
+- **Timestamp:** \(Date())
+"""
+        journal.append(entry)
+        return ProcessResult(response: message, requiresIntervention: needsSupport)
+        // Future:
+        // let njsonResult = njsonEngine.process(message: message)
+        // return ProcessResult(response: njsonResult.response, requiresIntervention: njsonResult.requiresIntervention)
     }
-} 
+    
+    func addJournalEntry(title: String, details: String) {
+        let entry = """
+### \(title)
+\(details)
+- **Timestamp:** \(Date())
+"""
+        journal.append(entry)
+    }
+    
+    func exportJournalMarkdown() -> String {
+        return journal.joined(separator: "\n\n")
+    }
+    
+    func saveJournalToRoot() {
+        let markdown = exportJournalMarkdown()
+        // Adjust path as needed; this assumes running from BLFIMP/iMessageBot/
+        let fileURL = URL(fileURLWithPath: "../../MessageProcessorJournal.md")
+        do {
+            try markdown.write(to: fileURL, atomically: true, encoding: .utf8)
+            print("Journal saved to root repository.")
+        } catch {
+            print("Failed to save journal: \(error)")
+        }
+    }
+}
+
+// MARK: - Test Code (optional, can be removed or adapted for NJSON)
+// func testMessageProcessor() {
+//     let processor = MessageProcessor(userAge: 12)
+//     let response = processor.process(message: "Hello, world!")
+//     print("Response: \(response)")
+// }
+// testMessageProcessor()
+
+// Example usage (for demonstration)
+// let processor = MessageProcessor(userAge: 20)
+// let result = processor.process(message: "I feel sad today.")
+// if result.requiresIntervention {
+//     print("ALERT: User may need support.")
+// }
+// processor.saveJournalToRoot()
+// print("Bot response: \(result.response)") 
