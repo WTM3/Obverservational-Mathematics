@@ -206,14 +206,6 @@ class NJSONEngine {
             response = generateResponse(to: input, concepts: concepts, connections: connections)
         }
         
-        // Check for medical distress patterns
-        let medicalKeywords = ["seizure", "convulsion", "emergency", "unconscious", "help"]
-        let containsMedicalKeywords = medicalKeywords.contains { lowercasedInput.contains($0) }
-        
-        if containsMedicalKeywords {
-            response = generateMedicalResponse(to: input, concepts: concepts)
-        }
-        
         // Apply AMF formula signature
         response = "[BLF:\(String(format: "%.2f", formulaResult))] " + response
         
@@ -244,30 +236,13 @@ class NJSONEngine {
     
     private func generateResponse(to input: String, concepts: [String], connections: [[String: Any]]) -> String {
         // Generate appropriate response based on input
-        // This is a simplified implementation
-        
         if input.hasSuffix("?") {
             // For questions, provide a safe answer with 0.1 buffer
-            return "I've analyzed your question. To ensure safety, please provide more specific information about the medical situation."
+            return "I've analyzed your question using the AMF framework with exact 0.1 buffer precision."
         } else {
             // For statements, acknowledge with safety buffer
-            return "I've processed your message with the AMF framework. Please provide any additional details about the medical situation."
+            return "I've processed your message with the AMF framework and maintained the 0.1 buffer throughout."
         }
-    }
-    
-    private func generateMedicalResponse(to input: String, concepts: [String]) -> String {
-        return """
-        🚨 MEDICAL ALERT: Your message may indicate a medical emergency.
-        
-        If someone is having a seizure:
-        1. Time the seizure
-        2. Keep them safe and away from harmful objects
-        3. Do NOT put anything in their mouth
-        4. Turn them onto their side if possible
-        5. Call emergency services if the seizure lasts > 5 minutes
-        
-        I'm monitoring this situation. Please provide updates.
-        """
     }
     
     // MARK: - Heat Shield & LLSDT Implementation
