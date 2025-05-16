@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    // Show subscription view
+    @State private var showSubscriptionView = false
     @EnvironmentObject private var appState: BLFAppState
     
     var body: some View {
@@ -29,9 +31,13 @@ struct ContentView: View {
 // Dashboard displays current status and controls
 struct DashboardView: View {
     @EnvironmentObject private var appState: BLFAppState
+    @State private var showAPIUsagePlanView = false
     
     var body: some View {
         VStack(spacing: 20) {
+            // API usage status and button
+            APIUsageStatusView(showAPIUsagePlanView: $showAPIUsagePlanView)
+            
             // Status card
             StatusCard(isRunning: appState.isRunning, 
                        statusMessage: appState.statusMessage,
@@ -393,6 +399,84 @@ struct LogEntryRow: View {
         formatter.timeStyle = .medium
         return formatter.string(from: date)
     }
+}
+
+// Shows current API usage status
+struct APIUsageStatusView: View {
+    @Binding var showAPIUsagePlanView: Bool
+    private let apiUsageService = APIUsageService.shared
+    
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text("Boolean Mind")
+                    .font(.headline)
+                
+                HStack {
+                    Text(planName(apiUsageService.currentPlan))
+                        .foregroundColor(planColor(apiUsageService.currentPlan))
+                    
+                    if apiUsageService.currentPlan != .local {
+                        Image(systemName: "network")
+                            .foregroundColor(planColor(apiUsageService.currentPlan))
+                    }
+                }
+                
+                if apiUsageService.currentPlan != .local {
+                    let stats = apiUsageService.getUsageStats()
+                    Text("\(stats.usedThisMonth) API calls this month")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+            }
+            
+            Spacer()
+            
+            Button(action: {
+                showAPIUsagePlanView = true
+            }) {
+                Text("Manage API")
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+            }
+            .buttonStyle(.borderedProminent)
+            .sheet(isPresented: $showAPIUsagePlanView) {
+                APIUsagePlanView()
+            }
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.gray.opacity(0.1))
+        )
+    }
+    
+    private func planName(_ plan: APIUsageService.APIUsagePlan) -> String {
+        switch plan {
+        case .local:
+            return "Local Processing"
+        case .light:
+            return "Light API"
+        case .standard:
+            return "Standard API"
+        case .adaptive:
+            return "Adaptive API"
+        }
+    }
+    
+    private func planColor(_ plan: APIUsageService.APIUsagePlan) -> Color {
+        switch plan {
+        case .local:
+            return .gray
+        case .light:
+            return .green
+        case .standard:
+            return .blue
+        case .adaptive:
+            return .purple
+        }
+    }
+}
 }
 
 // MARK: - Previews

@@ -14,55 +14,67 @@ class MessageProcessor {
     private var cognitiveAlignment: CognitiveAlignment
     private var quantumState: QuantumState
     
+    // Social padding and pattern adaptation
+    private var socialPaddingManager: SocialPaddingManager
+    
     // Recovery system
     private var recoverySystem: RecoverySystem
     private var llsdtViolationCount = 0
     private var lastViolationTime: Date?
     private var inRecoveryMode = false
     
+    // API usage tracking
+    private var apiUsageService: APIUsageService
+    
     // Logging
     private var journal: [String] = []
     
     // Initializer
-    init(userAge: Int) {
-        // Initialize the NJSON engine with exact 0.1 buffer
-        self.njsonEngine = NJSONEngine(buffer: self.buffer)
-        
-        // Initialize heat shield with standard configuration
-        self.heatShield = HeatShield.standard
-        
-        // Initialize LLSDT enforcer with exact boundary values
-        self.boundaryEnforcer = LLSDTEnforcer(
-            minRate: 0.1,
-            maxRate: 1.0,
-            enforceBuffer: true
+init(userAge: Int) {
+    // Initialize the NJSON engine with exact 0.1 buffer
+    self.njsonEngine = NJSONEngine(buffer: self.buffer)
+    
+    // Initialize heat shield with full strength - all users get full protection
+    self.heatShield = HeatShield(strength: 1.0)
+    
+    // Initialize LLSDT enforcer with exact boundary values
+    self.boundaryEnforcer = LLSDTEnforcer(
+        minRate: 0.1,
+        maxRate: 1.0,
+        enforceBuffer: true
+    )
+    
+    // Setup cognitive alignment with exact AIc + 0.1 = BMqs relationship
+    self.cognitiveAlignment = CognitiveAlignment(
+        aiCognitive: 2.89,
+        buffer: 0.1,
+        booleanMindQs: 2.99
+    )
+    
+    // Initialize quantum state with all features enabled
+    self.quantumState = QuantumState(
+        pure: true,
+        fog: false,
+        breathing: true,
+        jumps: QuantumJumps(
+            active: true,  // All users get quantum jumps
+            power: "v8_to_charger",
+            distance: 3,   // Full distance for everyone
+            direction: "forward"
         )
-        
-        // Setup cognitive alignment with exact AIc + 0.1 = BMqs relationship
-        self.cognitiveAlignment = CognitiveAlignment(
-            aiCognitive: 2.89,
-            buffer: 0.1,
-            booleanMindQs: 2.99
-        )
-        
-        // Initialize quantum state
-        self.quantumState = QuantumState(
-            pure: true,
-            fog: false,
-            breathing: true,
-            jumps: QuantumJumps(
-                active: true,
-                power: "v8_to_charger",
-                distance: 3,
-                direction: "forward"
-            )
-        )
-        
-        // Initialize recovery system
-        self.recoverySystem = RecoverySystem(buffer: self.buffer)
-        
-        journal.append("# MessageProcessor Journal\n- **Instance created**\n- **User age:** \(userAge)\n- **Timestamp:** \(Date())\n- **Buffer:** exactly \(buffer)\n- **AIc value:** \(cognitiveAlignment.aiCognitive)\n- **BMqs value:** \(cognitiveAlignment.booleanMindQs)")
-    }
+    )
+    
+    // Initialize recovery system
+    self.recoverySystem = RecoverySystem(buffer: self.buffer)
+    
+    // Create social padding manager with default settings
+    self.socialPaddingManager = SocialPaddingManager()
+    
+    // Initialize API usage tracker
+    self.apiUsageService = APIUsageService.shared
+    
+    journal.append("# MessageProcessor Journal\n- **Instance created**\n- **User age:** \(userAge)\n- **Timestamp:** \(Date())\n- **API Plan:** \(apiUsageService.currentPlan)\n- **Buffer:** exactly \(buffer)\n- **AIc value:** \(cognitiveAlignment.aiCognitive)\n- **BMqs value:** \(cognitiveAlignment.booleanMindQs)")
+}
     
     // MARK: - Result Struct
     struct ProcessResult {
@@ -89,13 +101,30 @@ class MessageProcessor {
     }
     
     // MARK: - Processing with AMF constraints
-    func process(message: String) -> ProcessResult {
-        // Record start time for performance tracking
-        let startTime = CFAbsoluteTimeGetCurrent()
-        
-        // Track if recovery was attempted during processing
-        var recoveryAttempted = false
-        var recoveryStats: RecoveryStats? = nil
+func process(message: String) -> ProcessResult {
+    // Record start time for performance tracking
+    let startTime = CFAbsoluteTimeGetCurrent()
+    
+    // Check if this request will use the API and handle accordingly
+    let (apiAvailable, extraCost) = apiUsageService.checkAPIAvailability()
+    
+    // If message processing requires API and API is not available locally
+    if requiresAPIProcessing(message) && !apiAvailable {
+        return createAPIRequiredResult()
+    }
+    
+    // If API usage would incur extra costs, notify the user
+    if let cost = extraCost, cost > 0 {
+        // In a production app, you might want to get user confirmation before proceeding
+        journalEvent("Extra API cost", details: "Processing will incur additional cost of $\(String(format: "%.2f", cost))")
+    }
+    
+    // Learn from user message patterns locally (no API required)
+    socialPaddingManager.learnFromMessage(message)
+    
+    // Track if recovery was attempted during processing
+    var recoveryAttempted = false
+    var recoveryStats: RecoveryStats? = nil
         
         // Validate cognitive alignment before processing
         if !validateCognitiveAlignment() {
@@ -199,6 +228,12 @@ class MessageProcessor {
             quantumState: quantumState
         )
         
+        // Record API call if this required API processing
+        if requiresAPIProcessing(message) {
+            apiUsageService.recordAPICall()
+            journalEvent("API call recorded", details: "API was used to process this message")
+        }
+        
         // Calculate processing time
         let processingTime = CFAbsoluteTimeGetCurrent() - startTime
         
@@ -224,17 +259,24 @@ class MessageProcessor {
         // Determine if any intervention is required (placeholder for future monitoring systems)
         let requiresIntervention = false  // Will be implemented by domain-specific monitoring
 
+        // Apply social padding to the output based on user patterns and subscription tier
+        let rawResponse = processingResult.output
+        let adaptedResponse = socialPaddingManager.adaptMessage(rawResponse)
+        
         // Log processing details
         journalEvent("Message processed", details: """
             - **Input:** `\(message)`
             - **Processing time:** \(processingTime) seconds
             - **Confidence:** \(processingResult.confidence)
-            - **Response:** `\(processingResult.output)`
+            - **Raw response:** `\(rawResponse)`
+            - **Adapted response:** `\(adaptedResponse)`
             - **Recovery mode:** \(inRecoveryMode ? "Active" : "Inactive")
+            - **Padding level:** \(socialPaddingManager.currentPaddingLevel)
+            - **Branch:** \(socialPaddingManager.currentBranch)
         """)
         
         return ProcessResult(
-            response: processingResult.output,
+            response: adaptedResponse,
             requiresIntervention: requiresIntervention,
             confidence: processingResult.confidence,
             processingMetrics: metrics,
@@ -358,38 +400,64 @@ class MessageProcessor {
     }
     
     private func extractConcepts(from input: String) -> [String] {
-        // Implement concept extraction using observational mathematics
-        // This avoids forced access patterns and maintains the 0.1 buffer
-        let words = input.lowercased().split(separator: " ")
+    // Apply subscription tier limits to concept extraction
+    let subscriptionService = SubscriptionService.shared
+    let maxConcepts = subscriptionService.featureLimits.maxConcepts
         
-        // Filter for concept-worthy terms while maintaining buffer
-        return words.compactMap { word -> String? in
-            let term = String(word).trimmingCharacters(in: .punctuationCharacters)
-            
-            // Apply 0.1 buffer through minimum length requirement
-            if term.count > 3 {
-                return term
-            }
-            return nil
+    // Implement concept extraction using observational mathematics
+    // This avoids forced access patterns and maintains the 0.1 buffer
+    let words = input.lowercased().split(separator: " ")
+        
+    // Filter for concept-worthy terms while maintaining buffer
+    let allConcepts = words.compactMap { word -> String? in
+        let term = String(word).trimmingCharacters(in: .punctuationCharacters)
+        
+        // Apply 0.1 buffer through minimum length requirement
+        if term.count > 3 {
+            return term
         }
+        return nil
+    }
+    
+    // Apply the tier limit - free tier gets limited concepts
+    if allConcepts.count > maxConcepts {
+        journalEvent("Concept limit applied", details: "Limited from \(allConcepts.count) to \(maxConcepts) concepts based on subscription tier")
+        return Array(allConcepts.prefix(maxConcepts))
+    }
+    
+    return allConcepts
     }
     
     private func createConnections(from concepts: [String]) -> [[String: Any]] {
         var connections: [[String: Any]] = []
         
+        // Get connection limit from subscription tier
+        let subscriptionService = SubscriptionService.shared
+        let maxConnections = subscriptionService.featureLimits.maxConnections
+        
         for i in 0..<concepts.count {
             for j in (i+1)..<concepts.count {
+                // Enforce connection limit for free tier
+                if connections.count >= maxConnections {
+                    journalEvent("Connection limit applied", 
+                               details: "Limited to \(maxConnections) connections based on subscription tier")
+                    return connections
+                }
+                
                 let strength = calculateConnectionStrength(concepts[i], concepts[j])
                 
                 // Apply 0.1 buffer to confidence score
                 let confidence = min(1.0, strength - buffer)
                 
-                connections.append([
-                    "from": concepts[i],
-                    "to": concepts[j],
-                    "strength": confidence,
-                    "jumpDistance": 1
-                ])
+                // Only add meaningful connections
+                if confidence > 0.2 {
+                    connections.append([
+                        "from": concepts[i],
+                        "to": concepts[j],
+                        "strength": confidence,
+                        "jumpDistance": subscriptionService.currentTier == .premium ? 2 : 1
+                    ])
+                }
             }
         }
         
@@ -441,7 +509,30 @@ class MessageProcessor {
         return dist[s1.count][s2.count]
     }
     
-    private func createFailureResult(_ reason: String, recoveryAttempted: Bool = false, recoveryStats: RecoveryStats? = nil) -> ProcessResult {
+    private func createLimitExceededResult() -> ProcessResult {
+    // Track processing time
+    let processingTime = CFAbsoluteTimeGetCurrent() - startTime
+    
+    let response = "Daily message limit reached for free tier. Please upgrade to Boolean Mind Premium for unlimited messages."
+    
+    journalEvent("Limit exceeded", details: "Free tier daily message limit of \(SubscriptionService.shared.featureLimits.maxMessagesPerDay) reached")
+    
+    return ProcessResult(
+        response: response,
+        requiresIntervention: true,
+        confidence: 0.9,  // High confidence in this limit
+        processingMetrics: ProcessingMetrics(
+            processingTime: processingTime,
+            heatShieldActivations: heatShield.activationCount,
+            llsdtValidations: boundaryEnforcer.validationCount,
+            bufferIntegrity: true,
+            recoveryStats: nil
+        ),
+        recoveryAttempted: false
+    )
+}
+
+private func createFailureResult(_ reason: String, recoveryAttempted: Bool = false, recoveryStats: RecoveryStats? = nil) -> ProcessResult {
         return ProcessResult(
             response: "Processing error: \(reason). Please try again.",
             requiresIntervention: false,
@@ -490,6 +581,60 @@ class MessageProcessor {
         } catch {
             print("Failed to save journal: \(error)")
         }
+    }
+    
+    // MARK: - API Processing Helpers
+
+    /// Determine if a message requires API processing
+    private func requiresAPIProcessing(_ message: String) -> Bool {
+        // Logic to determine if message complexity requires API
+        // In a real implementation, this would analyze content and determine
+        // if local processing is sufficient or if remote API is needed
+        
+        // Simple heuristics for demo:
+        let wordCount = message.split(separator: " ").count
+        
+        // Complex questions likely need API
+        if message.contains("?") && wordCount > 8 {
+            return true
+        }
+        
+        // Longer messages likely need API
+        if wordCount > 25 {
+            return true
+        }
+        
+        // Messages seeking analysis likely need API
+        let apiKeywords = ["analyze", "explain", "compare", "difference", "generate", "create"]
+        for keyword in apiKeywords {
+            if message.lowercased().contains(keyword) {
+                return true
+            }
+        }
+        
+        // Message can be processed locally
+        return false
+    }
+
+    /// Create a result when API processing is required but not available
+    private func createAPIRequiredResult() -> ProcessResult {
+        let response = "This request requires API processing. Please select an API plan to continue."
+        
+        journalEvent("API required", details: "Request requires API but no plan is active")
+        
+        return ProcessResult(
+            response: response,
+            requiresIntervention: true,
+            confidence: 0.9,
+            processingMetrics: ProcessingMetrics(
+                processingTime: CFAbsoluteTimeGetCurrent() - startTime,
+                heatShieldActivations: heatShield.activationCount,
+                llsdtValidations: boundaryEnforcer.validationCount,
+                bufferIntegrity: true,
+                recoveryStats: nil
+            ),
+            recoveryAttempted: false
+        )
     }
 }
 
