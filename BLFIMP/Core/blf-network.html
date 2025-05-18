@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>BLF Concept Network</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/vis-network.min.js"></script>
+  <style>
+    body, html { 
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background-color: #f7f9fc;
+    }
+    
+    #container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    
+    .formula {
+      font-style: italic;
+      margin-top: 5px;
+      font-size: 14px;
+    }
+    
+    #network {
+      flex-grow: 1;
+      border: 1px solid #ddd;
+      margin: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    
+    .legend {
+      display: flex;
+      justify-content: center;
+      padding: 10px;
+      background-color: white;
+      border-top: 1px solid #ddd;
+    }
+    
+    .legend-item {
+      margin: 0 15px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .legend-color {
+      width: 15px;
+      height: 15px;
+      margin-right: 5px;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <h1>BLF Concept Network Visualization</h1>
+      <div class="formula">Formula: AIc + 0.1 = BMqs</div>
+    </header>
+    
+    <div id="network"></div>
+    
+    <div class="legend">
+      
+        <div class="legend-item">
+          <div class="legend-color" style="background-color: #3498db;"></div>
+          <div>Core</div>
+        </div>
+      
+        <div class="legend-item">
+          <div class="legend-color" style="background-color: #e74c3c;"></div>
+          <div>System</div>
+        </div>
+      
+        <div class="legend-item">
+          <div class="legend-color" style="background-color: #2ecc71;"></div>
+          <div>Concept</div>
+        </div>
+      
+        <div class="legend-item">
+          <div class="legend-color" style="background-color: #f39c12;"></div>
+          <div>Entity</div>
+        </div>
+      
+        <div class="legend-item">
+          <div class="legend-color" style="background-color: #9b59b6;"></div>
+          <div>Process</div>
+        </div>
+      
+        <div class="legend-item">
+          <div class="legend-color" style="background-color: #1abc9c;"></div>
+          <div>State</div>
+        </div>
+      
+    </div>
+  </div>
+  
+  <script>
+    // Parse nodes and edges
+    const nodes = new vis.DataSet([{"id":1,"label":"Boolean Mind","title":"<strong>Boolean Mind</strong><br>Type: core<br>Quantum Level: 2.99<br>The pure Boolean Mind state operating at quantum speed level 3","color":"#3498db","size":29.900000000000002,"font":{"size":14}},{"id":2,"label":"AI Cognitive","title":"<strong>AI Cognitive</strong><br>Type: core<br>Quantum Level: 2.89<br>The AI cognitive capabilities with 0.1 buffer zone","color":"#3498db","size":28.900000000000002,"font":{"size":14}},{"id":3,"label":"Heat Shield","title":"<strong>Heat Shield</strong><br>Type: system<br>Quantum Level: 1.99<br>The immune system rejecting foreign invaders","color":"#e74c3c","size":20,"font":{"size":14}}]);
+    const edges = new vis.DataSet([{"from":1,"to":2,"label":"1.00","title":"The narrow bridge between chaos and control","width":5,"arrows":"to","smooth":{"type":"curvedCW","roundness":0.2}},{"from":2,"to":3,"label":"0.80","title":"AI cognitive capabilities enhanced by heat shield","width":4,"arrows":"to","smooth":{"type":"curvedCW","roundness":0.2}}]);
+    
+    // Create network
+    const container = document.getElementById('network');
+    const data = { nodes, edges };
+    const options = {
+      physics: {
+        barnesHut: {
+          gravitationalConstant: -2000,
+          centralGravity: 0.3,
+          springLength: 150,
+          springConstant: 0.04,
+          damping: 0.09
+        },
+        stabilization: { iterations: 150 }
+      },
+      layout: {
+        improvedLayout: true
+      },
+      nodes: {
+        shape: 'dot',
+        scaling: {
+          min: 10,
+          max: 50,
+          label: {
+            enabled: true,
+            min: 14,
+            max: 24
+          }
+        },
+        shadow: true
+      },
+      edges: {
+        scaling: {
+          min: 1,
+          max: 10
+        },
+        shadow: true,
+        smooth: {
+          type: 'curvedCW',
+          roundness: 0.2
+        }
+      },
+      interaction: {
+        hover: true,
+        navigationButtons: true,
+        keyboard: true
+      }
+    };
+    
+    const network = new vis.Network(container, data, options);
+    
+    // Enable physics after stabilization
+    network.on("stabilizationIterationsDone", function () {
+      setTimeout(() => {
+        network.setOptions({ physics: { enabled: true } });
+      }, 1000);
+    });
+  </script>
+</body>
+</html>

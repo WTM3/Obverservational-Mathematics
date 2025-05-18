@@ -1,0 +1,21 @@
+{
+  "name": "blf-sqlite-integration",
+  "version": "1.0.0",
+  "description": "Boolean Language Framework SQLite Integration",
+  "main": "SQLiteExample.js",
+  "scripts": {
+    "start": "node SQLiteExample.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "BLF",
+    "SQLite",
+    "NJSON",
+    "Quantum"
+  ],
+  "author": "AMF",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "sqlite3": "^5.1.7"
+  }
+}

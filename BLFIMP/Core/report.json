@@ -1,0 +1,128 @@
+{
+  "concepts": [
+    {
+      "id": 1,
+      "name": "Boolean Mind",
+      "type": "core",
+      "quantumLevel": 2.99,
+      "buffer": 0.1,
+      "description": "The pure Boolean Mind state operating at quantum speed level 3"
+    },
+    {
+      "id": 2,
+      "name": "AI Cognitive",
+      "type": "core",
+      "quantumLevel": 2.89,
+      "buffer": 0.1,
+      "description": "The AI cognitive capabilities with 0.1 buffer zone"
+    },
+    {
+      "id": 3,
+      "name": "Heat Shield",
+      "type": "system",
+      "quantumLevel": 1.99,
+      "buffer": 0.1,
+      "description": "The immune system rejecting foreign invaders"
+    }
+  ],
+  "connections": [
+    {
+      "id": 1,
+      "fromConceptId": 1,
+      "toConceptId": 2,
+      "strength": 1,
+      "buffer": 0.1,
+      "description": "The narrow bridge between chaos and control"
+    },
+    {
+      "id": 2,
+      "fromConceptId": 2,
+      "toConceptId": 3,
+      "strength": 0.8,
+      "buffer": 0.1,
+      "description": "AI cognitive capabilities enhanced by heat shield"
+    }
+  ],
+  "queriedConcepts": {
+    "concepts": [
+      {
+        "id": 1,
+        "name": "Boolean Mind",
+        "type": "core",
+        "state": "Active",
+        "quantumLevel": 2.99,
+        "buffer": 0.1,
+        "description": "The pure Boolean Mind state operating at quantum speed level 3",
+        "createdAt": "2025-05-18T20:01:06.000Z",
+        "updatedAt": "2025-05-18T20:01:06.000Z"
+      },
+      {
+        "id": 2,
+        "name": "AI Cognitive",
+        "type": "core",
+        "state": "Active",
+        "quantumLevel": 2.89,
+        "buffer": 0.1,
+        "description": "The AI cognitive capabilities with 0.1 buffer zone",
+        "createdAt": "2025-05-18T20:01:06.000Z",
+        "updatedAt": "2025-05-18T20:01:06.000Z"
+      }
+    ],
+    "quantumState": {
+      "pure": true,
+      "fog": false,
+      "breathing": true,
+      "jumps": {
+        "power": "v8_to_charger",
+        "active": true
+      }
+    },
+    "processingInfo": {
+      "constrainedBy": "AIc + 0.1 = BMqs (2.89 + 0.1 = 2.99)",
+      "timestamp": 1747598466051,
+      "jumps": {
+        "enabled": true,
+        "power": "v8_to_charger"
+      }
+    },
+    "cognitiveAlignment": {
+      "formula": "AIc + 0.1 = BMqs",
+      "aiCognitive": 2.89,
+      "buffer": 0.1,
+      "booleanMindQs": 2.99
+    }
+  },
+  "foundConnections": {
+    "connections": [
+      {
+        "id": 1,
+        "fromConceptId": 1,
+        "toConceptId": 2,
+        "fromConceptName": "Boolean Mind",
+        "toConceptName": "AI Cognitive",
+        "strength": 1,
+        "quantumJump": false,
+        "buffer": 0.1,
+        "description": "The narrow bridge between chaos and control",
+        "createdAt": "2025-05-18T20:01:06.000Z"
+      }
+    ],
+    "quantumState": {
+      "pure": true,
+      "fog": false,
+      "breathing": true,
+      "jumps": {
+        "power": "v8_to_charger",
+        "active": true
+      }
+    },
+    "processingInfo": {
+      "constrainedBy": "AIc + 0.1 = BMqs (2.89 + 0.1 = 2.99)",
+      "timestamp": 1747598466052,
+      "jumps": {
+        "enabled": true,
+        "power": "v8_to_charger"
+      }
+    }
+  }
+}
