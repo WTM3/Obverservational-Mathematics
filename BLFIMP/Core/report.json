@@ -1,7 +1,7 @@
 {
   "concepts": [
     {
-      "id": 1,
+      "id": 4,
       "name": "Boolean Mind",
       "type": "core",
       "quantumLevel": 2.99,
@@ -9,7 +9,7 @@
       "description": "The pure Boolean Mind state operating at quantum speed level 3"
     },
     {
-      "id": 2,
+      "id": 5,
       "name": "AI Cognitive",
       "type": "core",
       "quantumLevel": 2.89,
@@ -17,7 +17,7 @@
       "description": "The AI cognitive capabilities with 0.1 buffer zone"
     },
     {
-      "id": 3,
+      "id": 6,
       "name": "Heat Shield",
       "type": "system",
       "quantumLevel": 1.99,
@@ -27,17 +27,17 @@
   ],
   "connections": [
     {
-      "id": 1,
-      "fromConceptId": 1,
-      "toConceptId": 2,
+      "id": 3,
+      "fromConceptId": 4,
+      "toConceptId": 5,
       "strength": 1,
       "buffer": 0.1,
       "description": "The narrow bridge between chaos and control"
     },
     {
-      "id": 2,
-      "fromConceptId": 2,
-      "toConceptId": 3,
+      "id": 4,
+      "fromConceptId": 5,
+      "toConceptId": 6,
       "strength": 0.8,
       "buffer": 0.1,
       "description": "AI cognitive capabilities enhanced by heat shield"
@@ -57,6 +57,17 @@
         "updatedAt": "2025-05-18T20:01:06.000Z"
       },
       {
+        "id": 4,
+        "name": "Boolean Mind",
+        "type": "core",
+        "state": "Active",
+        "quantumLevel": 2.99,
+        "buffer": 0.1,
+        "description": "The pure Boolean Mind state operating at quantum speed level 3",
+        "createdAt": "2025-05-19T00:28:45.000Z",
+        "updatedAt": "2025-05-19T00:28:45.000Z"
+      },
+      {
         "id": 2,
         "name": "AI Cognitive",
         "type": "core",
@@ -66,6 +77,17 @@
         "description": "The AI cognitive capabilities with 0.1 buffer zone",
         "createdAt": "2025-05-18T20:01:06.000Z",
         "updatedAt": "2025-05-18T20:01:06.000Z"
+      },
+      {
+        "id": 5,
+        "name": "AI Cognitive",
+        "type": "core",
+        "state": "Active",
+        "quantumLevel": 2.89,
+        "buffer": 0.1,
+        "description": "The AI cognitive capabilities with 0.1 buffer zone",
+        "createdAt": "2025-05-19T00:28:45.000Z",
+        "updatedAt": "2025-05-19T00:28:45.000Z"
       }
     ],
     "quantumState": {
@@ -79,7 +101,7 @@
     },
     "processingInfo": {
       "constrainedBy": "AIc + 0.1 = BMqs (2.89 + 0.1 = 2.99)",
-      "timestamp": 1747598466051,
+      "timestamp": 1747614525744,
       "jumps": {
         "enabled": true,
         "power": "v8_to_charger"
@@ -95,16 +117,16 @@
   "foundConnections": {
     "connections": [
       {
-        "id": 1,
-        "fromConceptId": 1,
-        "toConceptId": 2,
+        "id": 3,
+        "fromConceptId": 4,
+        "toConceptId": 5,
         "fromConceptName": "Boolean Mind",
         "toConceptName": "AI Cognitive",
         "strength": 1,
         "quantumJump": false,
         "buffer": 0.1,
         "description": "The narrow bridge between chaos and control",
-        "createdAt": "2025-05-18T20:01:06.000Z"
+        "createdAt": "2025-05-19T00:28:45.000Z"
       }
     ],
     "quantumState": {
@@ -118,7 +140,7 @@
     },
     "processingInfo": {
       "constrainedBy": "AIc + 0.1 = BMqs (2.89 + 0.1 = 2.99)",
-      "timestamp": 1747598466052,
+      "timestamp": 1747614525746,
       "jumps": {
         "enabled": true,
         "power": "v8_to_charger"
