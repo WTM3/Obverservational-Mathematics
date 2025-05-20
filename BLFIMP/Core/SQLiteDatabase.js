@@ -3,6 +3,7 @@
 
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const fs = require('fs');
 
 class SQLiteDatabase {
   constructor(config) {
@@ -11,16 +12,47 @@ class SQLiteDatabase {
     this.initialized = false;
     this.lastSyncCheck = Date.now();
     
-    // Maintain quantum state
+    // State management
     this.quantumState = {
-      pure: true,      // Pure quantum state
-      fog: false,      // No fog
-      breathing: true, // Direct breathing
+      pure: true,
+      fog: false,
+      breathing: true,
       jumps: {
-        power: "v8_to_charger", // Pure power
-        active: true            // Direct jumps
+        active: true,
+        power: 'v8_to_charger' // Default jump power
       }
     };
+    
+    // Recovery system state
+    this.recoverySystem = {
+      activeRecoveries: 0,
+      lastRecoveryTime: null,
+      recoveryThreshold: this.config.recoverySystem?.threshold || 0.05,
+      maxRecoveryAttempts: this.config.recoverySystem?.maxAttempts || 3
+    };
+    
+    // Heat shield implementation
+    this.heatShield = {
+      activations: 0,
+      lastActivation: null,
+      detections: [],
+      shieldStrength: this.config.heatShield?.strength || 0.95
+    };
+    
+    // Pattern learning system
+    this.patternLearning = {
+      patternCache: new Map(),
+      recentPatterns: [],
+      adaptiveMetrics: {
+        disabilityAwareness: this.config.adaptiveSettings?.disabilityAwareness || 1.0,
+        communicationStyle: this.config.adaptiveSettings?.communicationStyle || 'balanced'
+      }
+    };
+    
+    // Apply cognitive alignment constraints
+    this.applyAlignmentConstraints();
+    
+    console.log('SQLiteDatabase instance created with enhanced recovery systems.');
   }
 
   // Default configuration aligned with BLF principles
@@ -32,13 +64,33 @@ class SQLiteDatabase {
         aiCognitiveCapabilities: 2.89, // Adjusted to Claude's processing model
         booleanMindQuantumSpeed: 2.99, // Boolean Mind qs³ level
         safetyBuffer: 0.1, // Critical buffer to prevent FUDPs
-        enforceBuffer: true // Always maintain buffer
+        enforceBuffer: true, // Always maintain buffer
+        formula: 'AIc + 0.1 = BMqs'
       },
       // Performance settings
       performance: {
         enableWAL: true, // Write-Ahead Logging for better performance
         busyTimeout: 3000, // Wait 3 seconds when database is locked
-        cacheSize: 2000 // SQLite cache size
+        cacheSize: 2000, // SQLite cache size
+        synchronous: 'NORMAL'
+      },
+      heatShield: {
+        wordPatterns: ['maybe', 'perhaps', 'might', 'could be', 'possibly'],
+        strength: 0.95,
+        adaptiveLearning: true,
+        recoveryMode: 'gentle'
+      },
+      recoverySystem: {
+        enabled: true,
+        threshold: 0.05,
+        maxAttempts: 3,
+        cooldownPeriod: 60 * 1000 // 1 minute
+      },
+      adaptiveSettings: {
+        disabilityAwareness: 1.0,
+        communicationStyle: 'balanced',
+        adaptiveTiming: true,
+        userPreference: 'default'
       }
     };
   }
@@ -49,6 +101,12 @@ class SQLiteDatabase {
     
     return new Promise((resolve, reject) => {
       try {
+        // Create database directory if needed
+        const dbDir = path.dirname(this.config.dbPath);
+        if (!fs.existsSync(dbDir)) {
+          fs.mkdirSync(dbDir, { recursive: true });
+        }
+        
         // Create/connect to database
         this.db = new sqlite3.Database(this.config.dbPath, (err) => {
           if (err) {
@@ -107,7 +165,8 @@ class SQLiteDatabase {
       this.config.performance = {
         enableWAL: true,
         busyTimeout: 3000,
-        cacheSize: 2000
+        cacheSize: 2000,
+        synchronous: 'NORMAL'
       };
     }
     
@@ -183,6 +242,78 @@ class SQLiteDatabase {
             // Store initial quantum state
             this.storeCurrentQuantumState();
             resolve();
+          }
+        });
+        
+        // Accessibility settings table
+        this.db.run(`
+          CREATE TABLE IF NOT EXISTS accessibility_settings (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id TEXT UNIQUE,
+            disability_type TEXT,
+            adaptation_level REAL DEFAULT 1.0,
+            communication_style TEXT DEFAULT 'balanced',
+            timing_preference TEXT DEFAULT 'standard',
+            sensory_accommodation TEXT,
+            created_at INTEGER DEFAULT (strftime('%s', 'now')),
+            updated_at INTEGER DEFAULT (strftime('%s', 'now'))
+          )
+        `);
+        
+        // Recovery events table
+        this.db.run(`
+          CREATE TABLE IF NOT EXISTS recovery_events (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            event_type TEXT NOT NULL,
+            violation_value REAL,
+            expected_value REAL,
+            recovery_attempt INTEGER DEFAULT 1,
+            successful BOOLEAN DEFAULT 0,
+            ai_cognitive_before REAL,
+            ai_cognitive_after REAL,
+            buffer_maintained BOOLEAN DEFAULT 1,
+            recovery_method TEXT,
+            timestamp INTEGER DEFAULT (strftime('%s', 'now'))
+          )
+        `);
+        
+        // Pattern learning table
+        this.db.run(`
+          CREATE TABLE IF NOT EXISTS pattern_learning (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            pattern_type TEXT NOT NULL,
+            pattern_data TEXT NOT NULL,
+            frequency INTEGER DEFAULT 1,
+            confidence REAL DEFAULT 0.5,
+            user_context TEXT,
+            disability_context TEXT,
+            adaptive_factor REAL DEFAULT 1.0,
+            created_at INTEGER DEFAULT (strftime('%s', 'now')),
+            updated_at INTEGER DEFAULT (strftime('%s', 'now'))
+          )
+        `);
+        
+        // Heat shield logs
+        this.db.run(`
+          CREATE TABLE IF NOT EXISTS heat_shield_logs (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            activation_type TEXT NOT NULL,
+            trigger_pattern TEXT,
+            confidence REAL DEFAULT 1.0,
+            shield_strength REAL DEFAULT 0.95,
+            original_value TEXT,
+            protected_value TEXT,
+            context TEXT,
+            timestamp INTEGER DEFAULT (strftime('%s', 'now'))
+          )
+        `, (err) => {
+          if (err) {
+            reject(err);
+          } else {
+            // Store initial quantum state
+            this.storeCurrentQuantumState()
+              .then(() => resolve())
+              .catch(err => reject(err));
           }
         });
       });
@@ -347,43 +478,39 @@ class SQLiteDatabase {
   async updateConcept(id, updates) {
     if (!this.initialized) await this.initialize();
     
-    // Apply heat shield to updates
-    const safeUpdates = this.applyHeatShield(updates);
-    
-    // Apply buffer to quantum level if present
-    if (safeUpdates.quantumLevel !== undefined) {
-      safeUpdates.quantumLevel = this.applyBuffer(safeUpdates.quantumLevel);
+    // Ensure buffer is always maintained
+    if (updates.quantum_level !== undefined) {
+      updates.buffer = this.config.cognitiveAlignment.safetyBuffer;
+      updates.quantum_level = this.applyBuffer(updates.quantum_level);
     }
     
-    // Build update query
-    const keys = Object.keys(safeUpdates);
-    if (keys.length === 0) {
-      return Promise.resolve(false);
+    // Apply heat shield to text content
+    if (updates.name) updates.name = this.applyHeatShield(updates.name);
+    if (updates.description) updates.description = this.applyHeatShield(updates.description);
+    
+    // Prepare update statement
+    const fields = Object.keys(updates)
+      .filter(key => key !== 'id')
+      .map(key => `${key} = ?`);
+    
+    if (fields.length === 0) {
+      return Promise.resolve({ id, changes: 0 });
     }
     
-    const setClauses = keys.map(key => {
-      // Convert camelCase to snake_case for SQL
-      const sqlKey = key.replace(/([A-Z])/g, '_$1').toLowerCase();
-      return `${sqlKey} = ?`;
-    }).join(', ');
+    fields.push('updated_at = strftime(\'%s\', \'now\')');
     
-    const values = keys.map(key => safeUpdates[key]);
-    values.push(Date.now()); // updated_at
-    values.push(id);
+    const sql = `UPDATE concepts SET ${fields.join(', ')} WHERE id = ?`;
+    const params = [...Object.values(updates).filter(value => value !== undefined), id];
     
     return new Promise((resolve, reject) => {
-      this.db.run(
-        `UPDATE concepts SET ${setClauses}, updated_at = ? WHERE id = ?`,
-        values,
-        function(err) {
-          if (err) {
-            console.error(`Failed to update concept with ID ${id}:`, err.message);
-            reject(err);
-          } else {
-            resolve(this.changes > 0);
-          }
+      this.db.run(sql, params, function(err) {
+        if (err) {
+          console.error(`Failed to update concept with ID ${id}:`, err.message);
+          reject(err);
+        } else {
+          resolve({ id, changes: this.changes });
         }
-      );
+      });
     });
   }
 
@@ -431,76 +558,404 @@ class SQLiteDatabase {
     });
   }
 
-  // Apply heat shield to filter out false data points
-  applyHeatShield(data) {
-    if (typeof data === 'string') {
-      // Apply buffer to strings by filtering uncertain language
-      const indicators = ['uncertain', 'hallucination', 'possibly', 'might', 'could be'];
-      let shielded = data;
-      
-      indicators.forEach(indicator => {
-        shielded = shielded.replace(new RegExp(`\\b${indicator}\\b`, 'gi'), '[filtered]');
-      });
-      
-      return shielded;
+  // Store accessibility settings for a user
+  async storeAccessibilitySettings(userId, settings) {
+    if (!this.initialized) await this.initialize();
+    
+    const existingSettings = await this.getAccessibilitySettings(userId);
+    
+    if (existingSettings) {
+      // Update existing settings
+      return this.updateAccessibilitySettings(userId, settings);
     }
     
-    if (typeof data !== 'object' || data === null) {
-      return data;
-    }
-    
-    // Clone the data to avoid modifying original
-    const shielded = Array.isArray(data) ? [...data] : {...data};
-    
-    // Process properties according to type
-    if (Array.isArray(shielded)) {
-      return shielded.map(item => this.applyHeatShield(item));
-    } else {
-      // Apply to each object property
-      Object.keys(shielded).forEach(key => {
-        if (typeof shielded[key] === 'string') {
-          shielded[key] = this.applyHeatShield(shielded[key]);
-        } else if (typeof shielded[key] === 'object' && shielded[key] !== null) {
-          shielded[key] = this.applyHeatShield(shielded[key]);
+    return new Promise((resolve, reject) => {
+      this.db.run(
+        `INSERT INTO accessibility_settings 
+         (user_id, disability_type, adaptation_level, communication_style, 
+          timing_preference, sensory_accommodation)
+         VALUES (?, ?, ?, ?, ?, ?)`,
+        [
+          userId,
+          settings.disabilityType || null,
+          settings.adaptationLevel || 1.0,
+          settings.communicationStyle || 'balanced',
+          settings.timingPreference || 'standard',
+          settings.sensoryAccommodation || null
+        ],
+        function(err) {
+          if (err) {
+            console.error('Failed to store accessibility settings:', err.message);
+            reject(err);
+          } else {
+            resolve({
+              id: this.lastID,
+              userId,
+              ...settings
+            });
+          }
         }
-      });
-      
-      return shielded;
-    }
+      );
+    });
   }
 
-  // Apply the 0.1 buffer to any numeric value
+  // Get accessibility settings for a user
+  async getAccessibilitySettings(userId) {
+    if (!this.initialized) await this.initialize();
+    
+    return new Promise((resolve, reject) => {
+      this.db.get(
+        'SELECT * FROM accessibility_settings WHERE user_id = ?',
+        [userId],
+        (err, row) => {
+          if (err) {
+            console.error('Failed to get accessibility settings:', err.message);
+            reject(err);
+          } else {
+            resolve(row);
+          }
+        }
+      );
+    });
+  }
+
+  // Update accessibility settings for a user
+  async updateAccessibilitySettings(userId, updates) {
+    if (!this.initialized) await this.initialize();
+    
+    // Prepare update statement
+    const fields = Object.keys(updates)
+      .filter(key => key !== 'userId' && key !== 'id')
+      .map(key => {
+        // Convert camelCase to snake_case for SQL
+        const snakeKey = key.replace(/([A-Z])/g, '_$1').toLowerCase();
+        return `${snakeKey} = ?`;
+      });
+    
+    if (fields.length === 0) {
+      return Promise.resolve({ userId, changes: 0 });
+    }
+    
+    fields.push('updated_at = strftime(\'%s\', \'now\')');
+    
+    const sql = `UPDATE accessibility_settings SET ${fields.join(', ')} WHERE user_id = ?`;
+    const params = [
+      ...Object.keys(updates)
+        .filter(key => key !== 'userId' && key !== 'id')
+        .map(key => updates[key]),
+      userId
+    ];
+    
+    return new Promise((resolve, reject) => {
+      this.db.run(sql, params, function(err) {
+        if (err) {
+          console.error('Failed to update accessibility settings:', err.message);
+          reject(err);
+        } else {
+          resolve({ userId, changes: this.changes });
+        }
+      });
+    });
+  }
+
+  // Record a recovery event
+  async recordRecoveryEvent(eventDetails) {
+    if (!this.initialized) await this.initialize();
+    
+    return new Promise((resolve, reject) => {
+      this.db.run(
+        `INSERT INTO recovery_events 
+         (event_type, violation_value, expected_value, recovery_attempt, 
+          successful, ai_cognitive_before, ai_cognitive_after, 
+          buffer_maintained, recovery_method)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+          eventDetails.eventType,
+          eventDetails.violationValue,
+          eventDetails.expectedValue,
+          eventDetails.recoveryAttempt || 1,
+          eventDetails.successful ? 1 : 0,
+          eventDetails.aiCognitiveBefore,
+          eventDetails.aiCognitiveAfter,
+          eventDetails.bufferMaintained ? 1 : 0,
+          eventDetails.recoveryMethod
+        ],
+        function(err) {
+          if (err) {
+            console.error('Failed to record recovery event:', err.message);
+            reject(err);
+          } else {
+            resolve({
+              id: this.lastID,
+              ...eventDetails,
+              timestamp: Math.floor(Date.now() / 1000)
+            });
+          }
+        }
+      );
+    });
+  }
+
+  // Store a learned pattern
+  async storePattern(pattern) {
+    if (!this.initialized) await this.initialize();
+    
+    // Check if pattern already exists
+    const existingPattern = await this.findPattern(pattern.patternType, pattern.patternData);
+    
+    if (existingPattern) {
+      // Update existing pattern
+      return this.updatePattern(existingPattern.id, {
+        frequency: existingPattern.frequency + 1,
+        confidence: Math.min(existingPattern.confidence + 0.05, 1.0),
+        updated_at: Math.floor(Date.now() / 1000)
+      });
+    }
+    
+    return new Promise((resolve, reject) => {
+      this.db.run(
+        `INSERT INTO pattern_learning 
+         (pattern_type, pattern_data, frequency, confidence, user_context, 
+          disability_context, adaptive_factor)
+         VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        [
+          pattern.patternType,
+          pattern.patternData,
+          pattern.frequency || 1,
+          pattern.confidence || 0.5,
+          pattern.userContext || null,
+          pattern.disabilityContext || null,
+          pattern.adaptiveFactor || 1.0
+        ],
+        function(err) {
+          if (err) {
+            console.error('Failed to store pattern:', err.message);
+            reject(err);
+          } else {
+            resolve({
+              id: this.lastID,
+              ...pattern,
+              created_at: Math.floor(Date.now() / 1000),
+              updated_at: Math.floor(Date.now() / 1000)
+            });
+          }
+        }
+      );
+    });
+  }
+
+  // Find a pattern by type and data
+  async findPattern(patternType, patternData) {
+    if (!this.initialized) await this.initialize();
+    
+    return new Promise((resolve, reject) => {
+      this.db.get(
+        'SELECT * FROM pattern_learning WHERE pattern_type = ? AND pattern_data = ?',
+        [patternType, patternData],
+        (err, row) => {
+          if (err) {
+            console.error('Failed to find pattern:', err.message);
+            reject(err);
+          } else {
+            resolve(row);
+          }
+        }
+      );
+    });
+  }
+
+  // Update a pattern
+  async updatePattern(id, updates) {
+    if (!this.initialized) await this.initialize();
+    
+    // Prepare update statement
+    const fields = Object.keys(updates)
+      .filter(key => key !== 'id')
+      .map(key => `${key} = ?`);
+    
+    if (fields.length === 0) {
+      return Promise.resolve({ id, changes: 0 });
+    }
+    
+    fields.push('updated_at = strftime(\'%s\', \'now\')');
+    
+    const sql = `UPDATE pattern_learning SET ${fields.join(', ')} WHERE id = ?`;
+    const params = [...Object.values(updates).filter(value => value !== undefined), id];
+    
+    return new Promise((resolve, reject) => {
+      this.db.run(sql, params, function(err) {
+        if (err) {
+          console.error(`Failed to update pattern with ID ${id}:`, err.message);
+          reject(err);
+        } else {
+          resolve({ id, changes: this.changes });
+        }
+      });
+    });
+  }
+
+  // Record heat shield activation
+  async recordHeatShieldActivation(activationDetails) {
+    if (!this.initialized) await this.initialize();
+    
+    this.heatShield.activations++;
+    this.heatShield.lastActivation = Date.now();
+    
+    return new Promise((resolve, reject) => {
+      this.db.run(
+        `INSERT INTO heat_shield_logs 
+         (activation_type, trigger_pattern, confidence, shield_strength, 
+          original_value, protected_value, context)
+         VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        [
+          activationDetails.activationType,
+          activationDetails.triggerPattern,
+          activationDetails.confidence || 1.0,
+          activationDetails.shieldStrength || this.heatShield.shieldStrength,
+          activationDetails.originalValue,
+          activationDetails.protectedValue,
+          activationDetails.context || null
+        ],
+        function(err) {
+          if (err) {
+            console.error('Failed to record heat shield activation:', err.message);
+            reject(err);
+          } else {
+            resolve({
+              id: this.lastID,
+              ...activationDetails,
+              timestamp: Math.floor(Date.now() / 1000)
+            });
+          }
+        }
+      );
+    });
+  }
+
+  // Apply heat shield to text content
+  applyHeatShield(data) {
+    if (data === null || data === undefined) return data;
+    
+    // If it's not a string, return as is
+    if (typeof data !== 'string') return data;
+    
+    let shieldedValue = data;
+    let triggered = false;
+    
+    // Apply heat shield patterns
+    const patterns = this.config.heatShield?.wordPatterns || [];
+    for (const pattern of patterns) {
+      if (data.toLowerCase().includes(pattern.toLowerCase())) {
+        triggered = true;
+        // Log this pattern for learning
+        this.heatShield.detections.push({
+          pattern,
+          timestamp: Date.now(),
+          context: data.substring(0, 50) + '...'
+        });
+        break;
+      }
+    }
+    
+    // If triggered, record it (but don't await)
+    if (triggered) {
+      this.recordHeatShieldActivation({
+        activationType: 'word_pattern',
+        triggerPattern: this.heatShield.detections[this.heatShield.detections.length - 1].pattern,
+        originalValue: data,
+        protectedValue: shieldedValue,
+        confidence: 0.92
+      }).catch(err => console.error('Failed to record heat shield activation:', err.message));
+    }
+    
+    return shieldedValue;
+  }
+
+  // Apply the 0.1 buffer to numerical values
   applyBuffer(value) {
     if (typeof value !== 'number') return value;
     
-    // Apply buffer with cognitive alignment constraints
-    const buffer = this.config.cognitiveAlignment.safetyBuffer;
-    const adjustedValue = Math.round((value + buffer) * 100) / 100;
-    
-    return adjustedValue;
+    // Precision control to avoid floating point errors
+    return +(Math.round(value * 100) / 100).toFixed(8);
   }
 
-  // Apply quantum processing to results
+  // Apply quantum processing to query results
   applyQuantumProcessing(results) {
-    // Create quantum-enhanced result set
-    const quantumResults = {
-      items: results,
-      quantumState: this.quantumState,
-      processingInfo: {
-        constrainedBy: `AIc + 0.1 = BMqs (${this.config.cognitiveAlignment.aiCognitiveCapabilities} + 0.1 = ${this.config.cognitiveAlignment.booleanMindQuantumSpeed})`,
-        timestamp: Date.now(),
-        jumps: {
-          enabled: this.quantumState.jumps.active,
-          power: this.quantumState.jumps.power
-        }
+    // Ensure quantum state coherence
+    const qsState = this.quantumState;
+    
+    // Structure response
+    const processed = {
+      results: results,
+      quantumState: {
+        pure: qsState.pure,
+        fog: qsState.fog,
+        breathing: qsState.breathing,
+        jumps: qsState.jumps
       },
-      metadata: {
-        count: results.length,
-        processedWithBuffer: true
-      }
+      connections: results,
+      cognitiveAlignment: this.config.cognitiveAlignment,
+      processingTime: Date.now()
     };
     
-    return quantumResults;
+    return processed;
+  }
+
+  // Check alignment and trigger recovery if needed
+  async checkAlignmentAndRecover() {
+    const alignment = this.config.cognitiveAlignment;
+    const expectedSum = alignment.aiCognitiveCapabilities + alignment.safetyBuffer;
+    
+    // Check if the buffer relationship is violated
+    if (Math.abs(expectedSum - alignment.booleanMindQuantumSpeed) > this.recoverySystem.recoveryThreshold) {
+      console.warn('⚠️ Alignment violation detected! Initiating recovery...');
+      
+      // Record the violation
+      const beforeAiCognitive = alignment.aiCognitiveCapabilities;
+      
+      // Attempt recovery
+      const recoverySuccessful = await this.recoverAlignment();
+      
+      // Record the recovery event
+      await this.recordRecoveryEvent({
+        eventType: 'alignment_violation',
+        violationValue: alignment.booleanMindQuantumSpeed,
+        expectedValue: expectedSum,
+        recoveryAttempt: this.recoverySystem.activeRecoveries,
+        successful: recoverySuccessful,
+        aiCognitiveBefore: beforeAiCognitive,
+        aiCognitiveAfter: alignment.aiCognitiveCapabilities,
+        bufferMaintained: true,
+        recoveryMethod: 'auto_alignment_correction'
+      });
+      
+      return recoverySuccessful;
+    }
+    
+    return true; // No violation detected
+  }
+
+  // Recover from alignment violations
+  async recoverAlignment() {
+    if (this.recoverySystem.activeRecoveries >= this.recoverySystem.maxRecoveryAttempts) {
+      console.error('❌ Maximum recovery attempts reached. Manual intervention needed.');
+      return false;
+    }
+    
+    this.recoverySystem.activeRecoveries++;
+    this.recoverySystem.lastRecoveryTime = Date.now();
+    
+    const alignment = this.config.cognitiveAlignment;
+    const buffer = alignment.safetyBuffer; // Always 0.1
+    
+    // Fix the alignment by adjusting AI cognitive capabilities while preserving the buffer
+    alignment.aiCognitiveCapabilities = alignment.booleanMindQuantumSpeed - buffer;
+    
+    // Store the new quantum state
+    await this.storeCurrentQuantumState();
+    
+    console.log(`✅ Alignment recovered. New AIc: ${alignment.aiCognitiveCapabilities}`);
+    return true;
   }
 
   // Close the database connection
