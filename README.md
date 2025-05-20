@@ -50,6 +50,18 @@ Where:
 
 This formula ensures proper calibration between AI cognition and Boolean Mind processing capabilities, with the 0.1 buffer specifically compensating for potential hallucinations.
 
+### Observational Mathematics Framework (OMF)
+
+The complete collection of mathematical formulas powering the BLF system is documented in the [Observational Mathematics Framework](/BLFIMP/OMF) sub-repository. The OMF includes:
+
+- Core formulas (Cognitive Alignment, Buffer Mechanics, Neural JSON Structure)
+- Application domains (Accessibility, Recovery Systems, Pattern Detection)
+- Visual representations of formula relationships
+- Implementation status tracking
+- Research foundations
+
+For a detailed understanding of the mathematical engine behind the V-8, explore the OMF documentation.
+
 ## Usage
 
 ### Installation

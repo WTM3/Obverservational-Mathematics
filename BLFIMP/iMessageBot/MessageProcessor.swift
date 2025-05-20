@@ -91,6 +91,8 @@ init(userAge: Int) {
         let llsdtValidations: Int
         let bufferIntegrity: Bool
         let recoveryStats: RecoveryStats?
+        let heatShieldScore: Double?
+        let heatShieldReason: String?
     }
     
     struct RecoveryStats {
@@ -125,164 +127,205 @@ func process(message: String) -> ProcessResult {
     // Track if recovery was attempted during processing
     var recoveryAttempted = false
     var recoveryStats: RecoveryStats? = nil
-        
-        // Validate cognitive alignment before processing
-        if !validateCognitiveAlignment() {
-            // LLSDT boundary violation detected - attempt recovery
-            journalError("Cognitive alignment validation failed", 
-                        details: "AIc(\(cognitiveAlignment.aiCognitive)) + buffer(\(buffer)) != BMqs(\(cognitiveAlignment.booleanMindQs))")
-            
-            // Attempt recovery with graduated response based on violation severity and frequency
-            let recoveryStartTime = CFAbsoluteTimeGetCurrent()
-            let (recovered, recoveryLevel, alignmentDelta) = attemptCognitiveRecovery()
-            let recoveryTime = CFAbsoluteTimeGetCurrent() - recoveryStartTime
-            
-            recoveryAttempted = true
-            recoveryStats = RecoveryStats(
-                attemptCount: recoverySystem.attemptCount,
-                successRate: recoverySystem.successRate,
-                recoveryTime: recoveryTime,
-                alignmentDelta: alignmentDelta
-            )
-            
-            // If recovery failed, use the emergency fallback system
-            if !recovered {
-                journalError("Recovery failed", details: "Emergency fallback activated at level \(recoveryLevel)")
-                
-                // Handle based on recovery level (1-3)
-                return createEmergencyResult(
-                    message: message, 
-                    recoveryLevel: recoveryLevel,
-                    recoveryStats: recoveryStats
-                )
-            } else {
-                journalEvent("System recovered", details: "Recovery succeeded at level \(recoveryLevel) with Δ\(String(format: "%.6f", alignmentDelta))")
-                inRecoveryMode = true
-            }
-        }
-        
-        // Apply heat shield to filter potential hallucinations
-        guard heatShield.protect(message) else {
-            journalEvent("Heat shield activated", details: "Rejected input: '\(message)'")
-            return createFailureResult(
-                "Heat shield rejection", 
-                recoveryAttempted: recoveryAttempted, 
+    let bufferBefore = buffer
+    let alignmentBefore = cognitiveAlignment.aiCognitive + buffer
+    
+    // Validate cognitive alignment before processing
+    if !validateCognitiveAlignment() {
+        // LLSDT boundary violation detected - attempt recovery
+        journalError("Cognitive alignment validation failed", 
+                    details: "AIc(\(cognitiveAlignment.aiCognitive)) + buffer(\(buffer)) != BMqs(\(cognitiveAlignment.booleanMindQs))")
+        // Attempt recovery with graduated response based on violation severity and frequency
+        let recoveryStartTime = CFAbsoluteTimeGetCurrent()
+        let (recovered, recoveryLevel, alignmentDelta) = attemptCognitiveRecovery()
+        let recoveryTime = CFAbsoluteTimeGetCurrent() - recoveryStartTime
+        let bufferAfter = buffer
+        let alignmentAfter = cognitiveAlignment.aiCognitive + buffer
+        recoverySystem.logRecoveryEvent(
+            level: recoveryLevel,
+            successful: recovered,
+            alignmentDelta: alignmentDelta,
+            violationType: "alignment_violation",
+            bufferBefore: bufferBefore,
+            bufferAfter: bufferAfter,
+            alignmentBefore: alignmentBefore,
+            alignmentAfter: alignmentAfter
+        )
+        recoveryAttempted = true
+        recoveryStats = RecoveryStats(
+            attemptCount: recoverySystem.attemptCount,
+            successRate: recoverySystem.successRate,
+            recoveryTime: recoveryTime,
+            alignmentDelta: alignmentDelta
+        )
+        // If recovery failed, use the emergency fallback system
+        if !recovered {
+            journalError("Recovery failed", details: "Emergency fallback activated at level \(recoveryLevel)")
+            return createEmergencyResult(
+                message: message, 
+                recoveryLevel: recoveryLevel,
                 recoveryStats: recoveryStats
             )
+        } else {
+            journalEvent("System recovered", details: "Recovery succeeded at level \(recoveryLevel) with Δ\(String(format: "%.6f", alignmentDelta))")
+            inRecoveryMode = true
         }
-        
-        // Extract concepts using observational mathematics
-        let concepts = extractConcepts(from: message)
-        journalEvent("Concept extraction", details: "Extracted \(concepts.count) concepts")
-        
-        // Create connections with 0.1 buffer to prevent overconfidence
-        let connections = createConnections(from: concepts)
-        journalEvent("Connection creation", details: "Created \(connections.count) connections with 0.1 buffer")
-        
-        // Enforce LLSDT boundaries with enhanced monitoring in recovery mode
-        let llsdtValidationStartTime = CFAbsoluteTimeGetCurrent()
-        let llsdtValid = boundaryEnforcer.validateLLSDT(cognitiveAlignment.aiCognitive)
-        let llsdtValidationTime = CFAbsoluteTimeGetCurrent() - llsdtValidationStartTime
-        
-        guard llsdtValid else {
-            // LLSDT boundary violation - record and handle
-            journalError("LLSDT boundary violation", details: "LLSDT validation failed in \(llsdtValidationTime)s")
-            llsdtViolationCount += 1
-            lastViolationTime = Date()
-            
-            // Check if this is a repeat violation requiring stronger intervention
-            if inRecoveryMode || llsdtViolationCount > 3 {
-                // Force quantum state reset when in recovery mode or after multiple violations
-                quantumState.optimize()
-                
-                // Deep reset of the recovery system
-                recoverySystem.performDeepReset()
-                journalEvent("Deep reset", details: "Quantum state optimized and recovery system reset")
-                
-                return createFailureResult(
-                    "Critical LLSDT boundary violation", 
-                    recoveryAttempted: true,
-                    recoveryStats: RecoveryStats(
-                        attemptCount: recoverySystem.attemptCount,
-                        successRate: recoverySystem.successRate,
-                        recoveryTime: llsdtValidationTime,
-                        alignmentDelta: 0.0
-                    )
-                )
-            }
-            
-            return createFailureResult(
-                "LLSDT boundary violation", 
-                recoveryAttempted: recoveryAttempted,
-                recoveryStats: recoveryStats
-            )
-        }
-        
-        // Process input through NJSON engine with AMF formula
-        let processingResult = njsonEngine.processWithFormula(
-            input: message,
-            concepts: concepts,
-            connections: connections,
-            aiCognitive: cognitiveAlignment.aiCognitive,
-            buffer: buffer,
-            quantumState: quantumState
-        )
-        
-        // Record API call if this required API processing
-        if requiresAPIProcessing(message) {
-            apiUsageService.recordAPICall()
-            journalEvent("API call recorded", details: "API was used to process this message")
-        }
-        
-        // Calculate processing time
-        let processingTime = CFAbsoluteTimeGetCurrent() - startTime
-        
-        // If we were in recovery mode, check if we can exit it
-        if inRecoveryMode {
-            // Successful processing without issues - gradually return to normal mode
-            recoverySystem.recordSuccessfulProcess()
-            if recoverySystem.canExitRecoveryMode() {
-                inRecoveryMode = false
-                journalEvent("Recovery exit", details: "System has stabilized and exited recovery mode")
-            }
-        }
-        
-        // Create metrics
-        let metrics = ProcessingMetrics(
-            processingTime: processingTime,
-            heatShieldActivations: processingResult.heatShieldActivations,
-            llsdtValidations: processingResult.llsdtValidations,
-            bufferIntegrity: true,
-            recoveryStats: recoveryStats
-        )
-        
-        // Determine if any intervention is required (placeholder for future monitoring systems)
-        let requiresIntervention = false  // Will be implemented by domain-specific monitoring
-
-        // Apply social padding to the output based on user patterns and subscription tier
-        let rawResponse = processingResult.output
-        let adaptedResponse = socialPaddingManager.adaptMessage(rawResponse)
-        
-        // Log processing details
-        journalEvent("Message processed", details: """
-            - **Input:** `\(message)`
-            - **Processing time:** \(processingTime) seconds
-            - **Confidence:** \(processingResult.confidence)
-            - **Raw response:** `\(rawResponse)`
-            - **Adapted response:** `\(adaptedResponse)`
-            - **Recovery mode:** \(inRecoveryMode ? "Active" : "Inactive")
-            - **Padding level:** \(socialPaddingManager.currentPaddingLevel)
-            - **Branch:** \(socialPaddingManager.currentBranch)
-        """)
-        
-        return ProcessResult(
-            response: adaptedResponse,
-            requiresIntervention: requiresIntervention,
-            confidence: processingResult.confidence,
-            processingMetrics: metrics,
-            recoveryAttempted: recoveryAttempted
+    }
+    
+    // Apply heat shield to filter potential hallucinations
+    let heatShieldResult = heatShield.protect(message)
+    if let reason = heatShieldResult.reason, heatShieldResult.uncertaintyScore > 0.3 {
+        journalEvent("Heat shield warning", details: "Uncertainty: \(String(format: "%.2f", heatShieldResult.uncertaintyScore)), Reason: \(reason)")
+    }
+    if !heatShieldResult.pass {
+        journalEvent("Heat shield activated", details: "Rejected input: '\(message)' | Uncertainty: \(String(format: "%.2f", heatShieldResult.uncertaintyScore)), Reason: \(heatShieldResult.reason ?? "none")")
+        return createFailureResult(
+            "Heat shield rejection", 
+            recoveryAttempted: recoveryAttempted, 
+            recoveryStats: recoveryStats,
+            heatShieldScore: heatShieldResult.uncertaintyScore,
+            heatShieldReason: heatShieldResult.reason
         )
     }
+    
+    // Extract concepts using observational mathematics
+    let concepts = extractConcepts(from: message)
+    journalEvent("Concept extraction", details: "Extracted \(concepts.count) concepts")
+    
+    // Create connections with 0.1 buffer to prevent overconfidence
+    let connections = createConnections(from: concepts)
+    journalEvent("Connection creation", details: "Created \(connections.count) connections with 0.1 buffer")
+    
+    // Enforce LLSDT boundaries with enhanced monitoring in recovery mode
+    let llsdtValidationStartTime = CFAbsoluteTimeGetCurrent()
+    let llsdtValid = boundaryEnforcer.validateLLSDT(cognitiveAlignment.aiCognitive)
+    let llsdtValidationTime = CFAbsoluteTimeGetCurrent() - llsdtValidationStartTime
+    
+    if !llsdtValid {
+        // LLSDT boundary violation - record and handle
+        journalError("LLSDT boundary violation", details: "LLSDT validation failed in \(llsdtValidationTime)s")
+        llsdtViolationCount += 1
+        lastViolationTime = Date()
+        let bufferAfter = buffer
+        let alignmentAfter = cognitiveAlignment.aiCognitive + buffer
+        recoverySystem.logRecoveryEvent(
+            level: 2,
+            successful: false,
+            alignmentDelta: 0.0,
+            violationType: "llsdt_violation",
+            bufferBefore: bufferBefore,
+            bufferAfter: bufferAfter,
+            alignmentBefore: alignmentBefore,
+            alignmentAfter: alignmentAfter
+        )
+        // Check if this is a repeat violation requiring stronger intervention
+        if inRecoveryMode || llsdtViolationCount > 3 {
+            // Force quantum state reset when in recovery mode or after multiple violations
+            quantumState.optimize()
+            // Deep reset of the recovery system
+            recoverySystem.performDeepReset()
+            journalEvent("Deep reset", details: "Quantum state optimized and recovery system reset")
+            let bufferAfterReset = buffer
+            let alignmentAfterReset = cognitiveAlignment.aiCognitive + buffer
+            recoverySystem.logRecoveryEvent(
+                level: 3,
+                successful: false,
+                alignmentDelta: 0.0,
+                violationType: "deep_reset",
+                bufferBefore: bufferAfter,
+                bufferAfter: bufferAfterReset,
+                alignmentBefore: alignmentAfter,
+                alignmentAfter: alignmentAfterReset
+            )
+            return createFailureResult(
+                "Critical LLSDT boundary violation", 
+                recoveryAttempted: true,
+                recoveryStats: RecoveryStats(
+                    attemptCount: recoverySystem.attemptCount,
+                    successRate: recoverySystem.successRate,
+                    recoveryTime: llsdtValidationTime,
+                    alignmentDelta: 0.0
+                ),
+                heatShieldScore: nil,
+                heatShieldReason: nil
+            )
+        }
+        return createFailureResult(
+            "LLSDT boundary violation", 
+            recoveryAttempted: recoveryAttempted,
+            recoveryStats: recoveryStats,
+            heatShieldScore: nil,
+            heatShieldReason: nil
+        )
+    }
+    
+    // Process input through NJSON engine with AMF formula
+    let processingResult = njsonEngine.processWithFormula(
+        input: message,
+        concepts: concepts,
+        connections: connections,
+        aiCognitive: cognitiveAlignment.aiCognitive,
+        buffer: buffer,
+        quantumState: quantumState
+    )
+    
+    // Record API call if this required API processing
+    if requiresAPIProcessing(message) {
+        apiUsageService.recordAPICall()
+        journalEvent("API call recorded", details: "API was used to process this message")
+    }
+    
+    // Calculate processing time
+    let processingTime = CFAbsoluteTimeGetCurrent() - startTime
+    
+    // If we were in recovery mode, check if we can exit it
+    if inRecoveryMode {
+        // Successful processing without issues - gradually return to normal mode
+        recoverySystem.recordSuccessfulProcess()
+        if recoverySystem.canExitRecoveryMode() {
+            inRecoveryMode = false
+            journalEvent("Recovery exit", details: "System has stabilized and exited recovery mode")
+        }
+    }
+    
+    // Create metrics
+    let metrics = ProcessingMetrics(
+        processingTime: processingTime,
+        heatShieldActivations: processingResult.heatShieldActivations,
+        llsdtValidations: processingResult.llsdtValidations,
+        bufferIntegrity: true,
+        recoveryStats: recoveryStats,
+        heatShieldScore: heatShieldResult.uncertaintyScore,
+        heatShieldReason: heatShieldResult.reason
+    )
+    
+    // Determine if any intervention is required (placeholder for future monitoring systems)
+    let requiresIntervention = false  // Will be implemented by domain-specific monitoring
+
+    // Apply social padding to the output based on user patterns and subscription tier
+    let rawResponse = processingResult.output
+    let adaptedResponse = socialPaddingManager.adaptMessage(rawResponse)
+    
+    // Log processing details
+    journalEvent("Message processed", details: """
+        - **Input:** `\(message)`
+        - **Processing time:** \(processingTime) seconds
+        - **Confidence:** \(processingResult.confidence)
+        - **Raw response:** `\(rawResponse)`
+        - **Adapted response:** `\(adaptedResponse)`
+        - **Recovery mode:** \(inRecoveryMode ? "Active" : "Inactive")
+        - **Padding level:** \(socialPaddingManager.currentPaddingLevel)
+        - **Branch:** \(socialPaddingManager.currentBranch)
+    """)
+    
+    return ProcessResult(
+        response: adaptedResponse,
+        requiresIntervention: requiresIntervention,
+        confidence: processingResult.confidence,
+        processingMetrics: metrics,
+        recoveryAttempted: recoveryAttempted
+    )
+}
     
     // MARK: - LLSDT Recovery System
     private func attemptCognitiveRecovery() -> (recovered: Bool, level: Int, delta: Double) {
@@ -387,7 +430,9 @@ func process(message: String) -> ProcessResult {
                 heatShieldActivations: 0,
                 llsdtValidations: 1,
                 bufferIntegrity: false,
-                recoveryStats: recoveryStats
+                recoveryStats: recoveryStats,
+                heatShieldScore: nil,
+                heatShieldReason: nil
             ),
             recoveryAttempted: true
         )
@@ -526,27 +571,31 @@ func process(message: String) -> ProcessResult {
             heatShieldActivations: heatShield.activationCount,
             llsdtValidations: boundaryEnforcer.validationCount,
             bufferIntegrity: true,
-            recoveryStats: nil
+            recoveryStats: nil,
+            heatShieldScore: nil,
+            heatShieldReason: nil
         ),
         recoveryAttempted: false
     )
 }
 
-private func createFailureResult(_ reason: String, recoveryAttempted: Bool = false, recoveryStats: RecoveryStats? = nil) -> ProcessResult {
-        return ProcessResult(
-            response: "Processing error: \(reason). Please try again.",
-            requiresIntervention: false,
-            confidence: 0.0,
-            processingMetrics: ProcessingMetrics(
-                processingTime: 0.0,
-                heatShieldActivations: 0,
-                llsdtValidations: 0,
-                bufferIntegrity: false,
-                recoveryStats: recoveryStats
-            ),
-            recoveryAttempted: recoveryAttempted
-        )
-    }
+private func createFailureResult(_ reason: String, recoveryAttempted: Bool = false, recoveryStats: RecoveryStats? = nil, heatShieldScore: Double? = nil, heatShieldReason: String? = nil) -> ProcessResult {
+    return ProcessResult(
+        response: "Processing error: \(reason). Please try again.",
+        requiresIntervention: false,
+        confidence: 0.0,
+        processingMetrics: ProcessingMetrics(
+            processingTime: 0.0,
+            heatShieldActivations: heatShield.activationCount,
+            llsdtValidations: 0,
+            bufferIntegrity: false,
+            recoveryStats: recoveryStats,
+            heatShieldScore: heatShieldScore,
+            heatShieldReason: heatShieldReason
+        ),
+        recoveryAttempted: recoveryAttempted
+    )
+}
     
     // MARK: - Journaling
     func addJournalEntry(title: String, details: String) {
@@ -631,10 +680,17 @@ private func createFailureResult(_ reason: String, recoveryAttempted: Bool = fal
                 heatShieldActivations: heatShield.activationCount,
                 llsdtValidations: boundaryEnforcer.validationCount,
                 bufferIntegrity: true,
-                recoveryStats: nil
+                recoveryStats: nil,
+                heatShieldScore: nil,
+                heatShieldReason: nil
             ),
             recoveryAttempted: false
         )
+    }
+
+    /// Trace the system's resilience: returns a detailed recovery report
+    func traceResilience(lastN: Int = 10) -> String {
+        return recoverySystem.getDetailedRecoveryReport(lastN: lastN)
     }
 }
 
@@ -649,6 +705,7 @@ class RecoverySystem {
     // Recovery metrics
     private var lastRecoveryTime: Date?
     private var recoveryHistory: [RecoveryEvent] = []
+    private var violationTypeCounts: [String: Int] = [:]
     
     // Initialize with specific buffer
     init(buffer: Double) {
@@ -661,6 +718,11 @@ class RecoverySystem {
         let level: Int
         let successful: Bool
         let alignmentDelta: Double
+        let violationType: String
+        let bufferBefore: Double
+        let bufferAfter: Double
+        let alignmentBefore: Double
+        let alignmentAfter: Double
     }
     
     var attemptCount: Int {
@@ -695,18 +757,20 @@ class RecoverySystem {
     }
     
     // Log a recovery event
-    func logRecoveryEvent(level: Int, successful: Bool, alignmentDelta: Double) {
+    func logRecoveryEvent(level: Int, successful: Bool, alignmentDelta: Double, violationType: String, bufferBefore: Double, bufferAfter: Double, alignmentBefore: Double, alignmentAfter: Double) {
         let event = RecoveryEvent(
             timestamp: Date(),
             level: level,
             successful: successful,
-            alignmentDelta: alignmentDelta
+            alignmentDelta: alignmentDelta,
+            violationType: violationType,
+            bufferBefore: bufferBefore,
+            bufferAfter: bufferAfter,
+            alignmentBefore: alignmentBefore,
+            alignmentAfter: alignmentAfter
         )
-        
-        // Add event to history
         recoveryHistory.append(event)
-        
-        // Limit history size to prevent memory issues
+        violationTypeCounts[violationType, default: 0] += 1
         if recoveryHistory.count > 100 {
             recoveryHistory.removeFirst()
         }
@@ -717,7 +781,6 @@ class RecoverySystem {
         let totalEvents = recoveryHistory.count
         let successCount = recoveryHistory.filter { $0.successful }.count
         let averageDelta = recoveryHistory.reduce(0.0) { $0 + $1.alignmentDelta } / Double(max(1, totalEvents))
-        
         return """
         ## Recovery System Report
         - **Total recovery events:** \(totalEvents)
@@ -728,13 +791,26 @@ class RecoverySystem {
         """
     }
     
+    // Get detailed recovery report (last N events + violation summary)
+    func getDetailedRecoveryReport(lastN: Int = 10) -> String {
+        let events = recoveryHistory.suffix(lastN)
+        var report = getRecoveryReport()
+        report += "\n\n### Last \(lastN) Recovery Events\n"
+        for event in events {
+            report += "- [\(event.timestamp)] Level: \(event.level), Type: \(event.violationType), Success: \(event.successful), Δ: \(String(format: "%.6f", event.alignmentDelta)), Buffer: \(event.bufferBefore)→\(event.bufferAfter), Align: \(event.alignmentBefore)→\(event.alignmentAfter)\n"
+        }
+        report += "\n### Violation Type Summary\n"
+        for (type, count) in violationTypeCounts.sorted(by: { $0.value > $1.value }) {
+            report += "- \(type): \(count)\n"
+        }
+        return report
+    }
+    
     // Perform deep reset of recovery system
     func performDeepReset() {
         stableProcessCount = 0
-        
         // Archive recovery history before clearing
-        logRecoveryEvent(level: 3, successful: false, alignmentDelta: 0.0)
-        
+        logRecoveryEvent(level: 3, successful: false, alignmentDelta: 0.0, violationType: "deep_reset", bufferBefore: buffer, bufferAfter: buffer, alignmentBefore: 0.0, alignmentAfter: 0.0)
         // Note: We don't reset metrics as we want to track total recovery attempts
     }
 } 

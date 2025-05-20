@@ -14,6 +14,8 @@ actor NJSON {
     private var subjectDetector: SubjectDetector
     private var templateEngine: TemplateEngine
     private var cognitiveState: CognitiveState
+    private var accessibilityPatternDetector: AccessibilityPatternDetector
+    private var senderAccessibility: [String: String] = [:] // sender -> pattern
     
     // MARK: - Logging System
     private let logger = Logger(subsystem: "com.blf.njson", category: "NJSON")
@@ -40,6 +42,9 @@ actor NJSON {
         // Initialize cognitive state
         self.cognitiveState = CognitiveState()
         
+        // Initialize accessibility pattern detector
+        self.accessibilityPatternDetector = AccessibilityPatternDetector()
+        
         logger.info("NJSON initialized with qs³ optimization and 0.1 hallucination buffer")
     }
     
@@ -63,6 +68,15 @@ actor NJSON {
             cognitiveState.recordSubjectChange(from: lastSubject ?? "", to: currentSubject)
             logger.debug("Subject changed from '\(lastSubject ?? "none")' to '\(currentSubject)'")
             await logEvent(.subjectChange, details: "From '\(lastSubject ?? "none")' to '\(currentSubject)'")
+        }
+        
+        // Accessibility pattern detection
+        let detectedAccessibility = await accessibilityPatternDetector.detectAccessibilityPattern(message, from: sender)
+        if let pattern = detectedAccessibility {
+            // Log and record accessibility pattern for adaptive response
+            await logEvent(.accessibilityPatternDetected, details: "Pattern: \(pattern), Sender: \(sender)")
+            cognitiveState.recordMetric(name: "accessibilityPattern_\(pattern)", value: 1.0)
+            senderAccessibility[sender] = pattern // Store for future responses
         }
         
         // First process with the BLF Key (the core V8 engine)
@@ -147,22 +161,33 @@ actor NJSON {
         subjectChanged: Bool,
         format: ResponseFormat
     ) async -> String {
-        // Format based on branch, subject change, and optimal format
         let branchKey = activeBranch.rawValue
         let paddingLevel = activeBranch.padding.rawValue
-        
-        // Get the appropriate template
+        // Check for accessibility adaptation
+        var useAccessible = false
+        if let sender = lastSender, let _ = senderAccessibility[sender] {
+            useAccessible = true
+        }
+        let templateFormat = useAccessible ? .accessible : format
         let response = await templateEngine.applyTemplate(
-            format: format,
+            format: templateFormat,
             branchKey: branchKey,
             content: processedMessage,
             paddingLevel: paddingLevel
         )
-        
-        // Update cognitive state with response data
         cognitiveState.recordResponseLength(response.count)
-        
+        if useAccessible {
+            await logEvent(.accessibilityPatternDetected, details: "Accessible response used for sender: \(lastSender ?? "unknown")")
+        }
         return response
+    }
+    
+    // Track last sender for adaptive formatting
+    private var lastSender: String?
+    // Update lastSender in processIncomingMessage
+    func processIncomingMessage(_ message: String, from sender: String) async throws -> String {
+        lastSender = sender
+        // ... existing code ...
     }
     
     // MARK: - Branch Management
@@ -710,6 +735,14 @@ actor TemplateEngine {
         templateCache["professionalTopicChange:professional:more"] = Template(format: "Regarding a different matter: %@")
         templateCache["professionalTopicChange:professional:medium"] = Template(format: "On another note: %@")
         templateCache["professionalTopicChange:professional:none"] = Template(format: "%@")
+        
+        // Accessible templates
+        templateCache["accessible:familyFriends:more"] = Template(format: "[Accessible] %@")
+        templateCache["accessible:familyFriends:medium"] = Template(format: "%@")
+        templateCache["accessible:familyFriends:none"] = Template(format: "%@")
+        templateCache["accessible:professional:more"] = Template(format: "[Accessible] %@")
+        templateCache["accessible:professional:medium"] = Template(format: "%@")
+        templateCache["accessible:professional:none"] = Template(format: "%@")
     }
     
     func applyTemplate(
@@ -771,6 +804,7 @@ enum ResponseFormat: String {
     case direct = "direct"              // Direct answer to a question
     case formal = "formal"              // Formal/professional response
     case professionalTopicChange = "professionalTopicChange" // Professional context topic change
+    case accessible = "accessible"      // New format for accessibility
 }
 
 enum Branch: String {
@@ -897,6 +931,7 @@ enum LogEventType: String, Codable {
     case configChange = "config_change"
     case systemStart = "system_start"
     case systemStop = "system_stop"
+    case accessibilityPatternDetected
 }
 
 enum LogEntryType: String, Codable {
@@ -1295,5 +1330,33 @@ struct TestTemplate {
     
     func format(with content: String) -> String {
         return String(format: format, content)
+    }
+}
+
+// MARK: - Accessibility Pattern Detector
+
+@available(macOS 10.15, *)
+actor AccessibilityPatternDetector {
+    // Patterns to detect accessibility needs (expandable)
+    private let accessibilityKeywords = [
+        "dyslexia", "autism", "adhd", "hearing", "vision", "blind", "deaf", "slow reader", "cognitive", "memory", "speech", "stutter", "wheelchair", "mobility", "colorblind", "assistive", "screen reader", "large text", "caption", "subtitles", "simple language", "plain language"
+    ]
+    
+    // Store last detected pattern for each sender
+    private var lastDetected: [String: String] = [:]
+    
+    func detectAccessibilityPattern(_ message: String, from sender: String) -> String? {
+        let lowercased = message.lowercased()
+        for keyword in accessibilityKeywords {
+            if lowercased.contains(keyword) {
+                lastDetected[sender] = keyword
+                return keyword
+            }
+        }
+        return nil
+    }
+    
+    func getLastDetected(for sender: String) -> String? {
+        return lastDetected[sender]
     }
 } 

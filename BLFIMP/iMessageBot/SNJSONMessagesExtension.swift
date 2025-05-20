@@ -17,6 +17,7 @@ class SNJSONMessagesExtension {
     // Configuration
     private let processingQueue = DispatchQueue(label: "com.snjson.messageProcessing", qos: .userInitiated)
     private let config: SNJSONConfig
+    private let userAge: Int
     
     // Metrics
     private var processedMessageCount = 0
@@ -24,6 +25,7 @@ class SNJSONMessagesExtension {
     
     // Initialization
     init(userAge: Int, config: SNJSONConfig = SNJSONConfig()) {
+        self.userAge = userAge
         self.messageProcessor = MessageProcessor(userAge: userAge)
         self.config = config
         
@@ -168,6 +170,53 @@ class SNJSONMessagesExtension {
         if result.recoveryAttempted {
             logRecoveryEvent(result)
         }
+        
+        // Surface heat shield warnings/blocks to the user
+        if let hsScore = result.processingMetrics.heatShieldScore, let hsReason = result.processingMetrics.heatShieldReason {
+            if !result.processingMetrics.bufferIntegrity || !result.processingMetrics.recoveryStats?.successRate.isNaN ?? false {
+                // Already handled by intervention
+            } else if hsScore > 0.3 && result.processingMetrics.heatShieldReason?.contains("warning") == true {
+                // Heat shield warning (not blocked)
+                let warningMsg: String
+                if userAge < 13 {
+                    warningMsg = "🙂 I'm not fully confident in my answer—please ask again or try a different question! (Uncertainty: \(String(format: "%.2f", hsScore)))"
+                } else {
+                    warningMsg = "[Engine Light] I'm not fully confident in my answer—please clarify or rephrase if needed. (Uncertainty: \(String(format: "%.2f", hsScore)))"
+                }
+                switch config.interventionMode {
+                case .autoRespond:
+                    sendResponse(warningMsg, to: sender)
+                case .alert:
+                    postUserNotification(title: "SNJSON Engine Light", subtitle: "Uncertainty: \(String(format: "%.2f", hsScore))", message: warningMsg)
+                case .log:
+                    log(warningMsg)
+                case .custom where config.customInterventionHandler != nil:
+                    config.customInterventionHandler?(result, warningMsg, sender)
+                default:
+                    log(warningMsg)
+                }
+            } else if result.processingMetrics.heatShieldReason?.contains("uncertainty threshold exceeded") == true || result.processingMetrics.heatShieldReason?.contains("hallucination indicator detected") == true {
+                // Heat shield block
+                let blockMsg: String
+                if userAge < 13 {
+                    blockMsg = "☹️ I'm being careful—please try asking your question a different way! (Uncertainty: \(String(format: "%.2f", hsScore)))"
+                } else {
+                    blockMsg = "[Engine Light] I'm being cautious—please rephrase your question for a more confident answer. (Uncertainty: \(String(format: "%.2f", hsScore)))"
+                }
+                switch config.interventionMode {
+                case .autoRespond:
+                    sendResponse(blockMsg, to: sender)
+                case .alert:
+                    postUserNotification(title: "SNJSON Engine Light", subtitle: "Blocked for Uncertainty", message: blockMsg)
+                case .log:
+                    log(blockMsg)
+                case .custom where config.customInterventionHandler != nil:
+                    config.customInterventionHandler?(result, blockMsg, sender)
+                default:
+                    log(blockMsg)
+                }
+            }
+        }
     }
     
     // MARK: - Response Handling
@@ -299,6 +348,21 @@ class SNJSONMessagesExtension {
             isMonitoring: isMonitoring,
             bufferIntegrity: true  // Always maintain 0.1 buffer
         )
+    }
+    
+    // Add a helper for user notifications
+    private func postUserNotification(title: String, subtitle: String, message: String) {
+        if #available(macOS 11.0, *) {
+            let notification = "osascript -e 'display notification \"\(message)\" with title \"\(title)\" subtitle \"\(subtitle)\"'"
+            let task = Process()
+            task.launchPath = "/bin/bash"
+            task.arguments = ["-c", notification]
+            do {
+                try task.run()
+            } catch {
+                log("ERROR: Failed to post user notification: \(error.localizedDescription)")
+            }
+        }
     }
 }
 
