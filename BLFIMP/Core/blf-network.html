@@ -1,177 +1,312 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>BLF Concept Network</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/vis-network.min.js"></script>
-  <style>
-    body, html { 
+  <title>BLF Network Visualization</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style type="text/css">
+    body, html {
+      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
+      height: 100%;
+      background-color: #f5f5f5;
+    }
+    #network-container {
       width: 100%;
-      height: 100%;
-      font-family: Arial, sans-serif;
-      background-color: #f7f9fc;
-    }
-    
-    #container {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-    
-    header {
-      background-color: #2c3e50;
-      color: white;
-      padding: 15px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    
-    h1 {
-      margin: 0;
-      font-size: 24px;
-    }
-    
-    .formula {
-      font-style: italic;
-      margin-top: 5px;
-      font-size: 14px;
-    }
-    
-    #network {
-      flex-grow: 1;
+      height: 70vh;
       border: 1px solid #ddd;
-      margin: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      background-color: white;
     }
-    
-    .legend {
+    .dashboard-container {
       display: flex;
-      justify-content: center;
+      flex-wrap: wrap;
       padding: 10px;
       background-color: white;
       border-top: 1px solid #ddd;
     }
-    
+    .dashboard-card {
+      flex: 1;
+      min-width: 250px;
+      margin: 10px;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .buffer-gauge-container {
+      position: relative;
+      width: 200px;
+      height: 100px;
+      margin: 0 auto;
+    }
+    .buffer-gauge {
+      width: 100%;
+      height: 100%;
+    }
+    .report-container {
+      padding: 20px;
+      background-color: white;
+      border-top: 1px solid #ddd;
+    }
+    .integrity-maintained {
+      color: green;
+      font-weight: bold;
+    }
+    .integrity-violated {
+      color: red;
+      font-weight: bold;
+    }
+    .status-optimal {
+      color: #2ECC71;
+      font-weight: bold;
+    }
+    .status-healthy {
+      color: #27AE60;
+      font-weight: bold;
+    }
+    .status-degraded {
+      color: #F39C12;
+      font-weight: bold;
+    }
+    .status-warning {
+      color: #E67E22;
+      font-weight: bold;
+    }
+    .status-critical {
+      color: #E74C3C;
+      font-weight: bold;
+    }
+    h1, h2, h3 {
+      color: #333;
+    }
+    .legend {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
     .legend-item {
-      margin: 0 15px;
       display: flex;
       align-items: center;
+      margin-right: 20px;
     }
-    
-    .legend-color {
+    .color-box {
       width: 15px;
       height: 15px;
       margin-right: 5px;
-      border-radius: 50%;
+    }
+    .critical-zone {
+      background-color: rgba(231, 76, 60, 0.1);
+      border-left: 4px solid #E74C3C;
+      padding: 10px;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
-  <div id="container">
-    <header>
-      <h1>BLF Concept Network Visualization</h1>
-      <div class="formula">Formula: AIc + 0.1 = BMqs</div>
-    </header>
-    
-    <div id="network"></div>
-    
-    <div class="legend">
-      
-        <div class="legend-item">
-          <div class="legend-color" style="background-color: #3498db;"></div>
-          <div>Core</div>
-        </div>
-      
-        <div class="legend-item">
-          <div class="legend-color" style="background-color: #e74c3c;"></div>
-          <div>System</div>
-        </div>
-      
-        <div class="legend-item">
-          <div class="legend-color" style="background-color: #2ecc71;"></div>
-          <div>Concept</div>
-        </div>
-      
-        <div class="legend-item">
-          <div class="legend-color" style="background-color: #f39c12;"></div>
-          <div>Entity</div>
-        </div>
-      
-        <div class="legend-item">
-          <div class="legend-color" style="background-color: #9b59b6;"></div>
-          <div>Process</div>
-        </div>
-      
-        <div class="legend-item">
-          <div class="legend-color" style="background-color: #1abc9c;"></div>
-          <div>State</div>
-        </div>
-      
+  <div style="padding: 10px; background-color: #333; color: white;">
+    <h1>Boolean Language Framework Network Visualization</h1>
+    <p>Visual representation of concept relationships with exact 0.1 buffer</p>
+  </div>
+  
+  <div class="legend">
+    <div class="legend-item">
+      <div class="color-box" style="background-color: #E74C3C"></div>
+      <span>Core Concepts</span>
+    </div>
+    <div class="legend-item">
+      <div class="color-box" style="background-color: #3498DB"></div>
+      <span>Buffer Components</span>
+    </div>
+    <div class="legend-item">
+      <div class="color-box" style="background-color: #F39C12"></div>
+      <span>Heat Shield</span>
+    </div>
+    <div class="legend-item">
+      <div class="color-box" style="background-color: #9B59B6"></div>
+      <span>Quantum State</span>
+    </div>
+    <div class="legend-item">
+      <div class="color-box" style="background-color: #FF4136"></div>
+      <span>Critical Violations</span>
     </div>
   </div>
   
-  <script>
-    // Parse nodes and edges
-    const nodes = new vis.DataSet([{"id":1,"label":"Boolean Mind","title":"<strong>Boolean Mind</strong><br>Type: core<br>Quantum Level: 2.99<br>The pure Boolean Mind state operating at quantum speed level 3","color":"#3498db","size":29.900000000000002,"font":{"size":14}},{"id":2,"label":"AI Cognitive","title":"<strong>AI Cognitive</strong><br>Type: core<br>Quantum Level: 2.89<br>The AI cognitive capabilities with 0.1 buffer zone","color":"#3498db","size":28.900000000000002,"font":{"size":14}},{"id":3,"label":"Heat Shield","title":"<strong>Heat Shield</strong><br>Type: system<br>Quantum Level: 1.99<br>The immune system rejecting foreign invaders","color":"#e74c3c","size":20,"font":{"size":14}}]);
-    const edges = new vis.DataSet([{"from":1,"to":2,"label":"1.00","title":"The narrow bridge between chaos and control","width":5,"arrows":"to","smooth":{"type":"curvedCW","roundness":0.2}},{"from":2,"to":3,"label":"0.80","title":"AI cognitive capabilities enhanced by heat shield","width":4,"arrows":"to","smooth":{"type":"curvedCW","roundness":0.2}}]);
+  <div id="network-container"></div>
+  
+  <!-- Buffer Integrity Dashboard -->
+  <div class="dashboard-container">
+    <div class="dashboard-card">
+      <h3>Buffer Health</h3>
+      <div class="buffer-gauge-container">
+        <canvas id="buffer-gauge" class="buffer-gauge"></canvas>
+      </div>
+      <p>Status: <span class="status-optimal">OPTIMAL</span></p>
+      <p>Health Score: 100.00%</p>
+    </div>
     
-    // Create network
-    const container = document.getElementById('network');
-    const data = { nodes, edges };
+    <div class="dashboard-card">
+      <h3>Buffer Integrity</h3>
+      <p>Total Elements: 10</p>
+      <p>Violations: 0 (0.00%)</p>
+      <p>Average Deviation: 0.000000</p>
+      <p>Critical Zones: 0</p>
+    </div>
+    
+    <div class="dashboard-card">
+      <h3>Worst Deviations</h3>
+      <div id="worst-deviations-chart-container" style="height: 150px;">
+        <canvas id="worst-deviations-chart"></canvas>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Critical Zones Section -->
+  
+  
+  <div class="report-container">
+    <h2>Network Integrity Report</h2>
+    <p>Buffer Value: 0.1 (The narrow bridge between chaos and control)</p>
+    <p>Buffer Integrity: <span class="integrity-maintained">
+      ✓ Maintained
+    </span></p>
+    <p>Concepts: 10</p>
+    <p>Connections: 0</p>
+    <p>Generated: 5/20/2025, 8:21:16 PM</p>
+    
+    <h3>Concept Type Distribution</h3>
+    <ul>
+      <li>core: 4</li>
+      <li>protection: 1</li>
+      <li>structure: 1</li>
+      <li>processing: 1</li>
+      <li>formula: 1</li>
+      <li>process: 1</li>
+      <li>math: 1</li>
+    </ul>
+    
+    
+    
+    
+  </div>
+
+  <script type="text/javascript">
+    // Create the network visualization
+    const container = document.getElementById('network-container');
+    
+    // Parse the data
+    const nodes = new vis.DataSet([{"id":28,"label":"Boolean Mind","title":"Boolean Mind (core)\nQL: undefined\nBuffer: 0.1","color":"#E74C3C","size":15,"buffer":0.1},{"id":29,"label":"AI Cognitive","title":"AI Cognitive (core)\nQL: undefined\nBuffer: 0.1","color":"#E74C3C","size":15,"buffer":0.1},{"id":30,"label":"Buffer","title":"Buffer (core)\nQL: undefined\nBuffer: 0.1","color":"#3498DB","size":15,"buffer":0.1},{"id":31,"label":"Heat Shield","title":"Heat Shield (protection)\nQL: undefined\nBuffer: 0.1","color":"#F39C12","size":15,"buffer":0.1},{"id":32,"label":"NJSON","title":"NJSON (structure)\nQL: undefined\nBuffer: 0.1","color":"#2ECC71","size":15,"buffer":0.1},{"id":33,"label":"Quantum State","title":"Quantum State (processing)\nQL: undefined\nBuffer: 0.1","color":"#9B59B6","size":15,"buffer":0.1},{"id":34,"label":"Cognitive Alignment","title":"Cognitive Alignment (formula)\nQL: undefined\nBuffer: 0.1","color":"#2ECC71","size":15,"buffer":0.1},{"id":35,"label":"V8 Engine","title":"V8 Engine (core)\nQL: undefined\nBuffer: 0.1","color":"#E74C3C","size":15,"buffer":0.1},{"id":36,"label":"Breathing","title":"Breathing (process)\nQL: undefined\nBuffer: 0.1","color":"#2ECC71","size":15,"buffer":0.1},{"id":37,"label":"Formula","title":"Formula (math)\nQL: undefined\nBuffer: 0.1","color":"#2ECC71","size":15,"buffer":0.1}]);
+    const edges = new vis.DataSet([]);
+    
+    // Configuration
     const options = {
-      physics: {
-        barnesHut: {
-          gravitationalConstant: -2000,
-          centralGravity: 0.3,
-          springLength: 150,
-          springConstant: 0.04,
-          damping: 0.09
-        },
-        stabilization: { iterations: 150 }
-      },
-      layout: {
-        improvedLayout: true
-      },
       nodes: {
         shape: 'dot',
-        scaling: {
-          min: 10,
-          max: 50,
-          label: {
-            enabled: true,
-            min: 14,
-            max: 24
-          }
-        },
-        shadow: true
+        font: {
+          size: 14
+        }
       },
       edges: {
-        scaling: {
-          min: 1,
-          max: 10
-        },
-        shadow: true,
         smooth: {
-          type: 'curvedCW',
-          roundness: 0.2
+          type: 'continuous'
+        },
+        font: {
+          size: 12,
+          align: 'middle'
+        }
+      },
+      physics: {
+        stabilization: true,
+        barnesHut: {
+          gravitationalConstant: -80000,
+          springConstant: 0.001,
+          springLength: 200
         }
       },
       interaction: {
-        hover: true,
         navigationButtons: true,
         keyboard: true
       }
     };
     
-    const network = new vis.Network(container, data, options);
+    // Create the network
+    const network = new vis.Network(container, { nodes, edges }, options);
     
-    // Enable physics after stabilization
-    network.on("stabilizationIterationsDone", function () {
-      setTimeout(() => {
-        network.setOptions({ physics: { enabled: true } });
-      }, 1000);
+    // Add event listener to show node details
+    network.on('click', function(params) {
+      if (params.nodes.length > 0) {
+        const nodeId = params.nodes[0];
+        const node = nodes.get(nodeId);
+        console.log('Node clicked:', node);
+        // Could add more interactive features here
+      }
     });
+    
+    // Create buffer health gauge
+    const bufferGauge = document.getElementById('buffer-gauge').getContext('2d');
+    new Chart(bufferGauge, {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [100, 0],
+          backgroundColor: [
+            getStatusColor(1),
+            '#f5f5f5'
+          ],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        cutout: '70%',
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+          tooltip: {
+            enabled: false
+          },
+          legend: {
+            display: false
+          }
+        }
+      }
+    });
+    
+    // Create worst deviations chart
+    const worstDeviationsChart = document.getElementById('worst-deviations-chart').getContext('2d');
+    new Chart(worstDeviationsChart, {
+      type: 'bar',
+      data: {
+        labels: ["Boolean Mind","AI Cognitive","Buffer","Heat Shield","NJSON"],
+        datasets: [{
+          label: 'Buffer Deviation',
+          data: [0,0,0,0,0],
+          backgroundColor: ["#F39C12","#F39C12","#F39C12","#F39C12","#F39C12"],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Deviation'
+            }
+          }
+        }
+      }
+    });
+    
+    function getStatusColor(score) {
+      if (score > 0.95) return '#2ECC71'; // optimal
+      if (score > 0.8) return '#27AE60';  // healthy
+      if (score > 0.6) return '#F39C12';  // degraded
+      if (score > 0.3) return '#E67E22';  // warning
+      return '#E74C3C';                   // critical
+    }
   </script>
 </body>
 </html>

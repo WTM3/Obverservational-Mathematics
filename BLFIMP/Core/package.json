@@ -5,7 +5,17 @@
   "main": "SQLiteExample.js",
   "scripts": {
     "start": "node SQLiteExample.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "visualize": "node NetworkVisualizer.js",
+    "visualize:test": "node NetworkVisualizer.js --create-test",
+    "buffer": "node BufferVisualizer.js",
+    "buffer:high-noise": "node BufferVisualizer.js --noise 0.03",
+    "buffer:critical": "node BufferVisualizer.js --deterioration 0.08 --recovery 0.12",
+    "monitor": "node BufferIntegrityMonitor.js",
+    "monitor:test": "node BufferIntegrityMonitor.js --create-test",
+    "forecast": "node BufferForecast.js",
+    "forecast:critical": "node BufferForecast.js --deterioration 0.08 --recovery 0.12",
+    "forecast:watch": "node BufferForecast.js && watch -n 30 node BufferForecast.js"
   },
   "keywords": [
     "BLF",
@@ -16,6 +26,7 @@
   "author": "AMF",
   "license": "UNLICENSED",
   "dependencies": {
+    "chart.js": "^4.3.0",
     "sqlite3": "^5.1.7"
   }
 }
