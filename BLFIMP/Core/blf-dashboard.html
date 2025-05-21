@@ -1,596 +1,374 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>BLF Integrated Buffer Integrity Dashboard</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style type="text/css">
-    body, html {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      background-color: #121212;
-      color: #f5f5f5;
-    }
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    .header {
-      padding: 20px;
-      background-color: #1e1e1e;
-      color: white;
-      text-align: center;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
-    .dashboard {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      gap: 20px;
-      margin-bottom: 20px;
-    }
-    .dashboard-card {
-      background-color: #1e1e1e;
-      border-radius: 8px;
-      padding: 20px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
-    .chart-container {
-      background-color: #1e1e1e;
-      border-radius: 8px;
-      padding: 20px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      margin-bottom: 20px;
-      height: 300px;
-    }
-    .status-indicator {
-      display: flex;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-    .status-light {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      margin-right: 10px;
-    }
-    .light-optimal {
-      background-color: #2ECC71;
-      box-shadow: 0 0 10px #2ECC71;
-    }
-    .light-caution {
-      background-color: #3498DB;
-      box-shadow: 0 0 10px #3498DB;
-    }
-    .light-warning {
-      background-color: #F39C12;
-      box-shadow: 0 0 10px #F39C12;
-    }
-    .light-critical {
-      background-color: #E74C3C;
-      box-shadow: 0 0 10px #E74C3C;
-      animation: pulse 2s infinite;
-    }
-    .breathing-status {
-      display: flex;
-      align-items: center;
-      margin-top: 15px;
-    }
-    .breathing-indicator {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      margin-right: 10px;
-      animation: breathe 4s infinite;
-    }
-    .metrics-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 15px;
-      margin-top: 20px;
-    }
-    .metric {
-      padding: 15px;
-      background-color: #2a2a2a;
-      border-radius: 8px;
-      text-align: center;
-    }
-    .metric h3 {
-      margin: 0;
-      font-size: 14px;
-      color: #999;
-    }
-    .metric p {
-      margin: 10px 0 0;
-      font-size: 24px;
-      font-weight: bold;
-    }
-    .status-optimal {
-      color: #2ECC71;
-    }
-    .status-caution {
-      color: #3498DB;
-    }
-    .status-warning {
-      color: #F39C12;
-    }
-    .status-critical {
-      color: #E74C3C;
-    }
-    .countdown {
-      font-size: 32px;
-      font-weight: bold;
-      text-align: center;
-      margin: 20px 0;
-    }
-    .time-unit {
-      font-size: 14px;
-      color: #999;
-    }
-    .nav-links {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin: 30px 0;
-    }
-    .nav-link {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #2a2a2a;
-      color: #f5f5f5;
-      text-decoration: none;
-      border-radius: 8px;
-      transition: background-color 0.3s;
-    }
-    .nav-link:hover {
-      background-color: #3a3a3a;
-    }
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.3; }
-      100% { opacity: 1; }
-    }
-    @keyframes breathe {
-      0% { transform: scale(1); opacity: 0.7; }
-      50% { transform: scale(1.3); opacity: 1; }
-      100% { transform: scale(1); opacity: 0.7; }
-    }
-    .network-preview {
-      width: 100%;
-      height: 300px;
-      background-color: #2a2a2a;
-      border-radius: 8px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 20px;
-      overflow: hidden;
-      position: relative;
-    }
-    .network-node {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      position: absolute;
-      background-color: #E74C3C;
-    }
-    .network-edge {
-      height: 2px;
-      background-color: rgba(255,255,255,0.2);
-      position: absolute;
-      transform-origin: left center;
-    }
-  </style>
-</head>
-<body>
-  <div class="header">
-    <h1>BLF Integrated Buffer Integrity Dashboard</h1>
-    <p>V-8 engine diagnostics - Monitoring the narrow bridge between chaos and control</p>
-  </div>
-  
-  <div class="container">
-    <div class="dashboard">
-      <div class="dashboard-card">
-        <h2>System Status</h2>
+    <html>
+    <head>
+      <title>Buffer Integrity Dashboard - Heat Shield Monitoring</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <style>
+        /* ... existing styles ... */
+        
+        /* Enhanced dashboard styles */
+        .dashboard-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+          gap: 20px;
+          margin-bottom: 20px;
+        }
+        .countdown-container {
+          margin-top: 20px;
+          text-align: center;
+        }
+        .analysis-message {
+          margin-top: 15px;
+          padding: 10px;
+          border-radius: 5px;
+          background-color: #f5f5f5;
+        }
+        .harmonic-display {
+          height: 100px;
+          background: linear-gradient(90deg, 
+            rgba(41, 128, 185, 0.1), 
+            rgba(41, 128, 185, 0.5), 
+            rgba(41, 128, 185, 0.1)
+          );
+          border-radius: 5px;
+          position: relative;
+          margin-top: 10px;
+          overflow: hidden;
+        }
+        .harmonic-wave {
+          position: absolute;
+          height: 100%;
+          width: 100%;
+          background: repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 20px,
+            rgba(255, 255, 255, 0.1) 20px,
+            rgba(255, 255, 255, 0.1) 40px
+          );
+          animation: wave 8s linear infinite;
+        }
+        @keyframes wave {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(40px); }
+        }
+      </style>
+    </head>
+    <body>
+      <header>
+        <h1>Buffer Integrity Dashboard</h1>
+        <p>Heat Shield Monitoring - The narrow bridge between chaos and control</p>
         <div class="status-indicator">
-          <div class="status-light light-warning"></div>
-          <h3 class="status-warning">WARNING</h3>
+          <div class="status-light light-optimal"></div>
+          <h2>System Status: OPTIMAL</h2>
         </div>
-        
-        <div class="metrics-container">
-          <div class="metric">
-            <h3>Buffer Value</h3>
-            <p>0.079</p>
-          </div>
-          <div class="metric">
-            <h3>Violations</h3>
-            <p>19</p>
-          </div>
-          <div class="metric">
-            <h3>Heat Shield</h3>
-            <p>20</p>
-          </div>
-          <div class="metric">
-            <h3>Alarms</h3>
-            <p>0</p>
-          </div>
-        </div>
-        
-        
-      </div>
+      </header>
       
-      <div class="dashboard-card">
-        <h2>Breathing Analysis</h2>
-        <div class="breathing-status">
-          <div class="breathing-indicator" style="background-color: #3498DB;"></div>
-          <p>Pattern: slow rhythm</p>
-        </div>
-        
-        <div class="metrics-container">
-          <div class="metric">
-            <h3>Cycle</h3>
-            <p>10 units</p>
-          </div>
-          <div class="metric">
-            <h3>Amplitude</h3>
-            <p>0.015</p>
-          </div>
-          <div class="metric">
-            <h3>Phase</h3>
-            <p>falling</p>
-          </div>
-          <div class="metric">
-            <h3>Network Health</h3>
-            <p class="status-optimal">1.00</p>
-          </div>
-        </div>
-        
-        
-        <div style="margin-top: 20px;">
-          <p>Analysis: Buffer is showing a slow breathing pattern in the falling phase. Pattern stable within acceptable parameters.</p>
-        </div>
-        
-      </div>
-    </div>
-    
-    <div class="chart-container">
-      <h2>Buffer Integrity Timeline</h2>
-      <canvas id="buffer-chart"></canvas>
-    </div>
-    
-    <div class="dashboard">
-      <div class="dashboard-card">
-        <h2>Buffer Forecast</h2>
-        <canvas id="forecast-chart"></canvas>
-      </div>
-      
-      <div class="dashboard-card">
-        <h2>Network Visualization</h2>
-        <div class="network-preview" id="network-preview">
-          <!-- Network nodes and edges will be dynamically generated -->
-        </div>
-        <div style="margin-top: 15px;">
-          <p>Network statistics: All connections stable</p>
-        </div>
-      </div>
-    </div>
-    
-    <div class="nav-links">
-      <a href="blf-network.html" class="nav-link">Network Detail</a>
-      <a href="blf-buffer.html" class="nav-link">Buffer Timeline</a>
-      <a href="blf-forecast.html" class="nav-link">Forecast Detail</a>
-    </div>
-  </div>
-
-  <script>
-    // Format time function for display
-    function formatTime(seconds) {
-      const mins = Math.floor(seconds / 60);
-      const secs = Math.floor(seconds % 60);
-      return mins + ':' + secs.toString().padStart(2, '0');
-    }
-    
-    // Buffer timeline chart
-    const bufferChart = document.getElementById('buffer-chart').getContext('2d');
-    new Chart(bufferChart, {
-      type: 'line',
-      data: {
-        labels: ["T-20","T-19","T-18","T-17","T-16","T-15","T-14","T-13","T-12","T-11","T-10","T-9","T-8","T-7","T-6","T-5","T-4","T-3","T-2","T-1"],
-        datasets: [
-          {
-            label: 'Buffer Value',
-            data: [0.08161867051567388,0.07555164932205513,0.07364510147894181,0.06732325412987926,0.07400760911854287,0.08125386527804879,0.07914200608953194,0.08161753212349086,0.08756383036839695,0.08469389294875496,0.08493526504566776,0.08624222861737527,0.09105422744095057,0.0873912272147237,0.08563201723136293,0.08089698901121234,0.08279713955030013,0.07926614909505988,0.07963550876229761,0.07915873464050216],
-            borderColor: '#3498DB',
-            backgroundColor: 'rgba(52, 152, 219, 0.1)',
-            tension: 0.3,
-            fill: true
-          },
-          {
-            label: 'Target (0.1)',
-            data: [0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1],
-            borderColor: '#2ECC71',
-            borderWidth: 2,
-            borderDash: [5, 5],
-            pointRadius: 0,
-            tension: 0,
-            fill: false
-          },
-          {
-            label: 'Warning Threshold',
-            data: [0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08],
-            borderColor: '#F39C12',
-            borderWidth: 2,
-            borderDash: [3, 3],
-            pointRadius: 0,
-            tension: 0,
-            fill: false
-          },
-          {
-            label: 'Critical Threshold',
-            data: [0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05],
-            borderColor: '#E74C3C',
-            borderWidth: 2,
-            borderDash: [3, 3],
-            pointRadius: 0,
-            tension: 0,
-            fill: false
-          },
-          {
-            label: 'Heat Shield',
-            data: [null,null,null,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,null,null,null,null,null,null,null,null],
-            backgroundColor: 'rgba(243, 156, 18, 0.3)',
-            borderWidth: 0,
-            pointRadius: 0,
-            tension: 0,
-            fill: true
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          y: {
-            beginAtZero: true,
-            max: 0.2,
-            grid: {
-              color: 'rgba(255, 255, 255, 0.1)'
-            },
-            ticks: {
-              color: '#ccc'
-            }
-          },
-          x: {
-            grid: {
-              color: 'rgba(255, 255, 255, 0.1)'
-            },
-            ticks: {
-              color: '#ccc'
-            }
-          }
-        },
-        plugins: {
-          legend: {
-            labels: {
-              color: '#ccc'
-            }
-          }
-        }
-      }
-    });
-    
-    // Forecast chart
-    const forecastChart = document.getElementById('forecast-chart').getContext('2d');
-    new Chart(forecastChart, {
-      type: 'line',
-      data: {
-        labels: ["F+1","F+2","F+3","F+4","F+5","F+6","F+7","F+8","F+9","F+10","F+11","F+12","F+13","F+14","F+15","F+16","F+17","F+18","F+19","F+20"],
-        datasets: [
-          {
-            label: 'Forecast',
-            data: [0.07748012572325973,0.08452236685246117,0.09696279722448187,0.11352277894913984,0.12150079752413541,0.120179194849674,0.11008174906237539,0.0983994122006691,0.08398870673344397,0.07341757322502813,0.0722453719309028,0.0804455604879204,0.09589114624526608,0.10827117213448251,0.11689806109418137,0.11746138983775718,0.10861459553498498,0.09655562227491753,0.0799227528501496,0.07106282950622662],
-            borderColor: '#3498DB',
-            borderWidth: 2,
-            borderDash: [5, 5],
-            pointBackgroundColor: function(context) {
-              const value = context.dataset.data[context.dataIndex];
-              if (value < 0.05) return '#E74C3C';
-              if (value < 0.08) return '#F39C12';
-              return '#3498DB';
-            },
-            pointRadius: 4,
-            tension: 0.3,
-            fill: false
-          },
-          {
-            label: 'Target (0.1)',
-            data: [0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1],
-            borderColor: '#2ECC71',
-            borderWidth: 2,
-            borderDash: [5, 5],
-            pointRadius: 0,
-            tension: 0,
-            fill: false
-          },
-          {
-            label: 'Warning',
-            data: [0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08],
-            borderColor: '#F39C12',
-            borderWidth: 2,
-            borderDash: [3, 3],
-            pointRadius: 0,
-            tension: 0,
-            fill: false
-          },
-          {
-            label: 'Critical',
-            data: [0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05],
-            borderColor: '#E74C3C',
-            borderWidth: 2,
-            borderDash: [3, 3],
-            pointRadius: 0,
-            tension: 0,
-            fill: false
-          },
-          {
-            label: 'Warning Zone',
-            data: [0.08,null,null,null,null,null,null,null,null,0.08,0.08,null,null,null,null,null,null,null,0.08,0.08],
-            backgroundColor: 'rgba(243, 156, 18, 0.2)',
-            borderWidth: 0,
-            pointRadius: 0,
-            tension: 0,
-            fill: true
-          },
-          {
-            label: 'Critical Zone',
-            data: [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-            backgroundColor: 'rgba(231, 76, 60, 0.2)',
-            borderWidth: 0,
-            pointRadius: 0,
-            tension: 0,
-            fill: true
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          y: {
-            beginAtZero: true,
-            max: 0.2,
-            grid: {
-              color: 'rgba(255, 255, 255, 0.1)'
-            },
-            ticks: {
-              color: '#ccc'
-            }
-          },
-          x: {
-            grid: {
-              color: 'rgba(255, 255, 255, 0.1)'
-            },
-            ticks: {
-              color: '#ccc'
-            }
-          }
-        },
-        plugins: {
-          legend: {
-            labels: {
-              color: '#ccc'
-            }
-          }
-        }
-      }
-    });
-    
-    // Generate a simplified network visualization preview
-    function createNetworkPreview() {
-      const container = document.getElementById('network-preview');
-      const width = container.clientWidth;
-      const height = container.clientHeight;
-      const centerX = width / 2;
-      const centerY = height / 2;
-      
-      // Create some random nodes
-      const nodeCount = 8;
-      const nodes = [];
-      
-      // Create a central node
-      const centralNode = {
-        x: centerX,
-        y: centerY,
-        radius: 15,
-        color: '#E74C3C'
-      };
-      
-      // Create the central node element
-      const centralNodeElement = document.createElement('div');
-      centralNodeElement.className = 'network-node';
-      centralNodeElement.style.width = centralNode.radius * 2 + 'px';
-      centralNodeElement.style.height = centralNode.radius * 2 + 'px';
-      centralNodeElement.style.backgroundColor = centralNode.color;
-      centralNodeElement.style.left = (centralNode.x - centralNode.radius) + 'px';
-      centralNodeElement.style.top = (centralNode.y - centralNode.radius) + 'px';
-      container.appendChild(centralNodeElement);
-      
-      // Create surrounding nodes
-      for (let i = 0; i < nodeCount; i++) {
-        const angle = (i / nodeCount) * Math.PI * 2;
-        const distance = Math.random() * 100 + 50;
-        
-        const node = {
-          x: centerX + Math.cos(angle) * distance,
-          y: centerY + Math.sin(angle) * distance,
-          radius: Math.random() * 5 + 5,
-          color: i % 3 === 0 ? '#E74C3C' : (i % 3 === 1 ? '#F39C12' : '#3498DB')
-        };
-        
-        nodes.push(node);
-        
-        // Create node element
-        const nodeElement = document.createElement('div');
-        nodeElement.className = 'network-node';
-        nodeElement.style.width = node.radius * 2 + 'px';
-        nodeElement.style.height = node.radius * 2 + 'px';
-        nodeElement.style.backgroundColor = node.color;
-        nodeElement.style.left = (node.x - node.radius) + 'px';
-        nodeElement.style.top = (node.y - node.radius) + 'px';
-        container.appendChild(nodeElement);
-        
-        // Create edge to central node
-        const dx = node.x - centralNode.x;
-        const dy = node.y - centralNode.y;
-        const angle2 = Math.atan2(dy, dx);
-        const distance2 = Math.sqrt(dx*dx + dy*dy);
-        
-        const edgeElement = document.createElement('div');
-        edgeElement.className = 'network-edge';
-        edgeElement.style.width = distance2 + 'px';
-        edgeElement.style.left = centralNode.x + 'px';
-        edgeElement.style.top = centralNode.y + 'px';
-        edgeElement.style.transform = 'rotate(' + angle2 + 'rad)';
-        
-        // Add some edges that indicate issues
-        if (false && i % 3 === 0) {
-          edgeElement.style.backgroundColor = '#E74C3C';
-          edgeElement.style.opacity = '0.5';
-          edgeElement.style.animation = 'pulse 2s infinite';
-        }
-        
-        container.appendChild(edgeElement);
-      }
-      
-      // Create some connections between the nodes
-      for (let i = 0; i < nodeCount/2; i++) {
-        const nodeA = nodes[Math.floor(Math.random() * nodes.length)];
-        const nodeB = nodes[Math.floor(Math.random() * nodes.length)];
-        
-        if (nodeA !== nodeB) {
-          const dx = nodeB.x - nodeA.x;
-          const dy = nodeB.y - nodeA.y;
-          const angle = Math.atan2(dy, dx);
-          const distance = Math.sqrt(dx*dx + dy*dy);
+      <main class="container">
+        <div class="dashboard-grid">
           
-          const edgeElement = document.createElement('div');
-          edgeElement.className = 'network-edge';
-          edgeElement.style.width = distance + 'px';
-          edgeElement.style.left = nodeA.x + 'px';
-          edgeElement.style.top = nodeA.y + 'px';
-          edgeElement.style.transform = 'rotate(' + angle + 'rad)';
-          container.appendChild(edgeElement);
-        }
-      }
-    }
-    
-    // Create network preview
-    createNetworkPreview();
-  </script>
-</body>
-</html>
+    <div class="dashboard-card">
+      <h2>Early Warning System</h2>
+      <div class="status-indicator">
+        <div class="status-light light-normal"></div>
+        <h3 class="status-normal">
+          NORMAL 
+          (100% confidence)
+        </h3>
+      </div>
+      
+      <div class="metrics-container">
+        <div class="metric">
+          <h3>Warnings</h3>
+          <p>0 detected</p>
+        </div>
+        <div class="metric">
+          <h3>Last Warning</h3>
+          <p>None</p>
+        </div>
+        <div class="metric">
+          <h3>Harmonics</h3>
+          <p>0 patterns</p>
+        </div>
+      </div>
+      
+      
+      <div class="status-message">
+        <p>No threshold violations predicted in forecast window</p>
+      </div>
+      
+    </div>
+          
+    <div class="dashboard-card">
+      <h2>Enhanced Breathing Analysis</h2>
+      <div class="breathing-status">
+        <div class="breathing-indicator" style="background-color: #ccc;"></div>
+        <p>Breathing: Not detected</p>
+      </div>
+      
+      <div class="metrics-container">
+        <div class="metric">
+          <h3>Pattern</h3>
+          <p>N/A</p>
+        </div>
+        <div class="metric">
+          <h3>Cycle</h3>
+          <p>N/A</p>
+        </div>
+        <div class="metric">
+          <h3>Amplitude</h3>
+          <p>N/A</p>
+        </div>
+        <div class="metric">
+          <h3>Phase</h3>
+          <p>N/A</p>
+        </div>
+        <div class="metric">
+          <h3>Confidence</h3>
+          <p>N/A</p>
+        </div>
+      </div>
+      
+      
+    </div>
+          
+          <!-- Buffer Value Card -->
+          <div class="dashboard-card">
+            <h2>Buffer Value</h2>
+            <div class="gauge-container">
+              <!-- Gauge visualization here -->
+            </div>
+            <div class="metrics-container">
+              <div class="metric">
+                <h3>Current</h3>
+                <p class="status-optimal">0.090</p>
+              </div>
+              <div class="metric">
+                <h3>Target</h3>
+                <p>0.100</p>
+              </div>
+              <div class="metric">
+                <h3>Deviation</h3>
+                <p>0.010</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Network Health Card -->
+          <div class="dashboard-card">
+            <h2>Network Health</h2>
+            <div class="metrics-container">
+              <div class="metric">
+                <h3>Concepts</h3>
+                <p>0</p>
+              </div>
+              <div class="metric">
+                <h3>Connections</h3>
+                <p>0</p>
+              </div>
+              <div class="metric">
+                <h3>Mean Buffer</h3>
+                <p>0.000</p>
+              </div>
+              <div class="metric">
+                <h3>Worst Dev</h3>
+                <p class="status-optimal">0.000</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Buffer Timeline Chart -->
+        <div class="chart-container">
+          <h2>Buffer Timeline with Forecast</h2>
+          <canvas id="buffer-chart"></canvas>
+        </div>
+        
+        <!-- Additional analysis card -->
+        <div class="dashboard-card">
+          <h2>Harmonic Analysis</h2>
+          <p>The system is detecting buffer fluctuation patterns that may indicate future issues:</p>
+          
+          <div class="harmonic-display">
+            <div class="harmonic-wave"></div>
+          </div>
+          
+          <div class="metrics-container">
+            <div class="metric">
+              <h3>Patterns</h3>
+              <p>0</p>
+            </div>
+            <div class="metric">
+              <h3>Strongest</h3>
+              <p>N/A</p>
+            </div>
+            <div class="metric">
+              <h3>Forecast</h3>
+              <p class="status-normal">normal</p>
+            </div>
+          </div>
+          
+          <div class="analysis-message">
+            <p>The buffer is currently stable within acceptable parameters.</p>
+            
+            
+            
+            
+          </div>
+        </div>
+      </main>
+      
+      <footer>
+        <p>Generated: 5/21/2025, 4:17:07 PM</p>
+        <p>Buffer Integrity Dashboard v2.0 - Enhanced with harmonic pattern detection</p>
+      </footer>
+      
+      <script>
+        // Buffer chart initialization
+        const bufferChart = document.getElementById('buffer-chart').getContext('2d');
+        
+        // Combine historical and forecast data
+        const labels = [
+          ...["Invalid Date","Invalid Date","Invalid Date","Invalid Date","Invalid Date","Invalid Date","Invalid Date","Invalid Date","Invalid Date","Invalid Date","Invalid Date","Invalid Date","Invalid Date","Invalid Date","Invalid Date","Invalid Date","Invalid Date","Invalid Date","Invalid Date","Invalid Date"],
+          ...[]
+        ];
+        
+        const bufferData = [
+          ...[0.0692714649394731,0.06995981930703846,0.06327699170436608,0.05681188705576143,0.0540778535190422,0.0626700610109007,0.06344538819355387,0.0676531072503256,0.07220524175020876,0.07295495020208351,0.07765367562533904,0.07898758142423147,0.07715225546723753,0.08183981091316272,0.07977945388920853,0.08054077495509256,0.08569950586256758,0.09104609229318583,0.08968938223176982,0.08955860926074515],
+          ...[]
+        ];
+        
+        const heatShieldData = [
+          ...[null,null,null,null,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,null,null,null],
+          ...Array(0).fill(null)
+        ];
+        
+        const warningThreshold = Array(labels.length).fill(0.08);
+        const criticalThreshold = Array(labels.length).fill(0.05);
+        const targetBuffer = Array(labels.length).fill(0.1);
+        
+        // Create chart
+        new Chart(bufferChart, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: 'Buffer Value',
+                data: bufferData,
+                backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                borderColor: 'rgba(52, 152, 219, 1)',
+                borderWidth: 2,
+                pointBackgroundColor: function(context) {
+                  const index = context.dataIndex;
+                  // Forecast points are more transparent
+                  return index >= 20 ? 'rgba(52, 152, 219, 0.5)' : 'rgba(52, 152, 219, 1)';
+                },
+                pointBorderColor: function(context) {
+                  const index = context.dataIndex;
+                  return index >= 20 ? 'rgba(52, 152, 219, 0.5)' : 'rgba(52, 152, 219, 1)';
+                },
+                pointRadius: function(context) {
+                  const index = context.dataIndex;
+                  return index >= 20 ? 3 : 5;
+                },
+                tension: 0.2
+              },
+              {
+                label: 'Target (0.1)',
+                data: targetBuffer,
+                backgroundColor: 'transparent',
+                borderColor: 'rgba(46, 204, 113, 1)',
+                borderWidth: 2,
+                borderDash: [5, 5],
+                pointRadius: 0
+              },
+              {
+                label: 'Warning Threshold',
+                data: warningThreshold,
+                backgroundColor: 'transparent',
+                borderColor: 'rgba(243, 156, 18, 1)',
+                borderWidth: 2,
+                borderDash: [5, 5],
+                pointRadius: 0
+              },
+              {
+                label: 'Critical Threshold',
+                data: criticalThreshold,
+                backgroundColor: 'transparent',
+                borderColor: 'rgba(231, 76, 60, 1)',
+                borderWidth: 2,
+                borderDash: [5, 5],
+                pointRadius: 0
+              },
+              {
+                label: 'Heat Shield Active',
+                data: heatShieldData,
+                backgroundColor: 'rgba(243, 156, 18, 0.3)',
+                borderColor: 'transparent',
+                pointRadius: 0,
+                fill: true
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            scales: {
+              y: {
+                beginAtZero: false,
+                min: 0,
+                max: 0.2,
+                title: {
+                  display: true,
+                  text: 'Buffer Value'
+                }
+              },
+              x: {
+                title: {
+                  display: true,
+                  text: 'Time'
+                }
+              }
+            },
+            plugins: {
+              legend: {
+                position: 'top'
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    let label = context.dataset.label || '';
+                    if (label) {
+                      label += ': ';
+                    }
+                    if (context.parsed.y !== null) {
+                      label += context.parsed.y.toFixed(3);
+                    }
+                    return label;
+                  },
+                  footer: function(tooltipItems) {
+                    const index = tooltipItems[0].dataIndex;
+                    if (index >= 20) {
+                      const forecastIndex = index - 20;
+                      const forecast = [][forecastIndex];
+                      if (forecast.warning) {
+                        return 'WARNING: Predicted buffer violation';
+                      } else if (forecast.critical) {
+                        return 'CRITICAL: Predicted critical violation';
+                      } else {
+                        return 'Forecast data point';
+                      }
+                    }
+                    const historical = [{"time":30,"buffer":0.0692714649394731,"target":0.1,"heatShieldActive":false,"status":"warning"},{"time":31,"buffer":0.06995981930703846,"target":0.1,"heatShieldActive":false,"status":"warning"},{"time":32,"buffer":0.06327699170436608,"target":0.1,"heatShieldActive":false,"status":"warning"},{"time":33,"buffer":0.05681188705576143,"target":0.1,"heatShieldActive":false,"status":"warning"},{"time":34,"buffer":0.0540778535190422,"target":0.1,"heatShieldActive":true,"status":"warning"},{"time":35,"buffer":0.0626700610109007,"target":0.1,"heatShieldActive":true,"status":"warning"},{"time":36,"buffer":0.06344538819355387,"target":0.1,"heatShieldActive":true,"status":"warning"},{"time":37,"buffer":0.0676531072503256,"target":0.1,"heatShieldActive":true,"status":"warning"},{"time":38,"buffer":0.07220524175020876,"target":0.1,"heatShieldActive":true,"status":"warning"},{"time":39,"buffer":0.07295495020208351,"target":0.1,"heatShieldActive":true,"status":"warning"},{"time":40,"buffer":0.07765367562533904,"target":0.1,"heatShieldActive":true,"status":"warning"},{"time":41,"buffer":0.07898758142423147,"target":0.1,"heatShieldActive":true,"status":"warning"},{"time":42,"buffer":0.07715225546723753,"target":0.1,"heatShieldActive":true,"status":"warning"},{"time":43,"buffer":0.08183981091316272,"target":0.1,"heatShieldActive":true,"status":"optimal"},{"time":44,"buffer":0.07977945388920853,"target":0.1,"heatShieldActive":true,"status":"warning"},{"time":45,"buffer":0.08054077495509256,"target":0.1,"heatShieldActive":true,"status":"optimal"},{"time":46,"buffer":0.08569950586256758,"target":0.1,"heatShieldActive":true,"status":"optimal"},{"time":47,"buffer":0.09104609229318583,"target":0.1,"heatShieldActive":false,"status":"optimal"},{"time":48,"buffer":0.08968938223176982,"target":0.1,"heatShieldActive":false,"status":"optimal"},{"time":49,"buffer":0.08955860926074515,"target":0.1,"heatShieldActive":false,"status":"optimal"}][index];
+                    return historical.heatShieldActive ? 'Heat Shield Active' : '';
+                  }
+                }
+              }
+            }
+          }
+        });
+      </script>
+    </body>
+    </html>

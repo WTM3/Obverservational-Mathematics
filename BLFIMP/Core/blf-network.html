@@ -148,7 +148,7 @@
     
     <div class="dashboard-card">
       <h3>Buffer Integrity</h3>
-      <p>Total Elements: 10</p>
+      <p>Total Elements: 50</p>
       <p>Violations: 0 (0.00%)</p>
       <p>Average Deviation: 0.000000</p>
       <p>Critical Zones: 0</p>
@@ -172,18 +172,18 @@
       ✓ Maintained
     </span></p>
     <p>Concepts: 10</p>
-    <p>Connections: 0</p>
-    <p>Generated: 5/20/2025, 8:21:16 PM</p>
+    <p>Connections: 40</p>
+    <p>Generated: 5/21/2025, 4:17:07 PM</p>
     
     <h3>Concept Type Distribution</h3>
     <ul>
       <li>core: 4</li>
-      <li>protection: 1</li>
-      <li>structure: 1</li>
       <li>processing: 1</li>
-      <li>formula: 1</li>
-      <li>process: 1</li>
       <li>math: 1</li>
+      <li>formula: 1</li>
+      <li>structure: 1</li>
+      <li>process: 1</li>
+      <li>protection: 1</li>
     </ul>
     
     
@@ -196,8 +196,8 @@
     const container = document.getElementById('network-container');
     
     // Parse the data
-    const nodes = new vis.DataSet([{"id":28,"label":"Boolean Mind","title":"Boolean Mind (core)\nQL: undefined\nBuffer: 0.1","color":"#E74C3C","size":15,"buffer":0.1},{"id":29,"label":"AI Cognitive","title":"AI Cognitive (core)\nQL: undefined\nBuffer: 0.1","color":"#E74C3C","size":15,"buffer":0.1},{"id":30,"label":"Buffer","title":"Buffer (core)\nQL: undefined\nBuffer: 0.1","color":"#3498DB","size":15,"buffer":0.1},{"id":31,"label":"Heat Shield","title":"Heat Shield (protection)\nQL: undefined\nBuffer: 0.1","color":"#F39C12","size":15,"buffer":0.1},{"id":32,"label":"NJSON","title":"NJSON (structure)\nQL: undefined\nBuffer: 0.1","color":"#2ECC71","size":15,"buffer":0.1},{"id":33,"label":"Quantum State","title":"Quantum State (processing)\nQL: undefined\nBuffer: 0.1","color":"#9B59B6","size":15,"buffer":0.1},{"id":34,"label":"Cognitive Alignment","title":"Cognitive Alignment (formula)\nQL: undefined\nBuffer: 0.1","color":"#2ECC71","size":15,"buffer":0.1},{"id":35,"label":"V8 Engine","title":"V8 Engine (core)\nQL: undefined\nBuffer: 0.1","color":"#E74C3C","size":15,"buffer":0.1},{"id":36,"label":"Breathing","title":"Breathing (process)\nQL: undefined\nBuffer: 0.1","color":"#2ECC71","size":15,"buffer":0.1},{"id":37,"label":"Formula","title":"Formula (math)\nQL: undefined\nBuffer: 0.1","color":"#2ECC71","size":15,"buffer":0.1}]);
-    const edges = new vis.DataSet([]);
+    const nodes = new vis.DataSet([{"id":28,"label":"Boolean Mind","title":"Boolean Mind (core)\nQL: 2.99\nBuffer: 0.1","color":"#E74C3C","size":15,"quantum_level":2.99,"buffer":0.1},{"id":29,"label":"AI Cognitive","title":"AI Cognitive (core)\nQL: 2.89\nBuffer: 0.1","color":"#E74C3C","size":15,"quantum_level":2.89,"buffer":0.1},{"id":35,"label":"V8 Engine","title":"V8 Engine (core)\nQL: 2.85\nBuffer: 0.1","color":"#E74C3C","size":15,"quantum_level":2.85,"buffer":0.1},{"id":33,"label":"Quantum State","title":"Quantum State (processing)\nQL: 2.7\nBuffer: 0.1","color":"#9B59B6","size":15,"quantum_level":2.7,"buffer":0.1},{"id":37,"label":"Formula","title":"Formula (math)\nQL: 2.6\nBuffer: 0.1","color":"#2ECC71","size":15,"quantum_level":2.6,"buffer":0.1},{"id":34,"label":"Cognitive Alignment","title":"Cognitive Alignment (formula)\nQL: 2.5\nBuffer: 0.1","color":"#2ECC71","size":15,"quantum_level":2.5,"buffer":0.1},{"id":32,"label":"NJSON","title":"NJSON (structure)\nQL: 2.4\nBuffer: 0.1","color":"#2ECC71","size":15,"quantum_level":2.4,"buffer":0.1},{"id":36,"label":"Breathing","title":"Breathing (process)\nQL: 1.8\nBuffer: 0.1","color":"#2ECC71","size":15,"quantum_level":1.8,"buffer":0.1},{"id":31,"label":"Heat Shield","title":"Heat Shield (protection)\nQL: 1.2\nBuffer: 0.1","color":"#F39C12","size":15,"quantum_level":1.2,"buffer":0.1},{"id":30,"label":"Buffer","title":"Buffer (core)\nQL: 0.1\nBuffer: 0.1","color":"#3498DB","size":15,"quantum_level":0.1,"buffer":0.1}]);
+    const edges = new vis.DataSet([{"from":28,"to":30,"label":"0.90","title":"Buffer is essential to Boolean Mind","width":1.8,"buffer":0.1,"arrows":"to"},{"from":28,"to":32,"label":"0.95","title":"NJSON connects with Boolean Mind","width":1.9,"buffer":0.1,"arrows":"to"},{"from":28,"to":34,"label":"0.85","title":"Boolean Mind requires Cognitive Alignment","width":1.7,"buffer":0.1,"arrows":"to"},{"from":36,"to":28,"label":"0.72","title":"Breathing connects to Boolean Mind","width":1.44,"buffer":0.1,"arrows":"to"},{"from":28,"to":35,"label":"0.76","title":"Boolean Mind connects to V8 Engine","width":1.52,"buffer":0.1,"arrows":"to"},{"from":29,"to":33,"label":"0.70","title":"AI Cognitive with Quantum State","width":1.4,"buffer":0.1,"arrows":"to"},{"from":29,"to":36,"label":"0.60","title":"AI Cognitive requires Breathing","width":1.2,"buffer":0.1,"arrows":"to"},{"from":35,"to":29,"label":"0.70","title":"V8 Engine processes AI Cognitive","width":1.4,"buffer":0.1,"arrows":"to"},{"from":35,"to":36,"label":"0.65","title":"V8 Engine powers Breathing","width":1.3,"buffer":0.1,"arrows":"to"},{"from":35,"to":29,"label":"0.70","title":"V8 Engine processes AI Cognitive","width":1.4,"buffer":0.1,"arrows":"to"},{"from":28,"to":35,"label":"0.76","title":"Boolean Mind connects to V8 Engine","width":1.52,"buffer":0.1,"arrows":"to"},{"from":35,"to":34,"label":"0.61","title":"V8 Engine connects to Cognitive Alignment","width":1.22,"buffer":0.1,"arrows":"to"},{"from":29,"to":33,"label":"0.70","title":"AI Cognitive with Quantum State","width":1.4,"buffer":0.1,"arrows":"to"},{"from":33,"to":34,"label":"0.85","title":"Quantum State connects to Cognitive Alignment","width":1.7,"buffer":0.1,"arrows":"to"},{"from":34,"to":37,"label":"1.00","title":"Cognitive Alignment defined by Formula","width":2,"buffer":0.1,"arrows":"to"},{"from":37,"to":30,"label":"0.78","title":"Formula connects to Buffer","width":1.56,"buffer":0.1,"arrows":"to"},{"from":37,"to":34,"label":"0.87","title":"Formula connects to Cognitive Alignment","width":1.74,"buffer":0.1,"arrows":"to"},{"from":37,"to":31,"label":"0.62","title":"Formula connects to Heat Shield","width":1.24,"buffer":0.1,"arrows":"to"},{"from":32,"to":37,"label":"0.91","title":"NJSON connects to Formula","width":1.82,"buffer":0.1,"arrows":"to"},{"from":28,"to":34,"label":"0.85","title":"Boolean Mind requires Cognitive Alignment","width":1.7,"buffer":0.1,"arrows":"to"},{"from":32,"to":34,"label":"0.90","title":"NJSON enables Cognitive Alignment","width":1.8,"buffer":0.1,"arrows":"to"},{"from":34,"to":37,"label":"1.00","title":"Cognitive Alignment defined by Formula","width":2,"buffer":0.1,"arrows":"to"},{"from":37,"to":34,"label":"0.87","title":"Formula connects to Cognitive Alignment","width":1.74,"buffer":0.1,"arrows":"to"},{"from":33,"to":34,"label":"0.85","title":"Quantum State connects to Cognitive Alignment","width":1.7,"buffer":0.1,"arrows":"to"},{"from":35,"to":34,"label":"0.61","title":"V8 Engine connects to Cognitive Alignment","width":1.22,"buffer":0.1,"arrows":"to"},{"from":28,"to":32,"label":"0.95","title":"NJSON connects with Boolean Mind","width":1.9,"buffer":0.1,"arrows":"to"},{"from":32,"to":34,"label":"0.90","title":"NJSON enables Cognitive Alignment","width":1.8,"buffer":0.1,"arrows":"to"},{"from":32,"to":37,"label":"0.91","title":"NJSON connects to Formula","width":1.82,"buffer":0.1,"arrows":"to"},{"from":30,"to":32,"label":"0.76","title":"Buffer connects to NJSON","width":1.52,"buffer":0.1,"arrows":"to"},{"from":29,"to":36,"label":"0.60","title":"AI Cognitive requires Breathing","width":1.2,"buffer":0.1,"arrows":"to"},{"from":35,"to":36,"label":"0.65","title":"V8 Engine powers Breathing","width":1.3,"buffer":0.1,"arrows":"to"},{"from":36,"to":28,"label":"0.72","title":"Breathing connects to Boolean Mind","width":1.44,"buffer":0.1,"arrows":"to"},{"from":30,"to":31,"label":"0.80","title":"Buffer implements Heat Shield","width":1.6,"buffer":0.1,"arrows":"to"},{"from":31,"to":30,"label":"0.75","title":"Heat Shield maintains Buffer","width":1.5,"buffer":0.1,"arrows":"to"},{"from":37,"to":31,"label":"0.62","title":"Formula connects to Heat Shield","width":1.24,"buffer":0.1,"arrows":"to"},{"from":28,"to":30,"label":"0.90","title":"Buffer is essential to Boolean Mind","width":1.8,"buffer":0.1,"arrows":"to"},{"from":30,"to":31,"label":"0.80","title":"Buffer implements Heat Shield","width":1.6,"buffer":0.1,"arrows":"to"},{"from":31,"to":30,"label":"0.75","title":"Heat Shield maintains Buffer","width":1.5,"buffer":0.1,"arrows":"to"},{"from":37,"to":30,"label":"0.78","title":"Formula connects to Buffer","width":1.56,"buffer":0.1,"arrows":"to"},{"from":30,"to":32,"label":"0.76","title":"Buffer connects to NJSON","width":1.52,"buffer":0.1,"arrows":"to"}]);
     
     // Configuration
     const options = {
@@ -277,7 +277,7 @@
     new Chart(worstDeviationsChart, {
       type: 'bar',
       data: {
-        labels: ["Boolean Mind","AI Cognitive","Buffer","Heat Shield","NJSON"],
+        labels: ["Boolean Mind","AI Cognitive","V8 Engine","Quantum State","Formula"],
         datasets: [{
           label: 'Buffer Deviation',
           data: [0,0,0,0,0],

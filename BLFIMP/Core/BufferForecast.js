@@ -32,8 +32,30 @@ class BufferForecast {
       phase: 0,
       rhythm: 'unknown'
     };
+
+    // Enhanced adaptive learning system
+    this.adaptiveLearning = {
+      enabled: true,
+      patternConfidence: 0,
+      falsePositives: 0,
+      falseNegatives: 0,
+      patterns: [],
+      lastAdjustment: Date.now(),
+      adjustmentFrequency: 5 * 60 * 1000 // 5 minutes
+    };
     
-    console.log('Buffer Forecast system initialized - engine light warning system active');
+    // Early warning system enhancement
+    this.earlyWarning = {
+      status: 'normal',
+      confidenceLevel: 1.0,
+      detectionThreshold: 0.75,
+      lastWarningTime: null,
+      warningHistory: [],
+      harmonicPatterns: [],
+      frequencyDomain: []
+    };
+    
+    console.log('Enhanced Buffer Forecast system initialized - engine light warning system active with harmonic detection');
   }
   
   /**
@@ -70,8 +92,15 @@ class BufferForecast {
     // Detect breathing patterns after each new data point
     this.detectBreathingPatterns();
     
-    // Update forecasts
+    // Enhanced: Perform harmonic analysis for more advanced pattern detection
+    this.detectHarmonicPatterns();
+    
+    // Enhanced: Update adaptive learning parameters
+    this.updateAdaptiveLearning();
+    
+    // Update forecasts and early warning system
     this.generateForecast();
+    this.updateEarlyWarningSystem();
   }
   
   /**
@@ -84,9 +113,9 @@ class BufferForecast {
     // Extract just buffer values for analysis
     const bufferValues = this.historicalData.map(d => d.buffer);
     
-    // Calculate moving average
+    // Calculate moving average with adaptive window size
+    const windowSize = Math.min(5, Math.max(3, Math.floor(bufferValues.length / 10)));
     const movingAvg = [];
-    const windowSize = 3;
     for (let i = windowSize; i < bufferValues.length; i++) {
       const windowSum = bufferValues.slice(i - windowSize, i).reduce((a, b) => a + b, 0);
       movingAvg.push(windowSum / windowSize);
@@ -98,11 +127,14 @@ class BufferForecast {
       deviations.push(movingAvg[i] - movingAvg[i-1]);
     }
     
+    // Enhanced: Use median filtering to reduce noise
+    const medianFiltered = this.medianFilter(deviations, 3);
+    
     // Count sign changes to detect cycles
     let signChanges = 0;
-    let lastSign = Math.sign(deviations[0]);
-    for (let i = 1; i < deviations.length; i++) {
-      const currentSign = Math.sign(deviations[i]);
+    let lastSign = Math.sign(medianFiltered[0]);
+    for (let i = 1; i < medianFiltered.length; i++) {
+      const currentSign = Math.sign(medianFiltered[i]);
       if (currentSign !== 0 && currentSign !== lastSign) {
         signChanges++;
         lastSign = currentSign;
@@ -113,7 +145,7 @@ class BufferForecast {
     if (signChanges >= 4) { // Need at least 2 complete cycles to confirm pattern
       // Approximate cycle length
       this.breathing.cycleDetected = true;
-      this.breathing.cycleLength = Math.floor(deviations.length / (signChanges / 2));
+      this.breathing.cycleLength = Math.floor(medianFiltered.length / (signChanges / 2));
       
       // Calculate amplitude (max deviation from mean)
       const mean = bufferValues.reduce((a, b) => a + b, 0) / bufferValues.length;
@@ -130,13 +162,300 @@ class BufferForecast {
       }
       
       // Determine current phase
-      const recentPattern = deviations.slice(-this.breathing.cycleLength);
+      const recentPattern = medianFiltered.slice(-this.breathing.cycleLength);
       const risingPhase = recentPattern.filter(d => d > 0).length;
       const fallingPhase = recentPattern.filter(d => d < 0).length;
       this.breathing.phase = risingPhase > fallingPhase ? 'rising' : 'falling';
+      
+      // Enhanced: Store pattern with confidence level
+      this.adaptiveLearning.patterns.push({
+        cycleLength: this.breathing.cycleLength,
+        amplitude: this.breathing.amplitude,
+        rhythm: this.breathing.rhythm,
+        phase: this.breathing.phase,
+        confidence: this.calculatePatternConfidence(medianFiltered),
+        timestamp: Date.now()
+      });
+      
+      // Keep pattern memory manageable
+      if (this.adaptiveLearning.patterns.length > 10) {
+        this.adaptiveLearning.patterns.shift();
+      }
     } else {
       this.breathing.cycleDetected = false;
     }
+  }
+  
+  /**
+   * NEW: Apply median filter to reduce noise in data
+   * @param {Array} data - Data array to filter
+   * @param {number} windowSize - Size of median filter window
+   * @returns {Array} Filtered data
+   */
+  medianFilter(data, windowSize) {
+    const result = [];
+    const halfWindow = Math.floor(windowSize / 2);
+    
+    for (let i = 0; i < data.length; i++) {
+      const windowStart = Math.max(0, i - halfWindow);
+      const windowEnd = Math.min(data.length, i + halfWindow + 1);
+      const values = data.slice(windowStart, windowEnd).sort((a, b) => a - b);
+      result.push(values[Math.floor(values.length / 2)]);
+    }
+    
+    return result;
+  }
+  
+  /**
+   * NEW: Calculate confidence in detected pattern
+   * @param {Array} signal - Signal data
+   * @returns {number} Confidence level (0-1)
+   */
+  calculatePatternConfidence(signal) {
+    if (signal.length < 10) return 0.5;
+    
+    // Calculate signal regularity
+    let irregularitySum = 0;
+    for (let i = 1; i < signal.length - 1; i++) {
+      // Check if point follows the trend of neighbors or breaks it
+      const prevDelta = signal[i] - signal[i-1];
+      const nextDelta = signal[i+1] - signal[i];
+      if (Math.sign(prevDelta) !== Math.sign(nextDelta)) {
+        irregularitySum += 1;
+      }
+    }
+    
+    // Normalize irregularity (0 means perfectly regular, 1 means completely irregular)
+    const irregularity = irregularitySum / (signal.length - 2);
+    
+    // Convert to confidence (1 - irregularity, adjusted to 0.5-1.0 range)
+    return 0.5 + 0.5 * (1 - irregularity);
+  }
+  
+  /**
+   * NEW: Detect harmonic patterns in buffer fluctuations
+   * More advanced pattern detection for engine purring
+   */
+  detectHarmonicPatterns() {
+    if (this.historicalData.length < 15) return; // Need more data for harmonic analysis
+    
+    const bufferValues = this.historicalData.map(d => d.buffer);
+    
+    // Calculate autocorrelation to find repeating patterns
+    const autoCorr = this.calculateAutocorrelation(bufferValues);
+    
+    // Find peaks in autocorrelation (indicates periodicity)
+    const peaks = this.findPeaks(autoCorr, 3);
+    
+    // Store frequency domain information
+    this.earlyWarning.frequencyDomain = autoCorr;
+    
+    if (peaks.length > 0) {
+      // Store harmonic patterns
+      this.earlyWarning.harmonicPatterns = peaks.map(peak => ({
+        period: peak.index,
+        strength: peak.value,
+        timestamp: Date.now()
+      }));
+    }
+  }
+  
+  /**
+   * NEW: Calculate autocorrelation of signal
+   * @param {Array} signal - Signal to analyze
+   * @returns {Array} Autocorrelation values
+   */
+  calculateAutocorrelation(signal) {
+    const result = [];
+    const mean = signal.reduce((a, b) => a + b, 0) / signal.length;
+    const normalizedSignal = signal.map(v => v - mean);
+    
+    for (let lag = 0; lag < signal.length / 2; lag++) {
+      let numerator = 0;
+      let denominator = 0;
+      
+      for (let i = 0; i < signal.length - lag; i++) {
+        numerator += normalizedSignal[i] * normalizedSignal[i + lag];
+        denominator += normalizedSignal[i] * normalizedSignal[i];
+      }
+      
+      result.push(denominator !== 0 ? numerator / denominator : 0);
+    }
+    
+    return result;
+  }
+  
+  /**
+   * NEW: Find peaks in a signal
+   * @param {Array} signal - Signal to analyze
+   * @param {number} minDistance - Minimum distance between peaks
+   * @returns {Array} Peak positions and values
+   */
+  findPeaks(signal, minDistance) {
+    const peaks = [];
+    
+    for (let i = 1; i < signal.length - 1; i++) {
+      if (signal[i] > signal[i-1] && signal[i] > signal[i+1]) {
+        peaks.push({index: i, value: signal[i]});
+      }
+    }
+    
+    // Filter peaks that are too close
+    return peaks.filter((peak, index) => {
+      if (index === 0) return true;
+      return peak.index - peaks[index-1].index >= minDistance;
+    });
+  }
+  
+  /**
+   * NEW: Update adaptive learning parameters
+   * This adjusts forecasting parameters based on historical accuracy
+   */
+  updateAdaptiveLearning() {
+    const now = Date.now();
+    if (!this.adaptiveLearning.enabled) return;
+    
+    // Only update periodically
+    if (now - this.adaptiveLearning.lastAdjustment < this.adaptiveLearning.adjustmentFrequency) {
+      return;
+    }
+    
+    this.adaptiveLearning.lastAdjustment = now;
+    
+    // Calculate pattern confidence based on historical patterns
+    if (this.adaptiveLearning.patterns.length > 0) {
+      const avgConfidence = this.adaptiveLearning.patterns.reduce((sum, p) => sum + p.confidence, 0) / 
+        this.adaptiveLearning.patterns.length;
+      this.adaptiveLearning.patternConfidence = avgConfidence;
+    }
+    
+    // Adjust learning parameters based on performance
+    if (this.adaptiveLearning.falsePositives > this.adaptiveLearning.falseNegatives) {
+      // Too many false alarms, make detection more conservative
+      this.params.patternMatchThreshold = Math.min(0.95, this.params.patternMatchThreshold + 0.01);
+      this.earlyWarning.detectionThreshold = Math.min(0.95, this.earlyWarning.detectionThreshold + 0.02);
+    } else if (this.adaptiveLearning.falseNegatives > this.adaptiveLearning.falsePositives) {
+      // Too many missed warnings, make detection more sensitive
+      this.params.patternMatchThreshold = Math.max(0.7, this.params.patternMatchThreshold - 0.01);
+      this.earlyWarning.detectionThreshold = Math.max(0.6, this.earlyWarning.detectionThreshold - 0.02);
+    }
+    
+    // Adjust noise threshold based on observed data
+    if (this.historicalData.length > 10) {
+      const recent = this.historicalData.slice(-10);
+      const differences = [];
+      for (let i = 1; i < recent.length; i++) {
+        differences.push(Math.abs(recent[i].buffer - recent[i-1].buffer));
+      }
+      // Use 75th percentile of differences as noise threshold
+      differences.sort((a, b) => a - b);
+      const noiseEstimate = differences[Math.floor(differences.length * 0.75)];
+      this.params.noiseThreshold = Math.max(0.001, Math.min(0.01, noiseEstimate));
+    }
+  }
+  
+  /**
+   * NEW: Update early warning system
+   * Determines if preemptive action is needed
+   */
+  updateEarlyWarningSystem() {
+    // Default to normal status
+    let newStatus = 'normal';
+    let confidenceLevel = 1.0;
+    
+    // Check if forecast contains values in warning/critical range
+    const forecast = this.generateForecast();
+    const warningPoints = forecast.filter(p => p.buffer < this.params.warningThreshold);
+    const criticalPoints = forecast.filter(p => p.buffer < this.params.criticalThreshold);
+    
+    // Calculate time to critical
+    const timeToCritical = this.calculateTimeToCritical();
+    
+    // Calculate current trend from historical data
+    let trend = 0;
+    if (this.historicalData.length > 5) {
+      const recentData = this.historicalData.slice(-5);
+      // Simple linear regression for trend
+      const sum = recentData.reduce((acc, point, i) => {
+        return acc + (point.buffer - recentData[0].buffer) * (i / (recentData.length - 1));
+      }, 0);
+      trend = sum / recentData.length;
+    }
+    
+    // Check breathing pattern
+    if (this.breathing.cycleDetected) {
+      // Factor in breathing pattern
+      if (this.breathing.rhythm === 'rapid' && this.breathing.amplitude > 0.02) {
+        newStatus = 'attention';
+        confidenceLevel = 0.8;
+      }
+      
+      // Check if we're in falling phase heading toward warning threshold
+      if (this.breathing.phase === 'falling' && 
+          forecast[0].buffer < this.bufferValue &&
+          forecast[0].buffer - this.breathing.amplitude < this.params.warningThreshold) {
+        newStatus = 'warning';
+        confidenceLevel = this.adaptiveLearning.patternConfidence;
+      }
+    }
+    
+    // Check harmonic patterns
+    if (this.earlyWarning.harmonicPatterns.length > 0) {
+      // Strong harmonic with decreasing trend
+      const strongestHarmonic = this.earlyWarning.harmonicPatterns.sort((a, b) => b.strength - a.strength)[0];
+      if (strongestHarmonic.strength > 0.7 && trend < -0.001) {
+        newStatus = 'warning';
+        confidenceLevel = Math.max(confidenceLevel, strongestHarmonic.strength);
+      }
+    }
+    
+    // Direct forecast check
+    if (warningPoints.length > 0) {
+      newStatus = 'warning';
+      confidenceLevel = Math.min(1.0, 0.7 + (warningPoints.length / forecast.length) * 0.3);
+    }
+    
+    if (criticalPoints.length > 0) {
+      newStatus = 'critical';
+      confidenceLevel = Math.min(1.0, 0.8 + (criticalPoints.length / forecast.length) * 0.2);
+    }
+    
+    // Check if time to critical is very short
+    if (timeToCritical.critical < 5 && timeToCritical.critical > 0) {
+      newStatus = 'critical';
+      confidenceLevel = 0.95;
+    } else if (timeToCritical.warning < 3 && timeToCritical.warning > 0) {
+      newStatus = 'warning';
+      confidenceLevel = 0.9;
+    }
+    
+    // Update status
+    this.earlyWarning.status = newStatus;
+    this.earlyWarning.confidenceLevel = confidenceLevel;
+    
+    // Record warning if status changed to warning/critical
+    if ((newStatus === 'warning' || newStatus === 'critical') && 
+        confidenceLevel > this.earlyWarning.detectionThreshold) {
+      this.earlyWarning.lastWarningTime = Date.now();
+      this.earlyWarning.warningHistory.push({
+        timestamp: Date.now(),
+        status: newStatus,
+        confidence: confidenceLevel,
+        timeToCritical: timeToCritical.critical,
+        timeToWarning: timeToCritical.warning
+      });
+      
+      // Keep history manageable
+      if (this.earlyWarning.warningHistory.length > 20) {
+        this.earlyWarning.warningHistory.shift();
+      }
+    }
+    
+    return {
+      status: newStatus,
+      confidence: confidenceLevel,
+      timeToCritical: timeToCritical
+    };
   }
   
   /**

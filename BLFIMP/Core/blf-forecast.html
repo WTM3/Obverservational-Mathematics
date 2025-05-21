@@ -80,7 +80,7 @@
       height: 20px;
       border-radius: 50%;
       margin-right: 10px;
-      animation: breathe 4s infinite;
+      animation: none;
     }
     .metrics-container {
       display: flex;
@@ -161,8 +161,8 @@
         </div>
         
         <div class="breathing-status">
-          <div class="breathing-indicator" style="background-color: #3498DB;"></div>
-          <p>Breathing: normal rhythm</p>
+          <div class="breathing-indicator" style="background-color: #ccc;"></div>
+          <p>Breathing: Not detected</p>
         </div>
         
         
@@ -173,19 +173,19 @@
         <div class="metrics-container">
           <div class="metric">
             <h3>Pattern</h3>
-            <p>normal</p>
+            <p>N/A</p>
           </div>
           <div class="metric">
             <h3>Cycle</h3>
-            <p>6 units</p>
+            <p>N/A</p>
           </div>
           <div class="metric">
             <h3>Amplitude</h3>
-            <p>0.008</p>
+            <p>N/A</p>
           </div>
           <div class="metric">
             <h3>Phase</h3>
-            <p>rising</p>
+            <p>N/A</p>
           </div>
         </div>
       </div>
@@ -194,7 +194,7 @@
     <div class="chart-container">
       <h2>Buffer Forecast Timeline</h2>
       <div style="position: relative;">
-        <div class="forecast-divider" style="left: 60%;"></div>
+        <div class="forecast-divider" style="left: NaN%;"></div>
         <canvas id="forecast-chart"></canvas>
       </div>
       <div style="text-align: center; margin-top: 10px; color: #666;">
@@ -208,7 +208,7 @@
       <p>The buffer forecast system analyzes patterns in buffer deterioration before they manifest as problems. The current analysis shows:</p>
       
       
-      <p>A normal breathing pattern has been detected with cycle length of 6 time units and amplitude of 0.008. The buffer is currently in the rising phase of the cycle.</p>
+      <p>No regular breathing pattern has been detected in the buffer values. This could indicate stable conditions or insufficient data for pattern recognition.</p>
       
       
       
@@ -232,43 +232,43 @@
     new Chart(forecastChart, {
       type: 'line',
       data: {
-        labels: ["7:52:22 PM","7:53:22 PM","7:54:22 PM","7:55:22 PM","7:56:22 PM","7:57:22 PM","7:58:22 PM","7:59:22 PM","8:00:22 PM","8:01:22 PM","8:02:22 PM","8:03:22 PM","8:04:22 PM","8:05:22 PM","8:06:22 PM","8:07:22 PM","8:08:22 PM","8:09:22 PM","8:10:22 PM","8:11:22 PM","8:12:22 PM","8:13:22 PM","8:14:22 PM","8:15:22 PM","8:16:22 PM","8:17:22 PM","8:18:22 PM","8:19:22 PM","8:20:22 PM","8:21:22 PM","F+1","F+2","F+3","F+4","F+5","F+6","F+7","F+8","F+9","F+10","F+11","F+12","F+13","F+14","F+15","F+16","F+17","F+18","F+19","F+20"],
+        labels: [],
         datasets: [
           {
             label: 'Buffer Value',
-            data: [0.08765266697535054,0.09323923044172834,0.09031931254405375,0.08905756084973018,0.08751848949025477,0.08529377926251709,0.08552727519204122,0.08363956927735251,0.08556124206692098,0.07830346133215921,0.07905300416384194,0.08096024569409177,0.07953611363051191,0.07981674673810928,0.08421220780658147,0.08807130604969393,0.08673787417404953,0.08629780290767938,0.08656866970837516,0.08442982557030891,0.0842170355821102,0.08335170315560951,0.08144603019247952,0.08622762001194142,0.08331849991903512,0.08389002556919731,0.09036961974627972,0.0919591865422523,0.0940624843997623,0.08866147181046168,0.08891701529186562,0.09435612740339587,0.09973250562558977,0.09904231019416576,0.09219471153010392,0.0834292975681215,0.08634601186971361,0.09205928615921707,0.09785680800651053,0.09794766256251132,0.09022999113182197,0.08330578055001797,0.08280184222308282,0.0926636775621505,0.10054461940210468,0.09953953117771483,0.09520225627187173,0.08854343413126751,0.08824141347236597,0.09805790489059019],
+            data: [],
             borderColor: '#3498DB',
             pointBackgroundColor: function(context) {
               const index = context.dataIndex;
               // Change color for forecast points
-              return index >= 30 ? 'rgba(52, 152, 219, 0.5)' : '#3498DB';
+              return index >= 0 ? 'rgba(52, 152, 219, 0.5)' : '#3498DB';
             },
             pointBorderColor: function(context) {
               const index = context.dataIndex;
               // Change color for forecast points
-              return index >= 30 ? 'rgba(52, 152, 219, 0.5)' : '#3498DB';
+              return index >= 0 ? 'rgba(52, 152, 219, 0.5)' : '#3498DB';
             },
             pointRadius: function(context) {
               const index = context.dataIndex;
               // Smaller points for forecast
-              return index >= 30 ? 3 : 4;
+              return index >= 0 ? 3 : 4;
             },
             borderWidth: function(context) {
               const index = context.dataIndex;
               // Dashed line for forecast
-              return index >= 30 ? 2 : 3;
+              return index >= 0 ? 2 : 3;
             },
             borderDash: function(context) {
               const index = context.dataIndex;
               // Dashed line for forecast
-              return index >= 30 ? [5, 5] : [];
+              return index >= 0 ? [5, 5] : [];
             },
             tension: 0.2,
             fill: false
           },
           {
             label: 'Target (0.1)',
-            data: [0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1],
+            data: [],
             borderColor: '#2ECC71',
             borderWidth: 2,
             borderDash: [5, 5],
@@ -278,7 +278,7 @@
           },
           {
             label: 'Warning Threshold',
-            data: [0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08,0.08],
+            data: [],
             borderColor: '#F39C12',
             borderWidth: 2,
             borderDash: [3, 3],
@@ -288,7 +288,7 @@
           },
           {
             label: 'Critical Threshold',
-            data: [0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05],
+            data: [],
             borderColor: '#E74C3C',
             borderWidth: 2,
             borderDash: [3, 3],
@@ -298,7 +298,7 @@
           },
           {
             label: 'Heat Shield Active',
-            data: [0.15,null,null,null,null,null,null,null,null,null,null,null,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+            data: [],
             backgroundColor: 'rgba(243, 156, 18, 0.3)',
             borderWidth: 0,
             pointRadius: 0,
@@ -307,7 +307,7 @@
           },
           {
             label: 'Warning Zone (Forecast)',
-            data: [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+            data: [],
             backgroundColor: 'rgba(243, 156, 18, 0.2)',
             borderWidth: 0,
             pointRadius: 0,
@@ -316,7 +316,7 @@
           },
           {
             label: 'Critical Zone (Forecast)',
-            data: [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+            data: [],
             backgroundColor: 'rgba(231, 76, 60, 0.2)',
             borderWidth: 0,
             pointRadius: 0,
@@ -362,7 +362,7 @@
               },
               footer: function(tooltipItems) {
                 const index = tooltipItems[0].dataIndex;
-                if (index >= 30) {
+                if (index >= 0) {
                   return 'Forecast data point';
                 }
                 return '';
