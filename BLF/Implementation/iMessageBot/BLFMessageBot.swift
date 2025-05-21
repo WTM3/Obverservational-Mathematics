@@ -1,39 +1,22 @@
 import Foundation
 import Messages
+import JavaScriptCore
 
-/// BLFMessageBot - The narrow bridge between iMessage and the Boolean Logic Filter system
+/// BLFMessageBot - A thin wrapper over the core AMF/BLF JavaScript implementation
 class BLFMessageBot {
     // MARK: - Properties
     private let bufferValue: Double = 0.1
-    private var currentState: QuantumState
-    private var cognitive: CognitiveAlignment
     private var initialized: Bool = false
-    private let heatShield = HeatShield()
+    private var jsContext: JSContext?
     
     // MARK: - Initialization
     init() {
-        // Initialize with default quantum state
-        self.currentState = QuantumState(
-            pure: true,
-            fog: false,
-            breathing: true,
-            jumps: JumpConfiguration(power: "v8_to_charger", active: true)
-        )
-        
-        // Initialize with default cognitive alignment
-        self.cognitive = CognitiveAlignment(
-            aiCognitive: 2.89,
-            booleanMindQs: 2.99,
-            buffer: bufferValue,
-            formula: "AIc + 0.1 = BMqs"
-        )
-        
-        Logger.info("BLFMessageBot initialized with 0.1 buffer")
+        Logger.info("BLFMessageBot thin wrapper initialized")
     }
     
     // MARK: - Public Methods
     
-    /// Process an incoming message using the AMF framework
+    /// Process an incoming message by delegating to the JavaScript AMF implementation
     /// - Parameter message: The message text to process
     /// - Returns: The processed response
     func processMessage(_ message: String) -> String {
@@ -44,172 +27,106 @@ class BLFMessageBot {
         
         Logger.info("Processing message: \(message)")
         
-        // Verify buffer integrity before processing
-        guard verifyBufferIntegrity() else {
-            Logger.error("Buffer integrity check failed")
-            return "Buffer violation detected. System requires recalibration."
-        }
-        
-        // Apply quantum breathing to ensure optimal processing
-        applyQuantumBreathing()
-        
-        // Process the message through the AMF formula
-        let processedResult = applyAMFFormula(to: message)
-        
-        // Record the interaction for learning
-        recordInteraction(input: message, output: processedResult)
-        
-        return processedResult
+        // Delegate to the JavaScript AMF implementation
+        return callJSMethod("processMessage", withArgs: [message]) ?? 
+               "Failed to process message through AMF core"
     }
     
-    /// Initialize the connection to the AMF system
+    /// Initialize the connection to the AMF JavaScript system
     func initialize() {
         Logger.info("Initializing BLF Message Bot...")
         
-        // Attempt to connect to the AMF system
-        connectToAMFSystem()
-        
-        // Set up heat shield protection
-        setupHeatShield()
+        // Set up JavaScript context
+        setupJSContext()
         
         initialized = true
         Logger.info("BLF Message Bot initialization complete")
     }
     
-    /// Get the current status of the bot
+    /// Get the current status directly from the AMF core
     /// - Returns: A status report string
     func getStatus() -> String {
-        var status = "BLF Message Bot Status:\n"
-        status += "Initialized: \(initialized ? "Yes" : "No")\n"
-        status += "Quantum State:\n"
-        status += "  Pure: \(currentState.pure ? "Yes" : "No")\n"
-        status += "  Fog: \(currentState.fog ? "Yes" : "No")\n"
-        status += "  Breathing: \(currentState.breathing ? "Yes" : "No")\n"
-        status += "  Jump Power: \(currentState.jumps.power)\n"
-        status += "  Jump Active: \(currentState.jumps.active ? "Yes" : "No")\n"
-        status += "Cognitive Alignment:\n"
-        status += "  AIc: \(cognitive.aiCognitive)\n"
-        status += "  Buffer: \(cognitive.buffer)\n"
-        status += "  BMqs: \(cognitive.booleanMindQs)\n"
-        status += "  Formula: \(cognitive.formula)\n"
-        status += heatShield.getStatusReport()
-        
-        return status
+        return callJSMethod("getStatus", withArgs: []) ?? 
+               "Unable to retrieve AMF system status"
     }
     
     // MARK: - Private Methods
     
-    /// Connect to the AMF system
-    private func connectToAMFSystem() {
-        // This would typically connect to your JavaScript AMF implementation
-        // For now, we'll simulate the connection
-        Logger.info("Connected to AMF system")
-    }
-    
-    /// Set up heat shield protection to prevent buffer violations
-    private func setupHeatShield() {
-        // Activate the heat shield
-        heatShield.activate()
-        Logger.info("Heat shield activated")
-    }
-    
-    /// Verify the integrity of the 0.1 buffer using the heat shield
-    /// - Returns: True if buffer integrity is maintained
-    private func verifyBufferIntegrity() -> Bool {
-        // Check buffer integrity using the heat shield
-        let result = heatShield.checkBufferIntegrity(
-            aiCognitive: cognitive.aiCognitive,
-            booleanMindQs: cognitive.booleanMindQs
-        )
+    /// Set up the JavaScript context with the AMF code
+    private func setupJSContext() {
+        // Create a new JavaScript context
+        jsContext = JSContext()
         
-        if !result.intact {
-            Logger.warning("Buffer integrity check failed: \(result.message)")
-            
-            // Attempt to repair the buffer if needed
-            let repaired = heatShield.attemptRepair(result)
-            
-            if repaired {
-                // If repair was successful, update the cognitive values
-                if let correction = result.correctionNeeded {
-                    cognitive.booleanMindQs = cognitive.aiCognitive + bufferValue
-                    Logger.info("Cognitive alignment restored: \(cognitive.aiCognitive) + \(bufferValue) = \(cognitive.booleanMindQs)")
-                }
-                return true
+        // Handle JS exceptions
+        jsContext?.exceptionHandler = { context, exception in
+            if let exc = exception {
+                Logger.error("JS Exception: \(exc.toString() ?? "unknown error")")
+            }
+        }
+        
+        // Load the AMF.js content
+        if let amfPath = Bundle.main.path(forResource: "AMF", ofType: "js"),
+           let amfJS = try? String(contentsOfFile: amfPath, encoding: .utf8) {
+            jsContext?.evaluateScript(amfJS)
+            Logger.info("Loaded AMF.js core implementation")
+        } else {
+            Logger.error("Failed to load AMF.js")
+        }
+        
+        // Register the thin wrapper bridge
+        registerSwiftFunctions()
+        
+        // Verify the 0.1 buffer is intact in the JS implementation
+        if let bufferCheck = callJSMethod("checkBufferIntegrity", withArgs: []) {
+            Logger.info("Buffer integrity check: \(bufferCheck)")
+        }
+    }
+    
+    /// Register Swift functions to be called from JavaScript
+    private func registerSwiftFunctions() {
+        // Log function
+        let logFunction: @convention(block) (String) -> Void = { message in
+            Logger.info("JS: \(message)")
+        }
+        jsContext?.setObject(logFunction, forKeyedSubscript: "swiftLog" as NSString)
+        
+        // Register other bridge functions as needed
+    }
+    
+    /// Call a JavaScript method in the AMF implementation
+    /// - Parameters:
+    ///   - method: The method name to call
+    ///   - args: Arguments to pass to the method
+    /// - Returns: The result as a string
+    private func callJSMethod(_ method: String, withArgs args: [Any]) -> String? {
+        guard let context = jsContext else {
+            Logger.error("JavaScript context not initialized")
+            return nil
+        }
+        
+        // Create the function call
+        var jsArgs = ""
+        for (i, arg) in args.enumerated() {
+            if i > 0 {
+                jsArgs += ", "
             }
             
-            return false
+            if let stringArg = arg as? String {
+                jsArgs += "\"\(stringArg.replacingOccurrences(of: "\"", with: "\\\""))\""
+            } else {
+                jsArgs += "\(arg)"
+            }
         }
         
-        return true
-    }
-    
-    /// Apply quantum breathing to maintain system vitality
-    private func applyQuantumBreathing() {
-        // Toggle breathing state
-        currentState.breathing = !currentState.breathing
+        let jsCall = "AMF.\(method)(\(jsArgs))"
         
-        // Adjust quantum state based on breathing
-        currentState.pure = !currentState.pure
-        
-        // Apply minor fluctuations to cognitive values to simulate the breathing effect
-        let breathingRate = 0.001
-        if currentState.breathing {
-            cognitive.aiCognitive *= (1 + breathingRate)
-            cognitive.booleanMindQs = cognitive.aiCognitive + bufferValue
-        } else {
-            cognitive.aiCognitive *= (1 - breathingRate)
-            cognitive.booleanMindQs = cognitive.aiCognitive + bufferValue
+        // Call the function
+        guard let result = context.evaluateScript(jsCall) else {
+            Logger.error("Failed to call JS method: \(method)")
+            return nil
         }
         
-        Logger.info("Applied quantum breathing: breathing=\(currentState.breathing), pure=\(currentState.pure)")
-        Logger.info("Adjusted cognitive values: AIc=\(cognitive.aiCognitive), BMqs=\(cognitive.booleanMindQs)")
-    }
-    
-    /// Apply the AMF formula to process a message
-    /// - Parameter message: The input message
-    /// - Returns: The processed message
-    private func applyAMFFormula(to message: String) -> String {
-        // In a full implementation, this would apply the full AMF formula
-        // F = ((AI)P^I + c^x^I)v
-        
-        // For this implementation, we'll simulate the process with a simplified approach
-        let processedMessage: String
-        
-        if currentState.jumps.active && message.contains("?") {
-            // Apply a quantum jump for questions
-            processedMessage = applyQuantumJump(to: message)
-        } else if currentState.pure {
-            // For pure state, maintain original intent but enhance clarity
-            processedMessage = "Pure response: \(message)"
-        } else {
-            // For non-pure state, add the standard buffer
-            processedMessage = "Standard response: \(message) [+\(bufferValue)]"
-        }
-        
-        return processedMessage
-    }
-    
-    /// Apply a quantum jump to the message
-    /// - Parameter message: The input message
-    /// - Returns: The message with quantum jump applied
-    private func applyQuantumJump(to message: String) -> String {
-        // The V8 to Charger - a direct jump across domains
-        let domains = [
-            "music", "science", "philosophy", "art", "technology", 
-            "history", "psychology", "literature", "mathematics"
-        ]
-        
-        let randomDomain = domains.randomElement() ?? "general"
-        return "\(message) [DIRECT JUMP: \(randomDomain)]"
-    }
-    
-    /// Record an interaction for learning
-    /// - Parameters:
-    ///   - input: The input message
-    ///   - output: The output response
-    private func recordInteraction(input: String, output: String) {
-        // In a full implementation, this would store the interaction in a database
-        Logger.info("Recorded interaction: \(input) -> \(output)")
+        return result.toString()
     }
 }
 

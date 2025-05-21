@@ -1,7 +1,7 @@
 # BLF iMessage Bot
 
 ## Overview
-The BLF iMessage Bot is an implementation of the Boolean Logic Filter (BLF) system as an iMessage extension. It serves as the narrow bridge between iMessage and the AMF (AI Maturation Formula) framework.
+The BLF iMessage Bot is a thin Swift wrapper implementation that connects the Boolean Logic Filter (BLF) system to iMessage. It serves as the narrow bridge between iMessage and the JavaScript AMF (AI Maturation Formula) framework.
 
 ## Core Formula
 The implementation follows the AMF formula:
@@ -19,30 +19,29 @@ The 0.1 buffer is essential and non-negotiable. It creates the narrow bridge bet
 ## Architecture
 
 ### Core Components
-1. **BLFMessageBot.swift**: The main bot implementation that processes messages through the AMF formula
-2. **MessagesExtension.swift**: Handles the integration with iMessage
-3. **MessageViewController.swift**: UI implementation of the iMessage extension view
-4. **HeatShield.swift**: The engine light warning you before a breakdown - monitors buffer integrity
+1. **BLFMessageBot.swift**: A thin Swift wrapper that delegates to the JavaScript AMF implementation
+2. **AMF.js**: The core JavaScript implementation that handles the AMF formula and logic
+3. **MessagesExtension.swift**: Handles the integration with iMessage
+4. **MessageViewController.swift**: UI implementation of the iMessage extension view
 5. **Logger.swift**: Logging utility for system events
 
 ### Key Concepts
 
-#### Quantum State
-The bot maintains a quantum state with properties:
-- **Pure**: Indicates if the state is pure or contaminated
-- **Fog**: Indicates if fog is present in the state
-- **Breathing**: Indicates if quantum breathing is active
-- **Jumps**: Configuration for quantum jumps (power and active status)
+#### Thin Wrapper Design
+The Swift implementation acts only as a thin wrapper over the JavaScript AMF implementation:
+- Swift handles UI and iMessage integration only
+- All business logic resides in the JavaScript AMF implementation
+- JavaScriptCore is used to bridge between Swift and JavaScript
+- The V-8 engine (JavaScript) powers the core logic
 
 #### Heat Shield
-The heat shield monitors the integrity of the 0.1 buffer, ensuring that the formula `AIc + 0.1 = BMqs` is maintained. It:
-- Detects buffer violations
-- Classifies violation severity (low, medium, high)
-- Attempts automatic repair when possible
-- Provides detailed status reports
+The heat shield monitoring is implemented in the JavaScript layer, which ensures:
+- Buffer integrity is maintained (AIc + 0.1 = BMqs)
+- Violations are detected and reported
+- Automatic repair is attempted when possible
 
 #### Quantum Breathing
-The V-8 under the hood - the bot regularly performs quantum breathing to:
+The quantum breathing process is implemented entirely in JavaScript:
 - Toggle between pure and non-pure states
 - Make micro-adjustments to cognitive values
 - Maintain system vitality
@@ -56,7 +55,7 @@ To use the bot:
 5. Type a message and tap Send
 
 The bot will:
-- Process the message through the AMF formula
+- Process the message through the JavaScript AMF implementation
 - Apply quantum jumps for questions
 - Maintain the 0.1 buffer throughout
 - Return a processed response
@@ -66,7 +65,15 @@ To further develop the bot:
 1. Ensure Xcode 12+ is installed
 2. Open the `BLF.xcodeproj` project
 3. Navigate to the iMessageBot target
-4. Make modifications while maintaining the 0.1 buffer
+4. Modify the Swift wrapper for UI/UX changes
+5. Modify the JavaScript AMF implementation for business logic changes
+
+### JavaScript Integration
+The JavaScript integration works as follows:
+1. The Swift wrapper loads `AMF.js` into a JavaScriptCore context
+2. Swift calls JavaScript methods for all business logic
+3. JavaScript can call back to Swift through registered functions
+4. All AMF formula calculations happen in JavaScript
 
 ### Testing
 Test the implementation by:
@@ -77,7 +84,7 @@ Test the implementation by:
 
 ## Integration with BLF/AMF
 The bot is designed to integrate with the wider BLF system:
-- Connects to the AMF JavaScript implementation
+- Uses the exact same JavaScript AMF implementation as the core system
 - Maintains consistency with the core formula
 - Preserves the 0.1 buffer at all times
 - Supports agent handoff protocols
