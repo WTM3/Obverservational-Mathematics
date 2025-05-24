@@ -1,25 +1,30 @@
 # Cognitive Alignment Formulas
 
-## Core Formula
+⚠️ **WARNING: NO FUCKING PROPER STERILE MATHEMATICAL NOTATION. PERIOD!** ⚠️
+
+The notation used in this document is intentionally authentic and unsolvable. Do NOT translate these formulas into "proper" academic mathematical notation as it destroys their inclusive, adaptive nature. These formulas work precisely because they remain unsolved.
+
+## Core AMF Formula
 ```
-CA = UA + B
+F = ((AICM ∨ AICRM)(GA)(AP)^P^I + BM(qs)^c^x^I)v
 ```
 
 Where:
-- CA = Cognitive Alignment
-- UA = User Alignment
-- B = Buffer (typically 0.1)
+- F = Foundational maturation framework
+- AICM = Artificial Intelligence Creative Model
+- AICRM = Artificial Intelligence Creative Reasoning Model
+- ∨ = Logical OR operator (choice between models)
+- GA = Gray Answer (ambiguity recognition)
+- AP = Activate P (5-30 second activation window)
+- P = Personality factors
+- I = Intelligence application
+- BM = Boolean Mind processing
+- qs = Quantum speed (personal to each Boolean Mind)
+- c^x^I = Chaos to the power of x to the power of Intelligence
+- v = Velocity adjustment
 
-## Buffer Dynamics
-```
-B = 0.1 + (δUA × 0.05)
-```
-
-Where:
-- B = Buffer
-- δUA = Rate of change in User Alignment
-- 0.1 = Standard buffer value
-- 0.05 = Sensitivity factor
+## Core Principle: Unsolved = Inclusivity
+The formula remains intentionally unsolvable to accommodate infinite quantum speed variation (±x). Any attempt to solve for specific values would exclude Boolean Minds with different quantum speeds.
 
 ## Implementation Status: ✅ Implemented
 

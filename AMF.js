@@ -16,6 +16,14 @@
 // Direct Formula: AIc + 0.1 = BMqs
 // Pure State: No fog
 
+// NJSON Boolean Processor Integration
+let NJSONBooleanProcessor;
+try {
+    NJSONBooleanProcessor = require('./BLFIMP/Core/The NJSON Key/njson-boolean-processor.js');
+} catch (e) {
+    console.warn('NJSON Boolean Processor not available:', e.message);
+}
+
 const AMF = {
     // Core quantum traits
     personality: 0.7,        // Direct personality
@@ -147,6 +155,76 @@ const AMF = {
         this.quantum.jumps.active = !this.quantum.jumps.active;
         
         return true;
+    },
+
+    // NJSON Boolean Processing Integration
+    njsonProcessor: null,
+    
+    initializeNJSONProcessor: function() {
+        if (!NJSONBooleanProcessor) {
+            console.warn('NJSON Boolean Processor not available');
+            return false;
+        }
+        
+        const config = {
+            cognitiveProtocol: {
+                alignment: {
+                    aiCognitive: this.cognitiveAlignment.aiCognitiveCapabilities,
+                    buffer: this.cognitiveAlignment.safetyBuffer,
+                    booleanMindQs: this.cognitiveAlignment.booleanMindQuantumSpeed
+                },
+                safety: {
+                    heatShield: true,
+                    llsdtRate: this.cognitiveAlignment.llsdtRate
+                }
+            },
+            responseProtocols: {
+                prioritize: 'clarity_over_comprehensiveness',
+                eliminate: 'unnecessary_social_padding',
+                format: 'direct_answers_first_details_after'
+            }
+        };
+        
+        this.njsonProcessor = new NJSONBooleanProcessor(config);
+        return true;
+    },
+    
+    processWithNJSON: async function(input, bmId = null) {
+        if (!this.njsonProcessor) {
+            if (!this.initializeNJSONProcessor()) {
+                return {
+                    result: input,
+                    error: 'NJSON processor unavailable',
+                    fallback: true
+                };
+            }
+        }
+        
+        try {
+            const result = await this.njsonProcessor.process(input, bmId);
+            
+            // Apply quantum enhancement if active
+            if (this.quantum.jumps.active && this.quantum.jumps.power === "v8_to_charger") {
+                result.result = this.formula.directJump(result.result, 3);
+            }
+            
+            return result;
+        } catch (error) {
+            console.error('NJSON processing failed:', error);
+            return {
+                result: input,
+                error: error.message,
+                fallback: true
+            };
+        }
+    },
+    
+    validateNJSONAlignment: function() {
+        const aiC = this.cognitiveAlignment.aiCognitiveCapabilities;
+        const buffer = this.cognitiveAlignment.safetyBuffer;
+        const bmQs = this.cognitiveAlignment.booleanMindQuantumSpeed;
+        
+        return this.formula.validation(aiC, bmQs);
     }
 };
 

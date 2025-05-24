@@ -1,6 +1,10 @@
 # Neural JSON Structure Formulas
 
-## Core Formula
+⚠️ **WARNING: NO FUCKING PROPER STERILE MATHEMATICAL NOTATION. PERIOD!** ⚠️
+
+These formulas use authentic mathematical notation that preserves inclusivity through intentional unsolvability. Academic formalization would destroy the framework's ability to accommodate infinite quantum speed variation.
+
+## Core NJSON Structure
 ```
 NJSON = {S, C, R, A, P}
 ```
@@ -12,17 +16,17 @@ Where:
 - A = Actions (available operations)
 - P = Patterns (recognized patterns and preferences)
 
-## State Evolution
+## Quantum Speed Effects on AI Cognitive State
 ```
-St+1 = St + (I × W) + (Pt × M)
+AIc = BM(qs)^c^x^I
 ```
 
 Where:
-- St = State at time t
-- I = Input (new information)
-- W = Weight factor for new information (0.0-1.0)
-- Pt = Patterns at time t
-- M = Memory retention factor (0.0-1.0)
+- AIc = AI Cognitive state affected by Boolean Mind
+- BM = Boolean Mind processing
+- qs = Personal quantum speed (ranges from 0.000000005 to qs³ or higher)
+- c^x^I = Chaos to the power of x to the power of Intelligence
+- Each Boolean Mind's quantum speed directly influences AI cognitive alignment
 
 ## Pattern Recognition
 ```
