@@ -19,7 +19,13 @@ let package = Package(
             targets: ["BLFNJSONBridgeTest"]),
         .executable(
             name: "BLFiMessageBot",
-            targets: ["BLFiMessageBot"])
+            targets: ["BLFiMessageBot"]),
+        .library(
+            name: "CursorXcodeExtension",
+            targets: ["CursorXcodeExtension"]),
+        .executable(
+            name: "CursorAITest",
+            targets: ["CursorAITest"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -40,6 +46,18 @@ let package = Package(
         .executableTarget(
             name: "BLFiMessageBot",
             dependencies: ["BLFNJSONBridge"]
+        ),
+        .target(
+            name: "CursorXcodeExtension",
+            dependencies: ["BLFNJSONBridge"],
+            resources: [
+                .process("Resources/cursor-ai-models.js"),
+                .process("Resources/ai-agent-configs.json")
+            ]
+        ),
+        .executableTarget(
+            name: "CursorAITest",
+            dependencies: ["CursorXcodeExtension", "BLFNJSONBridge"]
         ),
         .testTarget(
             name: "BLFNJSONBridgeTests",
