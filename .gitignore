@@ -27,3 +27,29 @@ __pycache__/
 dist/
 build/
 *.log
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+
+# Xcode
+*.xcodeproj/
+*.xcworkspace/
+*.xcuserdata/
+DerivedData/
+
+# macOS
+.DS_Store
+
+# Database files (if they contain sensitive data)
+# Uncomment if needed:
+# *.db
+
+# Temporary files
+*.tmp
+*.temp
+
+# IDE files
+.vscode/
+.idea/

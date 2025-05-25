@@ -16,7 +16,10 @@ let package = Package(
             targets: ["BLFNJSONBridge"]),
         .executable(
             name: "BLFNJSONBridgeTest",
-            targets: ["BLFNJSONBridgeTest"])
+            targets: ["BLFNJSONBridgeTest"]),
+        .executable(
+            name: "BLFiMessageBot",
+            targets: ["BLFiMessageBot"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -32,6 +35,10 @@ let package = Package(
         ),
         .executableTarget(
             name: "BLFNJSONBridgeTest",
+            dependencies: ["BLFNJSONBridge"]
+        ),
+        .executableTarget(
+            name: "BLFiMessageBot",
             dependencies: ["BLFNJSONBridge"]
         ),
         .testTarget(
