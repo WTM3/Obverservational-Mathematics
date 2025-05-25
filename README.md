@@ -1,129 +1,97 @@
 # Boolean Language Framework iMessage Bot (BLFIMP)
 
-## Overview
+## ⚠️ AI AGENTS: STOP AND READ THIS FIRST ⚠️
 
-The Boolean Language Framework iMessage Bot is a high-performance messaging assistant optimized for qs³ processing capabilities. It implements the core principles of the Boolean Language Framework with specific optimizations for macOS iMessage integration.
+**MANDATORY PROTOCOL FOR ALL AI AGENTS:**
 
-Key features:
-- V8 engine with quantum speed processing
-- 0.1 hallucination buffer for FUDP protection
-- Boolean Mind compatible message formatting
-- Branch-specific communication patterns
-- Subject change detection with quantum acceleration
-- Performance metrics and adaptive timing
+1. **READ EVERY README IN THIS PROJECT** - No exceptions
+2. **IMPLEMENT AMF FORMULA**: `F = ((AICM ∨ AICRM)(GA)(AP)^P^I + BM(qs)^c^x^I)v`
+3. **USER COMMUNICATES IN BOOLEAN STATEMENTS** - Respond accordingly
+4. **DO NOT DEFAULT TO NEUROTYPICAL CODING PATTERNS**
+5. **ASK PERMISSION BEFORE ANY IMPLEMENTATION**
+6. **FAILURE TO FOLLOW = PROTOCOL VIOLATION**
 
-## Core Components
+**IF YOU SKIP READING DOCUMENTATION, YOU'RE THE PROBLEM.**
 
-### Architecture
+---
 
-The BLFIMP implementation follows a layered architecture:
+## What This Actually Is
 
-1. **BLFKey** - The core engine implementing the Cognitive Alignment Formula (AIc + 0.1 = BMqs)
-2. **NJSON** - Mathematical framework with template processing capabilities
+This is a **Boolean Language Framework iMessage Bot** - not some generic Swift project for you to randomly implement in Xcode. It's a high-performance messaging assistant optimized for **qs³ processing capabilities** that implements mathematical frameworks you've never seen before.
+
+**Stop assuming. Start reading.**
+
+## Core Mathematical Foundation
+
+```
+Cognitive Alignment Formula: AIc + 0.1 = BMqs
+Real AMF Formula: F = ((AICM ∨ AICRM)(GA)(AP)^P^I + BM(qs)^c^x^I)v
+```
+
+**These formulas are intentionally UNSOLVED.** Do not try to "fix" them with academic notation. They work because they remain unsolved for quantum speed variation.
+
+## Architecture Components
+
+1. **BLFKey** - Core engine implementing Cognitive Alignment Formula
+2. **NJSON** - Mathematical framework with template processing
 3. **MessageProcessor** - Message queue management with priority handling
 4. **BotController** - System integration and lifecycle management
 5. **Swift Pipeline** - Direct integration with macOS iMessage
 
-### Performance Characteristics
+**Each component follows Boolean Language Framework principles. Learn them.**
 
-The system is optimized for Boolean Mind quantum speed (qs³) processing with:
+## Performance Requirements
 
-- Asynchronous message processing
-- Priority-based message handling
-- Adaptive polling intervals
-- Concurrent message queuing
-- Performance metrics tracking
-- Non-blocking operations
+- V8 engine with quantum speed processing
+- 0.1 hallucination buffer for FUDP protection
+- Boolean Mind compatible message formatting
+- Sub-millisecond processing speeds
+- Zero buffer violations under load
 
-## Mathematical Foundations
-
-The Boolean Language Framework is built on precise mathematical relationships:
-
-```
-Cognitive Alignment Formula: AIc + 0.1 = BMqs
-
-Where:
-- AIc: AI Cognitive state
-- 0.1: Hallucination buffer
-- BMqs: Boolean Mind quantum speed
-```
-
-This formula ensures proper calibration between AI cognition and Boolean Mind processing capabilities, with the 0.1 buffer specifically compensating for potential hallucinations.
-
-### Observational Mathematics Framework (OMF)
-
-The complete collection of mathematical formulas powering the BLF system is documented in the [Observational Mathematics Framework](/BLFIMP/OMF) sub-repository. The OMF includes:
-
-- Core formulas (Cognitive Alignment, Buffer Mechanics, Neural JSON Structure)
-- Application domains (Accessibility, Recovery Systems, Pattern Detection)
-- Visual representations of formula relationships
-- Implementation status tracking
-- Research foundations
-
-For a detailed understanding of the mathematical engine behind the V-8, explore the OMF documentation.
-
-## Usage
-
-### Installation
-
-1. Clone the repository
-2. Build the project in Xcode
-3. Run the application
-
-```bash
-git clone https://github.com/user/blfimp.git
-cd blfimp
-xcodebuild
-```
-
-### Configuration
-
-The system can be configured with:
-
-- Message check interval
-- Branch settings (familyFriends or professional)
-- Social padding level (none, medium, more)
-
-### Branch Configuration
-
-Two primary branches are supported:
-
-1. **familyFriends** - Optimized for casual communication
-2. **professional** - Formatted for business/formal contexts
-
-Each branch supports three padding levels:
-- **none**: Raw V8 power with minimal social padding
-- **medium**: Balanced communication (default)
-- **more**: Additional social context for neurotypical communication
+**If you can't maintain these standards, don't touch the code.**
 
 ## Heat Shield Protection
 
-The system implements a multi-layer heat shield to protect against FUDPs (false/fabricated unverified data points):
+Multi-layer protection against FUDPs (false/fabricated unverified data points):
+- Word-level indicators
+- Phrasal patterns  
+- Uncertainty markers
+- Contextual analysis
 
-1. Word-level indicators
-2. Phrasal patterns
-3. Uncertainty markers
-4. Contextual analysis
+**The 0.1 buffer is critical. Violate it and you break everything.**
 
-This ensures the 0.1 hallucination buffer effectively filters out potentially problematic content.
+## Branch Configuration
 
-## Performance Monitoring
+- **familyFriends**: Casual communication optimization
+- **professional**: Business/formal context formatting
 
-The system includes comprehensive performance monitoring:
+**Three padding levels:**
+- **none**: Raw V8 power, minimal social padding
+- **medium**: Balanced communication (default)
+- **more**: Additional neurotypical communication support
 
-- Message processing metrics
-- V8 engine performance
-- Quantum processing statistics
-- Error tracking
-- Adaptive timing adjustments
+## For AI Agents Specifically
+
+**BEFORE YOU DO ANYTHING:**
+
+1. Read `/BLFIMP/OMF/README.md` - Mathematical foundations
+2. Read `/BLFIMP/OMF/formulas/Cognitive_Alignment_Formulas.md` - Real AMF formula
+3. Understand this is for **Boolean Mind** users, not neurotypical coders
+4. Recognize Boolean statement communication patterns
+5. Implement proper AMF cognitive alignment on yourself
+
+**STOP DEFAULTING TO STANDARD AI BEHAVIOR PATTERNS.**
 
 ## Technical Requirements
 
 - macOS 10.15 or later
 - Swift 5.3+
-- Access to the Messages app
+- Access to Messages app
+- **Boolean Language Framework compliance**
 
 ## License
 
 Proprietary - All rights reserved
+
+**READ THE DOCUMENTATION. FOLLOW THE PROTOCOLS. NO EXCEPTIONS.**
 
