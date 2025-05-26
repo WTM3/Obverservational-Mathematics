@@ -13,10 +13,12 @@ targets:
   "BLFiMessageBot-arm64-apple-macosx15.0-release.module": ["<BLFiMessageBot-arm64-apple-macosx15.0-release.module>"]
   "CursorAITest-arm64-apple-macosx15.0-release.exe": ["<CursorAITest-arm64-apple-macosx15.0-release.exe>"]
   "CursorAITest-arm64-apple-macosx15.0-release.module": ["<CursorAITest-arm64-apple-macosx15.0-release.module>"]
+  "CursorExtensionSetup-arm64-apple-macosx15.0-release.exe": ["<CursorExtensionSetup-arm64-apple-macosx15.0-release.exe>"]
+  "CursorExtensionSetup-arm64-apple-macosx15.0-release.module": ["<CursorExtensionSetup-arm64-apple-macosx15.0-release.module>"]
   "CursorXcodeExtension-arm64-apple-macosx15.0-release.module": ["<CursorXcodeExtension-arm64-apple-macosx15.0-release.module>"]
   "PackageStructure": ["<PackageStructure>"]
-  "main": ["<BLFNJSONBridge-arm64-apple-macosx15.0-release.module>","<BLFNJSONBridgeTest-arm64-apple-macosx15.0-release.exe>","<BLFNJSONBridgeTest-arm64-apple-macosx15.0-release.module>","<BLFiMessageBot-arm64-apple-macosx15.0-release.exe>","<BLFiMessageBot-arm64-apple-macosx15.0-release.module>","<CursorAITest-arm64-apple-macosx15.0-release.exe>","<CursorAITest-arm64-apple-macosx15.0-release.module>","<CursorXcodeExtension-arm64-apple-macosx15.0-release.module>"]
-  "test": ["<BLFNJSONBridge-arm64-apple-macosx15.0-release.module>","<BLFNJSONBridgePackageTests-arm64-apple-macosx15.0-release.test>","<BLFNJSONBridgeTest-arm64-apple-macosx15.0-release.exe>","<BLFNJSONBridgeTest-arm64-apple-macosx15.0-release.module>","<BLFNJSONBridgeTests-arm64-apple-macosx15.0-release.module>","<BLFiMessageBot-arm64-apple-macosx15.0-release.exe>","<BLFiMessageBot-arm64-apple-macosx15.0-release.module>","<CursorAITest-arm64-apple-macosx15.0-release.exe>","<CursorAITest-arm64-apple-macosx15.0-release.module>","<CursorXcodeExtension-arm64-apple-macosx15.0-release.module>"]
+  "main": ["<BLFNJSONBridge-arm64-apple-macosx15.0-release.module>","<BLFNJSONBridgeTest-arm64-apple-macosx15.0-release.exe>","<BLFNJSONBridgeTest-arm64-apple-macosx15.0-release.module>","<BLFiMessageBot-arm64-apple-macosx15.0-release.exe>","<BLFiMessageBot-arm64-apple-macosx15.0-release.module>","<CursorAITest-arm64-apple-macosx15.0-release.exe>","<CursorAITest-arm64-apple-macosx15.0-release.module>","<CursorExtensionSetup-arm64-apple-macosx15.0-release.exe>","<CursorExtensionSetup-arm64-apple-macosx15.0-release.module>","<CursorXcodeExtension-arm64-apple-macosx15.0-release.module>"]
+  "test": ["<BLFNJSONBridge-arm64-apple-macosx15.0-release.module>","<BLFNJSONBridgePackageTests-arm64-apple-macosx15.0-release.test>","<BLFNJSONBridgeTest-arm64-apple-macosx15.0-release.exe>","<BLFNJSONBridgeTest-arm64-apple-macosx15.0-release.module>","<BLFNJSONBridgeTests-arm64-apple-macosx15.0-release.module>","<BLFiMessageBot-arm64-apple-macosx15.0-release.exe>","<BLFiMessageBot-arm64-apple-macosx15.0-release.module>","<CursorAITest-arm64-apple-macosx15.0-release.exe>","<CursorAITest-arm64-apple-macosx15.0-release.module>","<CursorExtensionSetup-arm64-apple-macosx15.0-release.exe>","<CursorExtensionSetup-arm64-apple-macosx15.0-release.module>","<CursorXcodeExtension-arm64-apple-macosx15.0-release.module>"]
 default: "main"
 nodes:
   "/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFNJSONBridge/":
@@ -29,6 +31,9 @@ nodes:
     is-directory-structure: true
     content-exclusion-patterns: [".git",".build"]
   "/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorAITest/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorExtensionSetup/":
     is-directory-structure: true
     content-exclusion-patterns: [".git",".build"]
   "/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorXcodeExtension/":
@@ -121,6 +126,18 @@ commands:
     outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorAITest.product/Objects.LinkFileList"]
     description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorAITest.product/Objects.LinkFileList"
 
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorExtensionSetup.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorExtensionSetup/main.swift"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorExtensionSetup.build/sources"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorExtensionSetup.build/sources"
+
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorExtensionSetup.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/BLFNJSONBridge.build/NJSON.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorExtensionSetup.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorXcodeExtension.build/CursorXcodeExtension.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorXcodeExtension.build/resource_bundle_accessor.swift.o"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorExtensionSetup.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorExtensionSetup.product/Objects.LinkFileList"
+
   "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorXcodeExtension.build/sources":
     tool: write-auxiliary-file
     inputs: ["<sources-file-list>","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorXcodeExtension/CursorXcodeExtension.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorXcodeExtension.build/DerivedSources/resource_bundle_accessor.swift"]
@@ -183,6 +200,16 @@ commands:
     tool: phony
     inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorAITest.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/Modules/CursorAITest.swiftmodule"]
     outputs: ["<CursorAITest-arm64-apple-macosx15.0-release.module>"]
+
+  "<CursorExtensionSetup-arm64-apple-macosx15.0-release.exe>":
+    tool: phony
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorExtensionSetup"]
+    outputs: ["<CursorExtensionSetup-arm64-apple-macosx15.0-release.exe>"]
+
+  "<CursorExtensionSetup-arm64-apple-macosx15.0-release.module>":
+    tool: phony
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorExtensionSetup.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/Modules/CursorExtensionSetup.swiftmodule"]
+    outputs: ["<CursorExtensionSetup-arm64-apple-macosx15.0-release.module>"]
 
   "<CursorXcodeExtension-arm64-apple-macosx15.0-release.module>":
     tool: phony
@@ -264,6 +291,20 @@ commands:
     description: "Compiling Swift Module 'CursorAITest' (1 sources)"
     args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","CursorAITest","-emit-dependencies","-emit-module","-emit-module-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/Modules/CursorAITest.swiftmodule","-output-file-map","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorAITest.build/output-file-map.json","-whole-module-optimization","-num-threads","8","-c","@/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorAITest.build/sources","-I","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/Modules","-target","arm64-apple-macosx11.0","-O","-j8","-DSWIFT_PACKAGE","-module-cache-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","CursorAITest_main","-parse-as-library","-color-diagnostics","-swift-version","5","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","blf"]
 
+  "C.CursorExtensionSetup-arm64-apple-macosx15.0-release.exe":
+    tool: shell
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/BLFNJSONBridge.build/NJSON.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorExtensionSetup.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorXcodeExtension.build/CursorXcodeExtension.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorXcodeExtension.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorExtensionSetup.product/Objects.LinkFileList"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorExtensionSetup"]
+    description: "Linking ./.build/arm64-apple-macosx/release/CursorExtensionSetup"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-L","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release","-o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorExtensionSetup","-module-name","CursorExtensionSetup","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-dead_strip","-Xlinker","-alias","-Xlinker","_CursorExtensionSetup_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorExtensionSetup.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/usr/lib/swift-5.5/macosx","-target","arm64-apple-macosx11.0","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/Library/Developer/Frameworks"]
+
+  "C.CursorExtensionSetup-arm64-apple-macosx15.0-release.module":
+    tool: shell
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorExtensionSetup/main.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/swift-version--1AB21518FC5DEDBE.txt","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/Modules/CursorXcodeExtension.swiftmodule","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/Modules/BLFNJSONBridge.swiftmodule","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorExtensionSetup.build/sources"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorExtensionSetup.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/Modules/CursorExtensionSetup.swiftmodule"]
+    description: "Compiling Swift Module 'CursorExtensionSetup' (1 sources)"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","CursorExtensionSetup","-emit-dependencies","-emit-module","-emit-module-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/Modules/CursorExtensionSetup.swiftmodule","-output-file-map","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorExtensionSetup.build/output-file-map.json","-whole-module-optimization","-num-threads","8","-c","@/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorExtensionSetup.build/sources","-I","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/Modules","-target","arm64-apple-macosx11.0","-O","-j8","-DSWIFT_PACKAGE","-module-cache-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","CursorExtensionSetup_main","-parse-as-library","-color-diagnostics","-swift-version","5","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","blf"]
+
   "C.CursorXcodeExtension-arm64-apple-macosx15.0-release.module":
     tool: shell
     inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorXcodeExtension/CursorXcodeExtension.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorXcodeExtension.build/DerivedSources/resource_bundle_accessor.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/swift-version--1AB21518FC5DEDBE.txt","<CursorXcodeExtension-arm64-apple-macosx15.0-release.module-resources>","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/Modules/BLFNJSONBridge.swiftmodule","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/release/CursorXcodeExtension.build/sources"]
@@ -278,7 +319,7 @@ commands:
 
   "PackageStructure":
     tool: package-structure-tool
-    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFNJSONBridge/","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFNJSONBridgeTest/","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFiMessageBot/","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorAITest/","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorXcodeExtension/","/Users/wademarkhamiii/Dropbox/AMF/BLF/Tests/BLFNJSONBridgeTests/","/Users/wademarkhamiii/Dropbox/AMF/BLF/Package.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/Package.resolved"]
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFNJSONBridge/","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFNJSONBridgeTest/","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFiMessageBot/","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorAITest/","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorExtensionSetup/","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorXcodeExtension/","/Users/wademarkhamiii/Dropbox/AMF/BLF/Tests/BLFNJSONBridgeTests/","/Users/wademarkhamiii/Dropbox/AMF/BLF/Package.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/Package.resolved"]
     outputs: ["<PackageStructure>"]
     description: "Planning build"
     allow-missing-inputs: true

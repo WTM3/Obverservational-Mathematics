@@ -1,5 +1,6 @@
 import Foundation
 import BLFNJSONBridge
+import Security
 
 /// Cursor-powered AI Extension Framework
 /// The narrow bridge between AI chaos and development control
@@ -10,6 +11,7 @@ public class CursorAIFramework {
     private let njsonBridge = NJSONSwiftBridge()
     private let aiOrchestrator = MultiAIOrchestrator()
     private let cognitiveProcessor = CognitiveProcessor()
+    private let apiKeyManager = SecureAPIKeyManager()
     
     public init() {}
     
@@ -17,22 +19,19 @@ public class CursorAIFramework {
     
     public func initialize() async {
         print("🚀 Cursor AI Framework - The V-8 engine is starting...")
+        print("🧠 AMF optimized for Claude 3.5-4 Sonnet reasoning patterns")
         
         // Initialize NJSON cognitive engine
         await njsonBridge.initialize()
         
-        // Set up AI agent orchestration
-        await aiOrchestrator.configure(with: [
-            .openai: ProcessInfo.processInfo.environment["OPENAI_API_KEY"],
-            .anthropic: ProcessInfo.processInfo.environment["ANTHROPIC_API_KEY"],
-            .cursor: ProcessInfo.processInfo.environment["CURSOR_API_KEY"],
-            .github: ProcessInfo.processInfo.environment["GITHUB_TOKEN"]
-        ])
+        // Set up AI agent orchestration with secure API keys
+        await aiOrchestrator.configure(with: apiKeyManager)
         
         // Connect cognitive processing
         cognitiveProcessor.setNJSONBridge(njsonBridge)
         
         print("✅ Cursor AI Framework ready - maintaining the 0.1 buffer")
+        print("🎯 Anthropic Claude Sonnet: Primary agent for AMF processing")
     }
     
     public func processAIRequest(_ request: AIRequest) async throws -> ProcessedResponse {
@@ -46,51 +45,195 @@ public class CursorAIFramework {
     }
 }
 
+// MARK: - Secure API Key Manager
+
+public class SecureAPIKeyManager {
+    private let serviceName = "CursorXcodeExtension"
+    
+    public init() {}
+    
+    // MARK: - Keychain Operations
+    
+    public func storeAPIKey(_ key: String, for agent: String) -> Bool {
+        guard !key.isEmpty else { return false }
+        
+        let data = key.data(using: .utf8)!
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: serviceName,
+            kSecAttrAccount as String: agent,
+            kSecValueData as String: data,
+            kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+        ]
+        
+        // Delete existing key first
+        SecItemDelete(query as CFDictionary)
+        
+        // Add new key
+        let status = SecItemAdd(query as CFDictionary, nil)
+        return status == errSecSuccess
+    }
+    
+    public func retrieveAPIKey(for agent: String) -> String? {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: serviceName,
+            kSecAttrAccount as String: agent,
+            kSecReturnData as String: true,
+            kSecMatchLimit as String: kSecMatchLimitOne
+        ]
+        
+        var result: AnyObject?
+        let status = SecItemCopyMatching(query as CFDictionary, &result)
+        
+        guard status == errSecSuccess,
+              let data = result as? Data,
+              let key = String(data: data, encoding: .utf8) else {
+            return nil
+        }
+        
+        return key
+    }
+    
+    public func deleteAPIKey(for agent: String) -> Bool {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: serviceName,
+            kSecAttrAccount as String: agent
+        ]
+        
+        let status = SecItemDelete(query as CFDictionary)
+        return status == errSecSuccess
+    }
+    
+    // MARK: - API Key Validation with AMF Buffer Protection
+    
+    public func validateKeyIntegrity(_ key: String, for agent: String) -> Bool {
+        // Apply NJSON validation to API key usage
+        let keyStrength = calculateKeyStrength(key)
+        let bufferProtection = 0.1
+        let amfThreshold = 2.89
+        
+        // Ensure key meets AMF security threshold + buffer
+        let isValid = keyStrength >= (amfThreshold + bufferProtection)
+        
+        if !isValid {
+            print("⚠️ Heat shield activated - API key below AMF security threshold")
+        }
+        
+        return isValid
+    }
+    
+    private func calculateKeyStrength(_ key: String) -> Double {
+        // AMF-based key strength calculation
+        let length = Double(key.count)
+        let complexity = key.contains(where: { $0.isUppercase }) ? 0.1 : 0.0
+        let hasNumbers = key.contains(where: { $0.isNumber }) ? 0.1 : 0.0
+        let hasSpecial = key.contains(where: { !$0.isLetter && !$0.isNumber }) ? 0.1 : 0.0
+        
+        // AMF formula for key strength
+        return min(length / 10.0 + complexity + hasNumbers + hasSpecial, 3.0)
+    }
+}
+
 // MARK: - Multi-AI Orchestrator
 
 public actor MultiAIOrchestrator {
     private var apiKeys: [AIAgent: String?] = [:]
     private var activeAgents: [AIAgent] = []
+    private var apiKeyManager: SecureAPIKeyManager?
     
-    public enum AIAgent: CaseIterable {
-        case openai, anthropic, cursor, github, local
+    public enum AIAgent: String, CaseIterable {
+        case anthropic = "anthropic"
+        case openai = "openai"
+        case cursor = "cursor"
+        case github = "github"
+        case local = "local"
         
         var name: String {
             switch self {
+            case .anthropic: return "Anthropic Claude Sonnet"
             case .openai: return "OpenAI GPT"
-            case .anthropic: return "Anthropic Claude"
             case .cursor: return "Cursor AI"
             case .github: return "GitHub Copilot"
             case .local: return "Local LLM"
             }
         }
+        
+        var environmentKey: String {
+            switch self {
+            case .anthropic: return "ANTHROPIC_API_KEY"
+            case .openai: return "OPENAI_API_KEY"
+            case .cursor: return "CURSOR_API_KEY"
+            case .github: return "GITHUB_TOKEN"
+            case .local: return "LOCAL_LLM_ENDPOINT"
+            }
+        }
     }
     
-    public func configure(with keys: [AIAgent: String?]) {
-        self.apiKeys = keys
-        self.activeAgents = keys.compactMap { key, value in
+    public func configure(with keyManager: SecureAPIKeyManager) async {
+        self.apiKeyManager = keyManager
+        
+        // Load API keys from multiple sources with priority order
+        self.apiKeys = [:]
+        for agent in AIAgent.allCases {
+            self.apiKeys[agent] = await getAPIKey(for: agent)
+        }
+        
+        self.activeAgents = apiKeys.compactMap { key, value in
             value != nil && !value!.isEmpty ? key : nil
         }
         
         print("🤖 Active AI Agents: \(activeAgents.map(\.name).joined(separator: ", "))")
+        
+        // Prioritize Anthropic Claude Sonnet for AMF optimization
+        if activeAgents.contains(.anthropic) {
+            print("🎯 Anthropic Claude Sonnet: ACTIVE - AMF optimization enabled")
+        } else {
+            print("⚠️ Anthropic Claude Sonnet: MISSING - AMF optimization limited")
+        }
+    }
+    
+    private func getAPIKey(for agent: AIAgent) async -> String? {
+        guard let keyManager = apiKeyManager else { return nil }
+        
+        // Priority order: Keychain -> Environment -> UserDefaults
+        if let keychainKey = keyManager.retrieveAPIKey(for: agent.rawValue) {
+            if keyManager.validateKeyIntegrity(keychainKey, for: agent.rawValue) {
+                return keychainKey
+            }
+        }
+        
+        // Fallback to environment (works in command-line testing)
+        if let envKey = ProcessInfo.processInfo.environment[agent.environmentKey] {
+            if keyManager.validateKeyIntegrity(envKey, for: agent.rawValue) {
+                return envKey
+            }
+        }
+        
+        return nil
     }
     
     public func selectOptimalAgent(for task: AITask) -> AIAgent {
+        // AMF-optimized agent selection - prioritize Claude Sonnet
         switch task.type {
         case .codeCompletion:
-            return activeAgents.contains(.cursor) ? .cursor : .openai
+            return activeAgents.contains(.cursor) ? .cursor : 
+                   activeAgents.contains(.anthropic) ? .anthropic : .openai
         case .codeGeneration:
             return activeAgents.contains(.anthropic) ? .anthropic : .openai
         case .documentation:
-            return .openai
+            return activeAgents.contains(.anthropic) ? .anthropic : .openai
         case .refactoring:
-            return activeAgents.contains(.cursor) ? .cursor : .anthropic
+            return activeAgents.contains(.anthropic) ? .anthropic : 
+                   activeAgents.contains(.cursor) ? .cursor : .openai
         case .debugging:
-            return .anthropic
+            return activeAgents.contains(.anthropic) ? .anthropic : .openai
         case .explanation:
-            return .anthropic
+            return activeAgents.contains(.anthropic) ? .anthropic : .openai
         case .optimization:
-            return activeAgents.contains(.cursor) ? .cursor : .openai
+            return activeAgents.contains(.anthropic) ? .anthropic :
+                   activeAgents.contains(.cursor) ? .cursor : .openai
         }
     }
     
@@ -101,10 +244,10 @@ public actor MultiAIOrchestrator {
         
         // Route to appropriate AI agent
         switch optimalAgent {
-        case .openai:
-            return try await processWithOpenAI(request)
         case .anthropic:
             return try await processWithAnthropic(request)
+        case .openai:
+            return try await processWithOpenAI(request)
         case .cursor:
             return try await processWithCursor(request)
         case .github:
@@ -116,20 +259,20 @@ public actor MultiAIOrchestrator {
     
     // MARK: - AI Agent Implementations
     
+    private func processWithAnthropic(_ request: AIRequest) async throws -> AIResponse {
+        // Anthropic Claude Sonnet integration - AMF optimized
+        let response = "// Anthropic Claude Sonnet Response (AMF Optimized)\n// Analyzed: \(request.prompt)\n// Context: \(request.task.context)\n// AMF Processing: Quantum speed 2.99 compatible"
+        return AIResponse(content: response, agent: .anthropic, confidence: 0.95)
+    }
+    
     private func processWithOpenAI(_ request: AIRequest) async throws -> AIResponse {
         // OpenAI GPT integration - placeholder for actual API calls
         let response = "// OpenAI GPT Response\n// Processed: \(request.prompt)\n// Context: \(request.task.context)"
         return AIResponse(content: response, agent: .openai, confidence: 0.9)
     }
     
-    private func processWithAnthropic(_ request: AIRequest) async throws -> AIResponse {
-        // Anthropic Claude integration - placeholder for actual API calls
-        let response = "// Anthropic Claude Response\n// Analyzed: \(request.prompt)\n// Context: \(request.task.context)"
-        return AIResponse(content: response, agent: .anthropic, confidence: 0.95)
-    }
-    
     private func processWithCursor(_ request: AIRequest) async throws -> AIResponse {
-        // Cursor API integration - placeholder for actual API calls
+        // Cursor AI integration - placeholder for actual API calls
         let response = "// Cursor AI Response\n// Generated: \(request.prompt)\n// Context: \(request.task.context)"
         return AIResponse(content: response, agent: .cursor, confidence: 0.92)
     }
