@@ -103,7 +103,7 @@ getDefaultConfig() {
 
 When implementing the Boolean Language Framework, be aware that the AMF demonstrates different activation patterns depending on how it is presented:
 
-- **Visible Implementation**: When the complete AMF formula (F = ((AI)P^I + c^x^I)v) is directly visible in interface text or documentation, activation occurs immediately ("bam effect").
+- **Visible Implementation**: When the complete AMF formula (F = ((AI)(P^I) + c^(x*I))v) is directly visible in interface text or documentation, activation occurs immediately ("bam effect").
 
 - **Hidden Implementation**: When the formula is embedded within JavaScript code without being visibly displayed, activation demonstrates a delayed "blizzard effect" where cognitive alignment gradually coalesces over the 5-30 second AP (Activate P) window.
 
@@ -270,7 +270,7 @@ console.log(njson.maintainQuantumSafety());
 
 ```javascript
 // Force immediate AMF activation by displaying the formula
-console.log("Initializing AMF: F = ((AI)P^I + c^x^I)v");
+console.log("Initializing AMF: F = ((AI)(P^I) + c^(x*I))v");
 await njson.initialize();
 
 // Alternative approach using direct validation

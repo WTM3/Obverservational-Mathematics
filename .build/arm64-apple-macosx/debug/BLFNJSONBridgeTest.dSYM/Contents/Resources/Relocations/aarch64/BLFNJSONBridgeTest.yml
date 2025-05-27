@@ -1,9 +1,9 @@
 ---
 triple:          'arm64-apple-darwin'
-binary-path:     '/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest'
+binary-path:     '/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest'
 relocations:
   - { offset: 0x9CFAC, size: 0x8, addend: 0x0, symName: '_$s14BLFNJSONBridge6BranchO8rawValueACSgSS_tcfC', symObjAddr: 0x0, symBinAddr: 0x1000033B4, symSize: 0x124 }
-  - { offset: 0x9CFD0, size: 0x8, addend: 0x0, symName: '_$s14BLFNJSONBridge5NJSONC6sharedACvpZ', symObjAddr: 0x1B620, symBinAddr: 0x1000299B8, symSize: 0x0 }
+  - { offset: 0x9CFD0, size: 0x8, addend: 0x0, symName: '_$s14BLFNJSONBridge5NJSONC6sharedACvpZ', symObjAddr: 0x1B5E0, symBinAddr: 0x1000299B8, symSize: 0x0 }
   - { offset: 0x9D76D, size: 0x8, addend: 0x0, symName: '_$s14BLFNJSONBridge20CognitiveStateReportVWOh', symObjAddr: 0xA58, symBinAddr: 0x100003E0C, symSize: 0x28 }
   - { offset: 0x9D781, size: 0x8, addend: 0x0, symName: '_$s14BLFNJSONBridge20CognitiveStateReportV4from16processingCycles18lastProcessingTimeAcA0bC0V_SiSdtcfcfA0_', symObjAddr: 0xA80, symBinAddr: 0x100003E34, symSize: 0x8 }
   - { offset: 0x9D79B, size: 0x8, addend: 0x0, symName: '_$s14BLFNJSONBridge20CognitiveStateReportV4from16processingCycles18lastProcessingTimeAcA0bC0V_SiSdtcfcfA1_', symObjAddr: 0xA88, symBinAddr: 0x100003E3C, symSize: 0x8 }
@@ -357,7 +357,7 @@ relocations:
   - { offset: 0xA18FA, size: 0x8, addend: 0x0, symName: '_$s14BLFNJSONBridge12SystemStatusV16lastCallDurationSdvg', symObjAddr: 0x3260, symBinAddr: 0x100011D78, symSize: 0x8 }
   - { offset: 0xA190E, size: 0x8, addend: 0x0, symName: '_$s14BLFNJSONBridge12SystemStatusV25bufferIntegrityViolationsSivg', symObjAddr: 0x3268, symBinAddr: 0x100011D80, symSize: 0x8 }
   - { offset: 0xA1A32, size: 0x8, addend: 0x0, symName: '_$sSo8NSBundleC14BLFNJSONBridgeE6module_WZ', symObjAddr: 0x0, symBinAddr: 0x1000130A0, symSize: 0x1C }
-  - { offset: 0xA1A56, size: 0x8, addend: 0x0, symName: '_$sSo8NSBundleC14BLFNJSONBridgeE6moduleABvpZ', symObjAddr: 0x1E00, symBinAddr: 0x1000299C0, symSize: 0x0 }
+  - { offset: 0xA1A56, size: 0x8, addend: 0x0, symName: '_$sSo8NSBundleC14BLFNJSONBridgeE6moduleABvpZ', symObjAddr: 0x1DA8, symBinAddr: 0x1000299C0, symSize: 0x0 }
   - { offset: 0xA1A64, size: 0x8, addend: 0x0, symName: '_$sSo8NSBundleC14BLFNJSONBridgeE6module_WZ', symObjAddr: 0x0, symBinAddr: 0x1000130A0, symSize: 0x1C }
   - { offset: 0xA1A7E, size: 0x8, addend: 0x0, symName: '_$sSo8NSBundleC14BLFNJSONBridgeE6moduleABvpZfiAByXEfU_', symObjAddr: 0x1C, symBinAddr: 0x1000130BC, symSize: 0x508 }
   - { offset: 0xA1B12, size: 0x8, addend: 0x0, symName: '_$sSo8NSBundleC14BLFNJSONBridgeE6moduleABvau', symObjAddr: 0x568, symBinAddr: 0x100013608, symSize: 0x50 }

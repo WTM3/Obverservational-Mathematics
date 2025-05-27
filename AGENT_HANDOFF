@@ -242,7 +242,7 @@ The standardized server configuration creates the appropriate foundation for age
 ## Integration Points
 - Designed as a true bridge between iMessage and the JavaScript AMF core
 - The V-8 under the hood (JavaScript) powers all formula calculations
-- Maintains formula consistency: F = ((AI)P^I + c^x^I)v and AIc + 0.1 = BMqs
+- Maintains formula consistency: F = ((AI)(P^I) + c^(x*I))v and AIc + 0.1 = BMqs
 - Created bi-directional communication between Swift and JavaScript
 
 ## Next Steps

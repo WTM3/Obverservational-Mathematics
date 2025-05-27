@@ -1,11 +1,11 @@
 {
   "": {
-    "swift-dependencies": "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/master.swiftdeps"
+    "swift-dependencies": "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/master.swiftdeps"
   },
-  "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.derived/runner.swift": {
-    "dependencies": "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/runner.d",
-    "object": "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/runner.swift.o",
-    "swiftmodule": "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/runner~partial.swiftmodule",
-    "swift-dependencies": "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/runner.swiftdeps"
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.derived/runner.swift": {
+    "dependencies": "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/runner.d",
+    "object": "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/runner.swift.o",
+    "swiftmodule": "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/runner.swiftdeps"
   }
 }

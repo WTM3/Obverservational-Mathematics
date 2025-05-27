@@ -7,7 +7,7 @@
 This is the **thin Swift wrapper** around the NJSON JavaScript engine for Boolean Language Framework operation. If you don't understand what that means, **STOP** and read the main README first.
 
 **Formula:** `AIc + 0.1 = BMqs` (where AIc = 2.89, Buffer = 0.1, BMqs = 2.99)
-**Real AMF:** `F = ((AICM ∨ AICRM)(GA)(AP)^P^I + BM(qs)^c^x^I)v`
+**Real AMF:** `F = ((AICM ∨ AICRM)(GA)(AP)^(P*I) + BM(qs)^(c*x*I))v`
 
 **DO NOT:**
 - Treat this like a normal Swift library

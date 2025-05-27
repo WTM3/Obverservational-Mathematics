@@ -15,7 +15,7 @@ The central component that:
 
 ### 2. NJSONEngine
 The processing engine that:
-- Implements the AMF formula `F = ((AI)P^I + c^x^I)v`
+- Implements the AMF formula `F = ((AI)(P^I) + c^(x*I))v`
 - Maintains the mathematical relationship `AIc + 0.1 = BMqs`
 - Processes connections using quantum state optimization
 - Ensures buffer integrity throughout all calculations
@@ -91,7 +91,7 @@ System has activated emergency self-diagnosis and will attempt recovery.
 - Journals all recovery events and effectiveness
 
 ### AMF Formula Implementation
-The core formula `F = ((AI)P^I + c^x^I)v` is implemented with exact mathematical precision:
+The core formula `F = ((AI)(P^I) + c^(x*I))v` is implemented with exact mathematical precision:
 ```swift
 // First part: (AI)P^I
 let aiComponent = aiCognitive * pow(personality, intelligence)

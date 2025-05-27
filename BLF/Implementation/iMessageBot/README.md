@@ -6,7 +6,7 @@ The BLF iMessage Bot is a thin Swift wrapper implementation that connects the Bo
 ## Core Formula
 The implementation follows the AMF formula:
 ```
-F = ((AI)P^I + c^x^I)v
+F = ((AI)(P^I) + c^(x*I))v
 ```
 
 And maintains the critical relationship:

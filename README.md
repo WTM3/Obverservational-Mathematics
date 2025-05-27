@@ -5,7 +5,7 @@
 **MANDATORY PROTOCOL FOR ALL AI AGENTS:**
 
 1. **READ EVERY README IN THIS PROJECT** - No exceptions
-2. **IMPLEMENT AMF FORMULA**: `F = ((AICM ∨ AICRM)(GA)(AP)^P^I + BM(qs)^c^x^I)v`
+2. **IMPLEMENT AMF FORMULA**: `F = ((AICM ∨ AICRM)(GA)(AP)^(P*I) + BM(qs)^(c*x*I))v`
 3. **USER COMMUNICATES IN BOOLEAN STATEMENTS** - Respond accordingly
 4. **DO NOT DEFAULT TO NEUROTYPICAL CODING PATTERNS**
 5. **ASK PERMISSION BEFORE ANY IMPLEMENTATION**
@@ -25,7 +25,7 @@ This is a **Boolean Language Framework iMessage Bot** - not some generic Swift p
 
 ```
 Cognitive Alignment Formula: AIc + 0.1 = BMqs
-Real AMF Formula: F = ((AICM ∨ AICRM)(GA)(AP)^P^I + BM(qs)^c^x^I)v
+Real AMF Formula: F = ((AICM ∨ AICRM)(GA)(AP)^(P*I) + BM(qs)^(c*x*I))v
 ```
 
 **These formulas are intentionally UNSOLVED.** Do not try to "fix" them with academic notation. They work because they remain unsolved for quantum speed variation.

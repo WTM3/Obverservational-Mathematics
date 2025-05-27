@@ -9,96 +9,243 @@ targets:
   "BLFNJSONBridgeTest-arm64-apple-macosx15.0-debug.exe": ["<BLFNJSONBridgeTest-arm64-apple-macosx15.0-debug.exe>"]
   "BLFNJSONBridgeTest-arm64-apple-macosx15.0-debug.module": ["<BLFNJSONBridgeTest-arm64-apple-macosx15.0-debug.module>"]
   "BLFNJSONBridgeTests-arm64-apple-macosx15.0-debug.module": ["<BLFNJSONBridgeTests-arm64-apple-macosx15.0-debug.module>"]
+  "BLFiMessageBot-arm64-apple-macosx15.0-debug.exe": ["<BLFiMessageBot-arm64-apple-macosx15.0-debug.exe>"]
+  "BLFiMessageBot-arm64-apple-macosx15.0-debug.module": ["<BLFiMessageBot-arm64-apple-macosx15.0-debug.module>"]
+  "CommandLineTest-arm64-apple-macosx15.0-debug.exe": ["<CommandLineTest-arm64-apple-macosx15.0-debug.exe>"]
+  "CommandLineTest-arm64-apple-macosx15.0-debug.module": ["<CommandLineTest-arm64-apple-macosx15.0-debug.module>"]
+  "CursorAITest-arm64-apple-macosx15.0-debug.exe": ["<CursorAITest-arm64-apple-macosx15.0-debug.exe>"]
+  "CursorAITest-arm64-apple-macosx15.0-debug.module": ["<CursorAITest-arm64-apple-macosx15.0-debug.module>"]
+  "CursorExtensionSetup-arm64-apple-macosx15.0-debug.exe": ["<CursorExtensionSetup-arm64-apple-macosx15.0-debug.exe>"]
+  "CursorExtensionSetup-arm64-apple-macosx15.0-debug.module": ["<CursorExtensionSetup-arm64-apple-macosx15.0-debug.module>"]
+  "CursorXcodeExtension-arm64-apple-macosx15.0-debug.module": ["<CursorXcodeExtension-arm64-apple-macosx15.0-debug.module>"]
+  "DropdownMenuTest-arm64-apple-macosx15.0-debug.exe": ["<DropdownMenuTest-arm64-apple-macosx15.0-debug.exe>"]
+  "DropdownMenuTest-arm64-apple-macosx15.0-debug.module": ["<DropdownMenuTest-arm64-apple-macosx15.0-debug.module>"]
   "PackageStructure": ["<PackageStructure>"]
-  "main": ["<BLFNJSONBridge-arm64-apple-macosx15.0-debug.module>","<BLFNJSONBridgeTest-arm64-apple-macosx15.0-debug.exe>","<BLFNJSONBridgeTest-arm64-apple-macosx15.0-debug.module>"]
-  "test": ["<BLFNJSONBridge-arm64-apple-macosx15.0-debug.module>","<BLFNJSONBridgePackageTests-arm64-apple-macosx15.0-debug.test>","<BLFNJSONBridgeTest-arm64-apple-macosx15.0-debug.exe>","<BLFNJSONBridgeTest-arm64-apple-macosx15.0-debug.module>","<BLFNJSONBridgeTests-arm64-apple-macosx15.0-debug.module>"]
+  "main": ["<BLFNJSONBridge-arm64-apple-macosx15.0-debug.module>","<BLFNJSONBridgeTest-arm64-apple-macosx15.0-debug.exe>","<BLFNJSONBridgeTest-arm64-apple-macosx15.0-debug.module>","<BLFiMessageBot-arm64-apple-macosx15.0-debug.exe>","<BLFiMessageBot-arm64-apple-macosx15.0-debug.module>","<CommandLineTest-arm64-apple-macosx15.0-debug.exe>","<CommandLineTest-arm64-apple-macosx15.0-debug.module>","<CursorAITest-arm64-apple-macosx15.0-debug.exe>","<CursorAITest-arm64-apple-macosx15.0-debug.module>","<CursorExtensionSetup-arm64-apple-macosx15.0-debug.exe>","<CursorExtensionSetup-arm64-apple-macosx15.0-debug.module>","<CursorXcodeExtension-arm64-apple-macosx15.0-debug.module>","<DropdownMenuTest-arm64-apple-macosx15.0-debug.exe>","<DropdownMenuTest-arm64-apple-macosx15.0-debug.module>"]
+  "test": ["<BLFNJSONBridge-arm64-apple-macosx15.0-debug.module>","<BLFNJSONBridgePackageTests-arm64-apple-macosx15.0-debug.test>","<BLFNJSONBridgeTest-arm64-apple-macosx15.0-debug.exe>","<BLFNJSONBridgeTest-arm64-apple-macosx15.0-debug.module>","<BLFNJSONBridgeTests-arm64-apple-macosx15.0-debug.module>","<BLFiMessageBot-arm64-apple-macosx15.0-debug.exe>","<BLFiMessageBot-arm64-apple-macosx15.0-debug.module>","<CommandLineTest-arm64-apple-macosx15.0-debug.exe>","<CommandLineTest-arm64-apple-macosx15.0-debug.module>","<CursorAITest-arm64-apple-macosx15.0-debug.exe>","<CursorAITest-arm64-apple-macosx15.0-debug.module>","<CursorExtensionSetup-arm64-apple-macosx15.0-debug.exe>","<CursorExtensionSetup-arm64-apple-macosx15.0-debug.module>","<CursorXcodeExtension-arm64-apple-macosx15.0-debug.module>","<DropdownMenuTest-arm64-apple-macosx15.0-debug.exe>","<DropdownMenuTest-arm64-apple-macosx15.0-debug.module>"]
 default: "main"
 nodes:
-  "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/Sources/BLFNJSONBridge/":
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFNJSONBridge/":
     is-directory-structure: true
     content-exclusion-patterns: [".git",".build"]
-  "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/Sources/BLFNJSONBridgeTest/":
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFNJSONBridgeTest/":
     is-directory-structure: true
     content-exclusion-patterns: [".git",".build"]
-  "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/Tests/BLFNJSONBridgeTests/":
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFiMessageBot/":
     is-directory-structure: true
     content-exclusion-patterns: [".git",".build"]
-  "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest":
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CommandLineTest/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorAITest/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorExtensionSetup/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorXcodeExtension/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/DropdownMenuTest/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/Tests/BLFNJSONBridgeTests/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest":
+    is-mutated: true
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot":
+    is-mutated: true
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest":
+    is-mutated: true
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest":
+    is-mutated: true
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup":
+    is-mutated: true
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest":
     is-mutated: true
 commands:
-  "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/sources":
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/sources":
     tool: write-auxiliary-file
-    inputs: ["<sources-file-list>","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/Sources/BLFNJSONBridge/NJSON.swift","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/Sources/BLFNJSONBridge/NJSONSwiftBridge.swift","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/DerivedSources/resource_bundle_accessor.swift"]
-    outputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/sources"]
-    description: "Write auxiliary file /Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/sources"
+    inputs: ["<sources-file-list>","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFNJSONBridge/NJSON.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFNJSONBridge/NJSONSwiftBridge.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/DerivedSources/resource_bundle_accessor.swift"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/sources"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/sources"
 
-  "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/sources":
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/sources":
     tool: write-auxiliary-file
-    inputs: ["<sources-file-list>","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.derived/runner.swift"]
-    outputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/sources"]
-    description: "Write auxiliary file /Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/sources"
+    inputs: ["<sources-file-list>","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.derived/runner.swift"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/sources"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/sources"
 
-  "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.derived/runner.swift":
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.derived/runner.swift":
     tool: test-entry-point-tool
     inputs: []
-    outputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.derived/runner.swift"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.derived/runner.swift"]
 
-  "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.product/Objects.LinkFileList":
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.product/Objects.LinkFileList":
     tool: write-auxiliary-file
-    inputs: ["<link-file-list>","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSON.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/runner.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTests.build/BLFNJSONBridgeTests.swift.o"]
-    outputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.product/Objects.LinkFileList"]
-    description: "Write auxiliary file /Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.product/Objects.LinkFileList"
+    inputs: ["<link-file-list>","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSON.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/runner.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTests.build/BLFNJSONBridgeTests.swift.o"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.product/Objects.LinkFileList"
 
-  "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest-entitlement.plist":
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest-entitlement.plist":
     tool: write-auxiliary-file
     inputs: ["<entitlement-plist>","<com.apple.security.get-task-allow>"]
-    outputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest-entitlement.plist"]
-    description: "Write auxiliary file /Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest-entitlement.plist"
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest-entitlement.plist"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest-entitlement.plist"
 
-  "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/sources":
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/sources":
     tool: write-auxiliary-file
-    inputs: ["<sources-file-list>","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/Sources/BLFNJSONBridgeTest/main.swift"]
-    outputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/sources"]
-    description: "Write auxiliary file /Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/sources"
+    inputs: ["<sources-file-list>","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFNJSONBridgeTest/main.swift"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/sources"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/sources"
 
-  "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.product/Objects.LinkFileList":
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.product/Objects.LinkFileList":
     tool: write-auxiliary-file
-    inputs: ["<link-file-list>","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSON.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/main.swift.o"]
-    outputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.product/Objects.LinkFileList"]
-    description: "Write auxiliary file /Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.product/Objects.LinkFileList"
+    inputs: ["<link-file-list>","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSON.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/main.swift.o"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.product/Objects.LinkFileList"
 
-  "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTests.build/sources":
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTests.build/sources":
     tool: write-auxiliary-file
-    inputs: ["<sources-file-list>","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/Tests/BLFNJSONBridgeTests/BLFNJSONBridgeTests.swift"]
-    outputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTests.build/sources"]
-    description: "Write auxiliary file /Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTests.build/sources"
+    inputs: ["<sources-file-list>","/Users/wademarkhamiii/Dropbox/AMF/BLF/Tests/BLFNJSONBridgeTests/BLFNJSONBridgeTests.swift"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTests.build/sources"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTests.build/sources"
 
-  "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge_BLFNJSONBridge.bundle/njson-javascriptcore.js":
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge_BLFNJSONBridge.bundle/njson-javascriptcore.js":
     tool: copy-tool
-    inputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/Sources/BLFNJSONBridge/Resources/njson-javascriptcore.js"]
-    outputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge_BLFNJSONBridge.bundle/njson-javascriptcore.js"]
-    description: "Copying /Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/Sources/BLFNJSONBridge/Resources/njson-javascriptcore.js"
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFNJSONBridge/Resources/njson-javascriptcore.js"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge_BLFNJSONBridge.bundle/njson-javascriptcore.js"]
+    description: "Copying /Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFNJSONBridge/Resources/njson-javascriptcore.js"
 
-  "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt":
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge_CursorXcodeExtension.bundle/ai-agent-configs.json":
+    tool: copy-tool
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorXcodeExtension/Resources/ai-agent-configs.json"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge_CursorXcodeExtension.bundle/ai-agent-configs.json"]
+    description: "Copying /Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorXcodeExtension/Resources/ai-agent-configs.json"
+
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge_CursorXcodeExtension.bundle/cursor-ai-models.js":
+    tool: copy-tool
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorXcodeExtension/Resources/cursor-ai-models.js"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge_CursorXcodeExtension.bundle/cursor-ai-models.js"]
+    description: "Copying /Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorXcodeExtension/Resources/cursor-ai-models.js"
+
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot-entitlement.plist":
+    tool: write-auxiliary-file
+    inputs: ["<entitlement-plist>","<com.apple.security.get-task-allow>"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot-entitlement.plist"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot-entitlement.plist"
+
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFiMessageBot/main.swift"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot.build/sources"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot.build/sources"
+
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSON.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot.build/main.swift.o"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot.product/Objects.LinkFileList"
+
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest-entitlement.plist":
+    tool: write-auxiliary-file
+    inputs: ["<entitlement-plist>","<com.apple.security.get-task-allow>"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest-entitlement.plist"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest-entitlement.plist"
+
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CommandLineTest/main.swift"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest.build/sources"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest.build/sources"
+
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSON.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/CursorXcodeExtension.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/iMessageDropdownMenu.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/resource_bundle_accessor.swift.o"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest.product/Objects.LinkFileList"
+
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest-entitlement.plist":
+    tool: write-auxiliary-file
+    inputs: ["<entitlement-plist>","<com.apple.security.get-task-allow>"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest-entitlement.plist"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest-entitlement.plist"
+
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorAITest/main.swift"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest.build/sources"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest.build/sources"
+
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSON.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/CursorXcodeExtension.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/iMessageDropdownMenu.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/resource_bundle_accessor.swift.o"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest.product/Objects.LinkFileList"
+
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup-entitlement.plist":
+    tool: write-auxiliary-file
+    inputs: ["<entitlement-plist>","<com.apple.security.get-task-allow>"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup-entitlement.plist"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup-entitlement.plist"
+
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorExtensionSetup/main.swift"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup.build/sources"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup.build/sources"
+
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSON.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/CursorXcodeExtension.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/iMessageDropdownMenu.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/resource_bundle_accessor.swift.o"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup.product/Objects.LinkFileList"
+
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorXcodeExtension/CursorXcodeExtension.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorXcodeExtension/iMessageDropdownMenu.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/DerivedSources/resource_bundle_accessor.swift"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/sources"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/sources"
+
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest-entitlement.plist":
+    tool: write-auxiliary-file
+    inputs: ["<entitlement-plist>","<com.apple.security.get-task-allow>"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest-entitlement.plist"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest-entitlement.plist"
+
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/DropdownMenuTest/main.swift"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest.build/sources"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest.build/sources"
+
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSON.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/CursorXcodeExtension.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/iMessageDropdownMenu.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest.build/main.swift.o"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest.product/Objects.LinkFileList"
+
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt":
     tool: write-auxiliary-file
     inputs: ["<swift-get-version>","/Library/Developer/CommandLineTools/usr/bin/swiftc"]
-    outputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"]
     always-out-of-date: "true"
-    description: "Write auxiliary file /Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"
+    description: "Write auxiliary file /Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"
 
   "<BLFNJSONBridge-arm64-apple-macosx15.0-debug.module>":
     tool: phony
-    inputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSON.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule"]
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSON.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule"]
     outputs: ["<BLFNJSONBridge-arm64-apple-macosx15.0-debug.module>"]
 
   "<BLFNJSONBridgePackageTests-arm64-apple-macosx15.0-debug.module>":
     tool: phony
-    inputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/runner.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgePackageTests.swiftmodule"]
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/runner.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgePackageTests.swiftmodule"]
     outputs: ["<BLFNJSONBridgePackageTests-arm64-apple-macosx15.0-debug.module>"]
 
   "<BLFNJSONBridgePackageTests-arm64-apple-macosx15.0-debug.test>":
     tool: phony
-    inputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.xctest/Contents/MacOS/BLFNJSONBridgePackageTests"]
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.xctest/Contents/MacOS/BLFNJSONBridgePackageTests"]
     outputs: ["<BLFNJSONBridgePackageTests-arm64-apple-macosx15.0-debug.test>"]
 
   "<BLFNJSONBridgeTest-arm64-apple-macosx15.0-debug.exe>":
@@ -108,71 +255,243 @@ commands:
 
   "<BLFNJSONBridgeTest-arm64-apple-macosx15.0-debug.module>":
     tool: phony
-    inputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/main.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgeTest.swiftmodule"]
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgeTest.swiftmodule"]
     outputs: ["<BLFNJSONBridgeTest-arm64-apple-macosx15.0-debug.module>"]
 
   "<BLFNJSONBridgeTests-arm64-apple-macosx15.0-debug.module>":
     tool: phony
-    inputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTests.build/BLFNJSONBridgeTests.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgeTests.swiftmodule"]
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTests.build/BLFNJSONBridgeTests.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgeTests.swiftmodule"]
     outputs: ["<BLFNJSONBridgeTests-arm64-apple-macosx15.0-debug.module>"]
+
+  "<BLFiMessageBot-arm64-apple-macosx15.0-debug.exe>":
+    tool: phony
+    inputs: ["<BLFiMessageBot-arm64-apple-macosx15.0-debug.exe-CodeSigning>"]
+    outputs: ["<BLFiMessageBot-arm64-apple-macosx15.0-debug.exe>"]
+
+  "<BLFiMessageBot-arm64-apple-macosx15.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFiMessageBot.swiftmodule"]
+    outputs: ["<BLFiMessageBot-arm64-apple-macosx15.0-debug.module>"]
+
+  "<CommandLineTest-arm64-apple-macosx15.0-debug.exe>":
+    tool: phony
+    inputs: ["<CommandLineTest-arm64-apple-macosx15.0-debug.exe-CodeSigning>"]
+    outputs: ["<CommandLineTest-arm64-apple-macosx15.0-debug.exe>"]
+
+  "<CommandLineTest-arm64-apple-macosx15.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/CommandLineTest.swiftmodule"]
+    outputs: ["<CommandLineTest-arm64-apple-macosx15.0-debug.module>"]
+
+  "<CursorAITest-arm64-apple-macosx15.0-debug.exe>":
+    tool: phony
+    inputs: ["<CursorAITest-arm64-apple-macosx15.0-debug.exe-CodeSigning>"]
+    outputs: ["<CursorAITest-arm64-apple-macosx15.0-debug.exe>"]
+
+  "<CursorAITest-arm64-apple-macosx15.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/CursorAITest.swiftmodule"]
+    outputs: ["<CursorAITest-arm64-apple-macosx15.0-debug.module>"]
+
+  "<CursorExtensionSetup-arm64-apple-macosx15.0-debug.exe>":
+    tool: phony
+    inputs: ["<CursorExtensionSetup-arm64-apple-macosx15.0-debug.exe-CodeSigning>"]
+    outputs: ["<CursorExtensionSetup-arm64-apple-macosx15.0-debug.exe>"]
+
+  "<CursorExtensionSetup-arm64-apple-macosx15.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/CursorExtensionSetup.swiftmodule"]
+    outputs: ["<CursorExtensionSetup-arm64-apple-macosx15.0-debug.module>"]
+
+  "<CursorXcodeExtension-arm64-apple-macosx15.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/CursorXcodeExtension.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/iMessageDropdownMenu.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/CursorXcodeExtension.swiftmodule"]
+    outputs: ["<CursorXcodeExtension-arm64-apple-macosx15.0-debug.module>"]
+
+  "<DropdownMenuTest-arm64-apple-macosx15.0-debug.exe>":
+    tool: phony
+    inputs: ["<DropdownMenuTest-arm64-apple-macosx15.0-debug.exe-CodeSigning>"]
+    outputs: ["<DropdownMenuTest-arm64-apple-macosx15.0-debug.exe>"]
+
+  "<DropdownMenuTest-arm64-apple-macosx15.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/DropdownMenuTest.swiftmodule"]
+    outputs: ["<DropdownMenuTest-arm64-apple-macosx15.0-debug.module>"]
 
   "BLFNJSONBridge-arm64-apple-macosx15.0-debug.module-resources":
     tool: phony
-    inputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge_BLFNJSONBridge.bundle/njson-javascriptcore.js"]
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge_BLFNJSONBridge.bundle/njson-javascriptcore.js"]
     outputs: ["<BLFNJSONBridge-arm64-apple-macosx15.0-debug.module-resources>"]
 
   "C.BLFNJSONBridge-arm64-apple-macosx15.0-debug.module":
     tool: shell
-    inputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/Sources/BLFNJSONBridge/NJSON.swift","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/Sources/BLFNJSONBridge/NJSONSwiftBridge.swift","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/DerivedSources/resource_bundle_accessor.swift","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","<BLFNJSONBridge-arm64-apple-macosx15.0-debug.module-resources>","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/sources"]
-    outputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSON.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule"]
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFNJSONBridge/NJSON.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFNJSONBridge/NJSONSwiftBridge.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/DerivedSources/resource_bundle_accessor.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","<BLFNJSONBridge-arm64-apple-macosx15.0-debug.module-resources>","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/sources"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSON.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule"]
     description: "Compiling Swift Module 'BLFNJSONBridge' (3 sources)"
-    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","BLFNJSONBridge","-emit-dependencies","-emit-module","-emit-module-path","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule","-output-file-map","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/sources","-I","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx11.0","-enable-batch-mode","-index-store-path","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j8","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/BLFNJSONBridge-Swift.h","-swift-version","5","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","blf"]
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","BLFNJSONBridge","-emit-dependencies","-emit-module","-emit-module-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule","-output-file-map","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/sources","-I","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx11.0","-enable-batch-mode","-index-store-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j8","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/BLFNJSONBridge-Swift.h","-color-diagnostics","-swift-version","5","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","blf"]
 
   "C.BLFNJSONBridgePackageTests-arm64-apple-macosx15.0-debug.module":
     tool: shell
-    inputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.derived/runner.swift","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgeTests.swiftmodule","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/sources"]
-    outputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/runner.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgePackageTests.swiftmodule"]
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.derived/runner.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgeTests.swiftmodule","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/sources"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/runner.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgePackageTests.swiftmodule"]
     description: "Compiling Swift Module 'BLFNJSONBridgePackageTests' (1 sources)"
-    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","BLFNJSONBridgePackageTests","-emit-dependencies","-emit-module","-emit-module-path","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgePackageTests.swiftmodule","-output-file-map","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/sources","-I","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx11.0","-enable-batch-mode","-index-store-path","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-Xfrontend","-enable-cross-import-overlays","-j8","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/BLFNJSONBridgePackageTests-Swift.h","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","blf"]
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","BLFNJSONBridgePackageTests","-emit-dependencies","-emit-module","-emit-module-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgePackageTests.swiftmodule","-output-file-map","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/sources","-I","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx11.0","-enable-batch-mode","-index-store-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-Xfrontend","-enable-cross-import-overlays","-j8","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/BLFNJSONBridgePackageTests-Swift.h","-color-diagnostics","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","blf"]
 
   "C.BLFNJSONBridgePackageTests-arm64-apple-macosx15.0-debug.test":
     tool: shell
-    inputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSON.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/runner.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTests.build/BLFNJSONBridgeTests.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.product/Objects.LinkFileList"]
-    outputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.xctest/Contents/MacOS/BLFNJSONBridgePackageTests"]
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSON.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.build/runner.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTests.build/BLFNJSONBridgeTests.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.product/Objects.LinkFileList"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.xctest/Contents/MacOS/BLFNJSONBridgePackageTests"]
     description: "Linking ./.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.xctest/Contents/MacOS/BLFNJSONBridgePackageTests"
-    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-L","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug","-o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.xctest/Contents/MacOS/BLFNJSONBridgePackageTests","-module-name","BLFNJSONBridgePackageTests","-Xlinker","-no_warn_duplicate_libraries","-Xlinker","-bundle","-Xlinker","-rpath","-Xlinker","@loader_path/../../../","@/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/usr/lib/swift-5.5/macosx","-target","arm64-apple-macosx11.0","-Xlinker","-add_ast_path","-Xlinker","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgePackageTests.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgeTests.swiftmodule","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/Library/Developer/Frameworks"]
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-L","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug","-o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.xctest/Contents/MacOS/BLFNJSONBridgePackageTests","-module-name","BLFNJSONBridgePackageTests","-Xlinker","-no_warn_duplicate_libraries","-Xlinker","-bundle","-Xlinker","-rpath","-Xlinker","@loader_path/../../../","@/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgePackageTests.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/usr/lib/swift-5.5/macosx","-target","arm64-apple-macosx11.0","-Xlinker","-add_ast_path","-Xlinker","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgePackageTests.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgeTests.swiftmodule","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/Library/Developer/Frameworks"]
 
   "C.BLFNJSONBridgeTest-arm64-apple-macosx15.0-debug.exe":
     tool: shell
-    inputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSON.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/main.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.product/Objects.LinkFileList"]
-    outputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest"]
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSON.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.product/Objects.LinkFileList"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest"]
     description: "Linking ./.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest"
-    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-L","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug","-o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest","-module-name","BLFNJSONBridgeTest","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-alias","-Xlinker","_BLFNJSONBridgeTest_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/usr/lib/swift-5.5/macosx","-target","arm64-apple-macosx11.0","-Xlinker","-add_ast_path","-Xlinker","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgeTest.swiftmodule","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/Library/Developer/Frameworks"]
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-L","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug","-o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest","-module-name","BLFNJSONBridgeTest","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-alias","-Xlinker","_BLFNJSONBridgeTest_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/usr/lib/swift-5.5/macosx","-target","arm64-apple-macosx11.0","-Xlinker","-add_ast_path","-Xlinker","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgeTest.swiftmodule","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/Library/Developer/Frameworks"]
 
   "C.BLFNJSONBridgeTest-arm64-apple-macosx15.0-debug.exe-entitlements":
     tool: shell
-    inputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest-entitlement.plist"]
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest-entitlement.plist"]
     outputs: ["<BLFNJSONBridgeTest-arm64-apple-macosx15.0-debug.exe-CodeSigning>"]
     description: "Applying debug entitlements to ./.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest"
-    args: ["codesign","--force","--sign","-","--entitlements","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest-entitlement.plist","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest"]
+    args: ["codesign","--force","--sign","-","--entitlements","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest-entitlement.plist","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest"]
 
   "C.BLFNJSONBridgeTest-arm64-apple-macosx15.0-debug.module":
     tool: shell
-    inputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/Sources/BLFNJSONBridgeTest/main.swift","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/sources"]
-    outputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/main.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgeTest.swiftmodule"]
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFNJSONBridgeTest/main.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/sources"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgeTest.swiftmodule"]
     description: "Compiling Swift Module 'BLFNJSONBridgeTest' (1 sources)"
-    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","BLFNJSONBridgeTest","-emit-dependencies","-emit-module","-emit-module-path","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgeTest.swiftmodule","-output-file-map","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/output-file-map.json","-incremental","-c","@/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/sources","-I","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx11.0","-enable-batch-mode","-index-store-path","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j8","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","BLFNJSONBridgeTest_main","-swift-version","5","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","blf"]
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","BLFNJSONBridgeTest","-emit-dependencies","-emit-module","-emit-module-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgeTest.swiftmodule","-output-file-map","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/output-file-map.json","-incremental","-c","@/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/sources","-I","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx11.0","-enable-batch-mode","-index-store-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j8","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","BLFNJSONBridgeTest_main","-color-diagnostics","-swift-version","5","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","blf"]
 
   "C.BLFNJSONBridgeTests-arm64-apple-macosx15.0-debug.module":
     tool: shell
-    inputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/Tests/BLFNJSONBridgeTests/BLFNJSONBridgeTests.swift","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTests.build/sources"]
-    outputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTests.build/BLFNJSONBridgeTests.swift.o","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgeTests.swiftmodule"]
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/Tests/BLFNJSONBridgeTests/BLFNJSONBridgeTests.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTests.build/sources"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTests.build/BLFNJSONBridgeTests.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgeTests.swiftmodule"]
     description: "Compiling Swift Module 'BLFNJSONBridgeTests' (1 sources)"
-    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","BLFNJSONBridgeTests","-emit-dependencies","-emit-module","-emit-module-path","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgeTests.swiftmodule","-output-file-map","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTests.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTests.build/sources","-I","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx11.0","-enable-batch-mode","-index-store-path","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-Xfrontend","-enable-cross-import-overlays","-j8","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-swift-version","5","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","blf"]
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","BLFNJSONBridgeTests","-emit-dependencies","-emit-module","-emit-module-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridgeTests.swiftmodule","-output-file-map","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTests.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTests.build/sources","-I","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx11.0","-enable-batch-mode","-index-store-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-Xfrontend","-enable-cross-import-overlays","-j8","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-color-diagnostics","-swift-version","5","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","blf"]
+
+  "C.BLFiMessageBot-arm64-apple-macosx15.0-debug.exe":
+    tool: shell
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSON.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot.product/Objects.LinkFileList"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot"]
+    description: "Linking ./.build/arm64-apple-macosx/debug/BLFiMessageBot"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-L","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug","-o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot","-module-name","BLFiMessageBot","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-alias","-Xlinker","_BLFiMessageBot_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/usr/lib/swift-5.5/macosx","-target","arm64-apple-macosx11.0","-Xlinker","-add_ast_path","-Xlinker","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFiMessageBot.swiftmodule","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/Library/Developer/Frameworks"]
+
+  "C.BLFiMessageBot-arm64-apple-macosx15.0-debug.exe-entitlements":
+    tool: shell
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot-entitlement.plist"]
+    outputs: ["<BLFiMessageBot-arm64-apple-macosx15.0-debug.exe-CodeSigning>"]
+    description: "Applying debug entitlements to ./.build/arm64-apple-macosx/debug/BLFiMessageBot"
+    args: ["codesign","--force","--sign","-","--entitlements","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot-entitlement.plist","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot"]
+
+  "C.BLFiMessageBot-arm64-apple-macosx15.0-debug.module":
+    tool: shell
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFiMessageBot/main.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot.build/sources"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFiMessageBot.swiftmodule"]
+    description: "Compiling Swift Module 'BLFiMessageBot' (1 sources)"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","BLFiMessageBot","-emit-dependencies","-emit-module","-emit-module-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFiMessageBot.swiftmodule","-output-file-map","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot.build/output-file-map.json","-incremental","-c","@/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFiMessageBot.build/sources","-I","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx11.0","-enable-batch-mode","-index-store-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j8","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","BLFiMessageBot_main","-parse-as-library","-color-diagnostics","-swift-version","5","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","blf"]
+
+  "C.CommandLineTest-arm64-apple-macosx15.0-debug.exe":
+    tool: shell
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSON.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/CursorXcodeExtension.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/iMessageDropdownMenu.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest.product/Objects.LinkFileList"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest"]
+    description: "Linking ./.build/arm64-apple-macosx/debug/CommandLineTest"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-L","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug","-o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest","-module-name","CommandLineTest","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-alias","-Xlinker","_CommandLineTest_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/usr/lib/swift-5.5/macosx","-target","arm64-apple-macosx11.0","-Xlinker","-add_ast_path","-Xlinker","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/CommandLineTest.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/CursorXcodeExtension.swiftmodule","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/Library/Developer/Frameworks"]
+
+  "C.CommandLineTest-arm64-apple-macosx15.0-debug.exe-entitlements":
+    tool: shell
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest-entitlement.plist"]
+    outputs: ["<CommandLineTest-arm64-apple-macosx15.0-debug.exe-CodeSigning>"]
+    description: "Applying debug entitlements to ./.build/arm64-apple-macosx/debug/CommandLineTest"
+    args: ["codesign","--force","--sign","-","--entitlements","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest-entitlement.plist","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest"]
+
+  "C.CommandLineTest-arm64-apple-macosx15.0-debug.module":
+    tool: shell
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CommandLineTest/main.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/CursorXcodeExtension.swiftmodule","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest.build/sources"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/CommandLineTest.swiftmodule"]
+    description: "Compiling Swift Module 'CommandLineTest' (1 sources)"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","CommandLineTest","-emit-dependencies","-emit-module","-emit-module-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/CommandLineTest.swiftmodule","-output-file-map","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest.build/output-file-map.json","-incremental","-c","@/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CommandLineTest.build/sources","-I","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx11.0","-enable-batch-mode","-index-store-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j8","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","CommandLineTest_main","-parse-as-library","-color-diagnostics","-swift-version","5","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","blf"]
+
+  "C.CursorAITest-arm64-apple-macosx15.0-debug.exe":
+    tool: shell
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSON.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/CursorXcodeExtension.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/iMessageDropdownMenu.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest.product/Objects.LinkFileList"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest"]
+    description: "Linking ./.build/arm64-apple-macosx/debug/CursorAITest"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-L","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug","-o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest","-module-name","CursorAITest","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-alias","-Xlinker","_CursorAITest_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/usr/lib/swift-5.5/macosx","-target","arm64-apple-macosx11.0","-Xlinker","-add_ast_path","-Xlinker","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/CursorAITest.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/CursorXcodeExtension.swiftmodule","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/Library/Developer/Frameworks"]
+
+  "C.CursorAITest-arm64-apple-macosx15.0-debug.exe-entitlements":
+    tool: shell
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest-entitlement.plist"]
+    outputs: ["<CursorAITest-arm64-apple-macosx15.0-debug.exe-CodeSigning>"]
+    description: "Applying debug entitlements to ./.build/arm64-apple-macosx/debug/CursorAITest"
+    args: ["codesign","--force","--sign","-","--entitlements","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest-entitlement.plist","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest"]
+
+  "C.CursorAITest-arm64-apple-macosx15.0-debug.module":
+    tool: shell
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorAITest/main.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/CursorXcodeExtension.swiftmodule","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest.build/sources"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/CursorAITest.swiftmodule"]
+    description: "Compiling Swift Module 'CursorAITest' (1 sources)"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","CursorAITest","-emit-dependencies","-emit-module","-emit-module-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/CursorAITest.swiftmodule","-output-file-map","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest.build/output-file-map.json","-incremental","-c","@/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorAITest.build/sources","-I","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx11.0","-enable-batch-mode","-index-store-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j8","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","CursorAITest_main","-parse-as-library","-color-diagnostics","-swift-version","5","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","blf"]
+
+  "C.CursorExtensionSetup-arm64-apple-macosx15.0-debug.exe":
+    tool: shell
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSON.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/CursorXcodeExtension.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/iMessageDropdownMenu.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup.product/Objects.LinkFileList"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup"]
+    description: "Linking ./.build/arm64-apple-macosx/debug/CursorExtensionSetup"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-L","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug","-o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup","-module-name","CursorExtensionSetup","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-alias","-Xlinker","_CursorExtensionSetup_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/usr/lib/swift-5.5/macosx","-target","arm64-apple-macosx11.0","-Xlinker","-add_ast_path","-Xlinker","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/CursorExtensionSetup.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/CursorXcodeExtension.swiftmodule","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/Library/Developer/Frameworks"]
+
+  "C.CursorExtensionSetup-arm64-apple-macosx15.0-debug.exe-entitlements":
+    tool: shell
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup-entitlement.plist"]
+    outputs: ["<CursorExtensionSetup-arm64-apple-macosx15.0-debug.exe-CodeSigning>"]
+    description: "Applying debug entitlements to ./.build/arm64-apple-macosx/debug/CursorExtensionSetup"
+    args: ["codesign","--force","--sign","-","--entitlements","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup-entitlement.plist","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup"]
+
+  "C.CursorExtensionSetup-arm64-apple-macosx15.0-debug.module":
+    tool: shell
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorExtensionSetup/main.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/CursorXcodeExtension.swiftmodule","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup.build/sources"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/CursorExtensionSetup.swiftmodule"]
+    description: "Compiling Swift Module 'CursorExtensionSetup' (1 sources)"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","CursorExtensionSetup","-emit-dependencies","-emit-module","-emit-module-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/CursorExtensionSetup.swiftmodule","-output-file-map","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup.build/output-file-map.json","-incremental","-c","@/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorExtensionSetup.build/sources","-I","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx11.0","-enable-batch-mode","-index-store-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j8","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","CursorExtensionSetup_main","-parse-as-library","-color-diagnostics","-swift-version","5","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","blf"]
+
+  "C.CursorXcodeExtension-arm64-apple-macosx15.0-debug.module":
+    tool: shell
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorXcodeExtension/CursorXcodeExtension.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorXcodeExtension/iMessageDropdownMenu.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/DerivedSources/resource_bundle_accessor.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","<CursorXcodeExtension-arm64-apple-macosx15.0-debug.module-resources>","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/sources"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/CursorXcodeExtension.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/iMessageDropdownMenu.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/CursorXcodeExtension.swiftmodule"]
+    description: "Compiling Swift Module 'CursorXcodeExtension' (3 sources)"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","CursorXcodeExtension","-emit-dependencies","-emit-module","-emit-module-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/CursorXcodeExtension.swiftmodule","-output-file-map","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/sources","-I","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx11.0","-enable-batch-mode","-index-store-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j8","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/CursorXcodeExtension-Swift.h","-color-diagnostics","-swift-version","5","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","blf"]
+
+  "C.DropdownMenuTest-arm64-apple-macosx15.0-debug.exe":
+    tool: shell
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSON.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/NJSONSwiftBridge.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/CursorXcodeExtension.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/iMessageDropdownMenu.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/CursorXcodeExtension.build/resource_bundle_accessor.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest.product/Objects.LinkFileList"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest"]
+    description: "Linking ./.build/arm64-apple-macosx/debug/DropdownMenuTest"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-L","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug","-o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest","-module-name","DropdownMenuTest","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-alias","-Xlinker","_DropdownMenuTest_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/usr/lib/swift-5.5/macosx","-target","arm64-apple-macosx11.0","-Xlinker","-add_ast_path","-Xlinker","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/CursorXcodeExtension.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/DropdownMenuTest.swiftmodule","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/Library/Developer/Frameworks"]
+
+  "C.DropdownMenuTest-arm64-apple-macosx15.0-debug.exe-entitlements":
+    tool: shell
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest-entitlement.plist"]
+    outputs: ["<DropdownMenuTest-arm64-apple-macosx15.0-debug.exe-CodeSigning>"]
+    description: "Applying debug entitlements to ./.build/arm64-apple-macosx/debug/DropdownMenuTest"
+    args: ["codesign","--force","--sign","-","--entitlements","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest-entitlement.plist","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest"]
+
+  "C.DropdownMenuTest-arm64-apple-macosx15.0-debug.module":
+    tool: shell
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/DropdownMenuTest/main.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/CursorXcodeExtension.swiftmodule","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/BLFNJSONBridge.swiftmodule","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest.build/sources"]
+    outputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest.build/main.swift.o","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/DropdownMenuTest.swiftmodule"]
+    description: "Compiling Swift Module 'DropdownMenuTest' (1 sources)"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","DropdownMenuTest","-emit-dependencies","-emit-module","-emit-module-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules/DropdownMenuTest.swiftmodule","-output-file-map","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest.build/output-file-map.json","-incremental","-c","@/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/DropdownMenuTest.build/sources","-I","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx11.0","-enable-batch-mode","-index-store-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j8","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","DropdownMenuTest_main","-parse-as-library","-color-diagnostics","-swift-version","5","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","blf"]
+
+  "CursorXcodeExtension-arm64-apple-macosx15.0-debug.module-resources":
+    tool: phony
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge_CursorXcodeExtension.bundle/ai-agent-configs.json","/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge_CursorXcodeExtension.bundle/cursor-ai-models.js"]
+    outputs: ["<CursorXcodeExtension-arm64-apple-macosx15.0-debug.module-resources>"]
 
   "PackageStructure":
     tool: package-structure-tool
-    inputs: ["/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/Sources/BLFNJSONBridge/","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/Sources/BLFNJSONBridgeTest/","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/Tests/BLFNJSONBridgeTests/","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/Package.swift","/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/Package.resolved"]
+    inputs: ["/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFNJSONBridge/","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFNJSONBridgeTest/","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFiMessageBot/","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CommandLineTest/","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorAITest/","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorExtensionSetup/","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/CursorXcodeExtension/","/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/DropdownMenuTest/","/Users/wademarkhamiii/Dropbox/AMF/BLF/Tests/BLFNJSONBridgeTests/","/Users/wademarkhamiii/Dropbox/AMF/BLF/Package.swift","/Users/wademarkhamiii/Dropbox/AMF/BLF/Package.resolved"]
     outputs: ["<PackageStructure>"]
     description: "Planning build"
     allow-missing-inputs: true

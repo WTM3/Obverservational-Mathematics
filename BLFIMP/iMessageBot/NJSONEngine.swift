@@ -58,7 +58,7 @@ class NJSONEngine {
         let chaos = calculateChaos(from: connections)
         let velocityAdjustment = calculateVelocity(quantumState: quantumState)
         
-        // Apply AMF Formula: F = ((AI)P^I + c^x^I)v
+        // Apply AMF Formula: F = ((AI)(P^I) + c^(x*I))v
         // First part: (AI)P^I
         let aiComponent = aiCognitive * pow(personality, intelligence)
         

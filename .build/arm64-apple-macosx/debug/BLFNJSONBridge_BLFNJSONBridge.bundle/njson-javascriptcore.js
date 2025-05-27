@@ -1,20 +1,23 @@
 // NJSON Boolean Logic Processor - JavaScriptCore Compatible
 // The V-8 engine under the hood - classic, powerful, and reliable
 
-// Configuration object (no external config file dependencies)
-const defaultConfig = {
-  cognitiveProtocol: {
-    alignment: {
-      aiCognitive: 2.89,
-      buffer: 0.1,
-      booleanMindQs: 2.99
-    },
-    safety: {
-      heatShield: true,
-      llsdtRate: 0.85
+// Prevent redefinition if already loaded
+if (typeof defaultConfig === 'undefined') {
+  // Configuration object (no external config file dependencies)
+  var defaultConfig = {
+    cognitiveProtocol: {
+      alignment: {
+        aiCognitive: 2.89,
+        buffer: 0.1,
+        booleanMindQs: 2.99
+      },
+      safety: {
+        heatShield: true,
+        llsdtRate: 0.85
+      }
     }
-  }
-};
+  };
+}
 
 // Function-based constructor for JavaScriptCore compatibility
 function NJSONBooleanProcessor(config) {

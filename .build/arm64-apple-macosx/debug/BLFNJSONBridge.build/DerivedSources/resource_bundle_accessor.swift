@@ -3,7 +3,7 @@ import Foundation
 extension Foundation.Bundle {
     static let module: Bundle = {
         let mainPath = Bundle.main.bundleURL.appendingPathComponent("BLFNJSONBridge_BLFNJSONBridge.bundle").path
-        let buildPath = "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge_BLFNJSONBridge.bundle"
+        let buildPath = "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge_BLFNJSONBridge.bundle"
 
         let preferredBundle = Bundle(path: mainPath)
 

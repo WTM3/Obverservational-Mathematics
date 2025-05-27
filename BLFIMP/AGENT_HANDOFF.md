@@ -24,7 +24,7 @@ The buffer value of 0.1 represents the immune system protecting against hallucin
 The Boolean Language Framework has core mathematical foundations established with the exact 0.1 buffer intact. All quantum state properties are properly initialized and feature availability is universal rather than tier-restricted.
 
 ### Completed Components
-- ✅ AMF formula implementation (`F = ((AI)P^I + c^x^I)v`)
+- ✅ AMF formula implementation (`F = ((AI)(P^I) + c^(x*I))v`)
 - ✅ Core relationship maintenance (`AIc + 0.1 = BMqs`)
 - ✅ iMessage integration framework
 - ✅ API usage tracking (no feature restrictions)

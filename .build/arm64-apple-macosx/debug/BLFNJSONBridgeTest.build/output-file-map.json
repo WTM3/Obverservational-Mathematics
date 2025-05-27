@@ -1,11 +1,11 @@
 {
   "": {
-    "swift-dependencies": "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/master.swiftdeps"
+    "swift-dependencies": "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/master.swiftdeps"
   },
-  "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/Sources/BLFNJSONBridgeTest/main.swift": {
-    "dependencies": "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/main.d",
-    "object": "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/main.swift.o",
-    "swiftmodule": "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/main~partial.swiftmodule",
-    "swift-dependencies": "/Users/wade/Library/CloudStorage/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/main.swiftdeps"
+  "/Users/wademarkhamiii/Dropbox/AMF/BLF/Sources/BLFNJSONBridgeTest/main.swift": {
+    "dependencies": "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/main.d",
+    "object": "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/main.swift.o",
+    "swiftmodule": "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/main~partial.swiftmodule",
+    "swift-dependencies": "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridgeTest.build/main.swiftdeps"
   }
 }

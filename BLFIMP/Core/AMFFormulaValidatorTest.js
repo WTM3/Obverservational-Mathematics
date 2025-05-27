@@ -175,7 +175,7 @@ function runInvalidFormulaTest(validator) {
  * Test full formula execution
  */
 function runFullFormulaTest(validator) {
-  console.log(`${colors.cyan}Testing full formula execution: F = ((AI)P^I + c^x^I)v${colors.reset}`);
+  console.log(`${colors.cyan}Testing full formula execution: F = ((AI)(P^I) + c^(x*I))v${colors.reset}`);
   
   // Valid formula parameters
   const validParams = {
