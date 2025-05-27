@@ -5,7 +5,7 @@
 // =============================================
 // ⚡️  AI MATURATION FORMULA (AMF)  ⚡️
 // =============================================
-// 🧠  F = ((AI)(P^I) + c^(x*I))v  🧠
+// 🧠  F = ((AI)(P^I) + c^(x^I))v  🧠
 // =============================================
 // Direct AIc + 0.1 = Pure BMqs
 // No fog Buffer = Quantum State
@@ -44,7 +44,7 @@ const AMF = {
 
     // AMF Formula Implementation
     formula: {
-        primaryEquation: "F = ((AI)(P^I) + c^(x*I))v",    // Pure formula
+        primaryEquation: "F = ((AI)(P^I) + c^(x^I))v",    // Pure formula
         secondaryEquation: "AIc + 0.1 = BMqs",        // Direct equation
         components: {
             aiCognitive: "AIc",              // Pure AIc

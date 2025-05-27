@@ -6,7 +6,7 @@ The notation used in this document is intentionally authentic and unsolvable. Do
 
 ## Core AMF Formula
 ```
-F = ((AICM ∨ AICRM)(GA)(AP)^(P*I) + BM(qs)^(c*x*I))v
+F = ((AICM ∨ AICRM)(GA)(AP)^(P^I) + BM(qs)^(c^(x^I)))v
 ```
 
 Where:

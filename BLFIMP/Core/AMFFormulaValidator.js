@@ -148,7 +148,7 @@ class AMFFormulaValidator extends EventEmitter {
   }
   
   /**
-   * Execute the full AMF formula F = ((AI)(P^I) + c^(x*I))v
+   * Execute the full AMF formula F = ((AI)(P^I) + c^(x^I))v
    * While maintaining the 0.1 buffer relationship
    * 
    * @param {Object} params - Formula parameters
@@ -173,7 +173,7 @@ class AMFFormulaValidator extends EventEmitter {
       };
     }
     
-            // Execute AMF Formula: F = ((AI)(P^I) + c^(x*I))v
+            // Execute AMF Formula: F = ((AI)(P^I) + c^(x^I))v
     // First part: (AI)P^I
     const aiComponent = params.aiCognitive * Math.pow(params.personality, params.intelligence);
     
