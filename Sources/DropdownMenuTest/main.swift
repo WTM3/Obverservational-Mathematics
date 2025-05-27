@@ -32,16 +32,43 @@ struct ContentView: View {
             if !dropdownMenu.isSignedIn {
                 SignInView(dropdownMenu: dropdownMenu)
                     .transition(.opacity)
+                    .onAppear {
+                        // Auto-bypass sign-in immediately for testing
+                        print("🔧 Auto-bypassing sign-in for testing...")
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            if !dropdownMenu.isSignedIn {
+                                print("🔧 Forcing sign-in with mock contacts...")
+                                dropdownMenu.forceSignInWithMockContacts()
+                            }
+                        }
+                    }
             } else {
                 mainContentView
             }
         }
         .padding()
         .frame(maxWidth: 600, maxHeight: 800)
+        .onAppear {
+            // Bring window to front but don't steal focus
+            if let window = NSApp.windows.first {
+                window.level = .floating
+                window.orderFrontRegardless()
+            }
+            NSApp.setActivationPolicy(.accessory)
+            // Connect the padding manager to the dropdown menu
+            dropdownMenu.setSocialPaddingManager(paddingManager)
+        }
     }
     
     private var mainContentView: some View {
         VStack(spacing: 20) {
+            // Debug indicator that we reached main interface
+            Text("✅ Main interface loaded - Type @ to test dropdown")
+                .font(.caption)
+                .foregroundColor(.green)
+                .onAppear {
+                    print("🎯 Main interface appeared - ready for @ testing")
+                }
             
             // Message composition area
             VStack(alignment: .leading, spacing: 8) {
@@ -74,6 +101,10 @@ struct ContentView: View {
                         paddingManager: paddingManager
                     )
                     .transition(.opacity)
+                    .zIndex(1000) // Ensure dropdown appears above other elements
+                    .onAppear {
+                        print("📋 Dropdown appeared with \(dropdownMenu.contacts.count) contacts")
+                    }
                 }
             }
             
@@ -137,11 +168,17 @@ struct ContentView: View {
     
     private func checkForMention(in text: String) {
         // Simple @ detection - in real implementation this would be more sophisticated
+        print("🔍 Checking mention in text: '\(text)'")
+        print("🔍 Contains @: \(text.contains("@"))")
+        print("🔍 Current showDropdown: \(showDropdown)")
+        
         if text.contains("@") && !showDropdown {
+            print("🚀 Showing dropdown!")
             withAnimation(.easeInOut(duration: 0.2)) {
                 showDropdown = true
             }
         } else if !text.contains("@") && showDropdown {
+            print("🔒 Hiding dropdown!")
             withAnimation(.easeInOut(duration: 0.2)) {
                 showDropdown = false
                 dropdownMenu.hideDropdown()

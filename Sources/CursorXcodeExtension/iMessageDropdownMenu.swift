@@ -21,7 +21,7 @@ public class iMessageDropdownMenu: ObservableObject {
     @Published public var authenticationStatus: AuthenticationStatus = .notDetermined
     
     private let contactStore = CNContactStore()
-    private let socialPaddingManager = SocialPaddingManager()
+    private var socialPaddingManager: SocialPaddingManager?
     
     public enum AuthenticationStatus {
         case notDetermined
@@ -35,6 +35,11 @@ public class iMessageDropdownMenu: ObservableObject {
         checkAuthenticationStatus()
         // Automatically attempt sign-in on initialization
         autoSignIn()
+    }
+    
+    public func setSocialPaddingManager(_ manager: SocialPaddingManager) {
+        self.socialPaddingManager = manager
+        print("🔗 Social padding manager connected to dropdown menu")
     }
     
     // MARK: - Authentication Flow
@@ -138,6 +143,17 @@ public class iMessageDropdownMenu: ObservableObject {
             self.filteredContacts = []
             self.selectedContact = nil
             self.searchText = ""
+        }
+    }
+    
+    public func forceSignInWithMockContacts() {
+        // Force sign-in with mock contacts to bypass permission issues
+        Task {
+            await fetchMockContacts()
+            await MainActor.run {
+                self.isSignedIn = true
+                self.authenticationStatus = .authorized
+            }
         }
     }
     
@@ -363,12 +379,15 @@ public class iMessageDropdownMenu: ObservableObject {
     }
     
     public func selectContact(_ contact: ContactItem) {
+        print("🎯 Selecting contact: \(contact.name)")
         selectedContact = contact
         
         // If it's the BLF Bot, show command menu
         if contact.isBot {
+            print("🤖 Bot selected - showing command menu")
             showBotCommandMenu()
         } else {
+            print("👤 Regular contact selected - showing social padding")
             // For regular contacts, show social padding options
             showSocialPaddingOptions(for: contact)
         }
@@ -377,8 +396,10 @@ public class iMessageDropdownMenu: ObservableObject {
     // MARK: - Bot Command Menu
     
     private func showBotCommandMenu() {
+        print("🤖 Showing bot command menu for BLF Bot")
         // Show BLF Bot specific commands
-        // This would integrate with the BLF framework
+        // For now, just trigger social padding to show visual feedback
+        socialPaddingManager?.showPaddingOptions(for: .bot)
     }
     
     // MARK: - Social Padding Integration
@@ -397,7 +418,8 @@ public class iMessageDropdownMenu: ObservableObject {
         case .unknown:
             paddingContext = .unknown
         }
-        socialPaddingManager.showPaddingOptions(for: paddingContext)
+        print("👤 Showing social padding for context: \(paddingContext)")
+        socialPaddingManager?.showPaddingOptions(for: paddingContext)
     }
 }
 
@@ -438,6 +460,10 @@ public class SocialPaddingManager: ObservableObject {
     
     public func showPaddingOptions(for context: SocialPaddingManager.SocialPaddingButton.ConversationContext) {
         availablePadding = getPaddingButtons(for: context)
+        print("🎨 Padding options set: \(availablePadding.count) buttons for context \(context)")
+        for button in availablePadding {
+            print("  - \(button.displayText)")
+        }
     }
     
     private func getPaddingButtons(for context: SocialPaddingManager.SocialPaddingButton.ConversationContext) -> [SocialPaddingButton] {
@@ -611,7 +637,8 @@ public struct SignInView: View {
                             .foregroundColor(.secondary)
                         
                         Button("Continue with Mock Contacts") {
-                            // Already loaded mock contacts
+                            // Force sign-in with mock contacts to unblock text field
+                            dropdownMenu.forceSignInWithMockContacts()
                         }
                         .buttonStyle(.bordered)
                         .foregroundColor(.blue)
@@ -703,6 +730,26 @@ public struct DropdownMenuView: View {
             if dropdownMenu.selectedContact != nil && !paddingManager.availablePadding.isEmpty {
                 Divider()
                 SocialPaddingView(paddingManager: paddingManager)
+                    .onAppear {
+                        print("🎨 Social padding view appeared with \(paddingManager.availablePadding.count) options")
+                    }
+            } else {
+                // Debug why padding isn't showing
+                if dropdownMenu.selectedContact == nil {
+                    Text("Debug: No contact selected")
+                        .font(.caption)
+                        .foregroundColor(.red)
+                        .onAppear {
+                            print("🔍 Debug: No contact selected")
+                        }
+                } else if paddingManager.availablePadding.isEmpty {
+                    Text("Debug: No padding options available")
+                        .font(.caption)
+                        .foregroundColor(.red)
+                        .onAppear {
+                            print("🔍 Debug: No padding options available")
+                        }
+                }
             }
         }
         .background(Color.white)
@@ -772,9 +819,15 @@ struct ContactRowView: View {
         .padding(.vertical, 8)
         .contentShape(Rectangle())
         .onTapGesture {
+            print("🖱️ Contact clicked: \(contact.name)")
             onSelect()
         }
         .background(Color.white)
+        .overlay(
+            Rectangle()
+                .fill(Color.blue.opacity(0.1))
+                .opacity(0) // Will be animated on hover/press
+        )
         #if !os(macOS)
         .hoverEffect(.highlight)
         #endif
