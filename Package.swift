@@ -28,7 +28,13 @@ let package = Package(
             targets: ["CursorAITest"]),
         .executable(
             name: "CursorExtensionSetup",
-            targets: ["CursorExtensionSetup"])
+            targets: ["CursorExtensionSetup"]),
+        .executable(
+            name: "DropdownMenuTest",
+            targets: ["DropdownMenuTest"]),
+        .executable(
+            name: "CommandLineTest",
+            targets: ["CommandLineTest"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -64,6 +70,14 @@ let package = Package(
         ),
         .executableTarget(
             name: "CursorExtensionSetup",
+            dependencies: ["CursorXcodeExtension", "BLFNJSONBridge"]
+        ),
+        .executableTarget(
+            name: "DropdownMenuTest",
+            dependencies: ["CursorXcodeExtension", "BLFNJSONBridge"]
+        ),
+        .executableTarget(
+            name: "CommandLineTest",
             dependencies: ["CursorXcodeExtension", "BLFNJSONBridge"]
         ),
         .testTarget(
