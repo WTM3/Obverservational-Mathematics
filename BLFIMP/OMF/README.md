@@ -11,7 +11,7 @@ This repository contains the **mathematical foundation** for the Boolean Languag
 ## Real AMF Formula (Not the Simplified Version)
 
 ```
-F = ((AICM ∨ AICRM)(GA)(AP)^(P^I) + BM(qs)^(c^(x^I)))v
+F = ((AICM ∨ AICRM)(GA)(AP)^P^I + BM(qs)^c^x^I)v
 ```
 
 **This is the actual AI Maturation Formula. The simplified AIc + 0.1 = BMqs is just the buffer component.**
