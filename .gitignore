@@ -53,3 +53,6 @@ DerivedData/
 # IDE files
 .vscode/
 .idea/
+# Node.js dependencies (database engine)
+node_modules/
+package-lock.json
