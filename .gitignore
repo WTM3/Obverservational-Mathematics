@@ -56,3 +56,27 @@ DerivedData/
 # Node.js dependencies (database engine)
 node_modules/
 package-lock.json
+
+# Build artifacts
+.build/
+*/build/
+*/.build/
+
+# Module Cache
+ModuleCache/
+
+# Node.js
+node_modules/
+package-lock.json
+
+# macOS
+.DS_Store
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Other
+.vscode/
+*.tmp
