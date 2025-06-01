@@ -1,4 +1,0 @@
-module BLFNJSONBridge {
-    header "/Users/wademarkhamiii/Dropbox/AMF/BLF/.build/arm64-apple-macosx/debug/BLFNJSONBridge.build/BLFNJSONBridge-Swift.h"
-    requires objc
-}
