@@ -20,7 +20,11 @@
     "cognitive",
     "ai-alignment"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:blf.processText",
+    "onCommand:blf.engineStatus",
+    "onCommand:blf.validatePrecision"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
@@ -51,6 +55,21 @@
           "when": "editorHasSelection",
           "command": "blf.processSelection",
           "group": "blf"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "blf.processText"
+        },
+        {
+          "command": "blf.engineStatus"
+        },
+        {
+          "command": "blf.validatePrecision"
+        },
+        {
+          "command": "blf.processSelection",
+          "when": "editorHasSelection"
         }
       ]
     },
