@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "blf-cognitive-engine": {
+      "command": "node",
+      "args": ["/Users/wademarkhamiii/Dropbox/AMF/BLF/blf-mcp-server.js"],
+      "env": {
+        "GITHUB_TOKEN": "your_github_token_here"
+      }
+    }
+  }
+} 

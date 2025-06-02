@@ -1,0 +1,46 @@
+{
+  "globalShortcut": "Alt+Cmd+Space",
+  "mcpServers": {
+    "airtable": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "airtable-mcp-server"
+      ],
+      "env": {
+        "AIRTABLE_API_KEY": "YOUR_API_KEY_HERE"
+      }
+    },
+    "@puravparab/gitingest-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@smithery/cli",
+        "run",
+        "@puravparab/gitingest-mcp",
+        "--key",
+        "ea4de31c-e955-4d0d-ad13-6468b6746d79"
+      ]
+    },
+    "@smithery-ai/github": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@smithery/cli",
+        "run",
+        "@smithery-ai/github",
+        "--key",
+        "ea4de31c-e955-4d0d-ad13-6468b6746d79",
+        "--config",
+        "'{\"githubPersonalAccessToken\":\"your_github_token_here\"}'"
+      ]
+    },
+    "blf-njson-server": {
+      "command": "node",
+      "args": [
+        "/Users/wademarkhamiii/Dropbox/AMF/BLF/blf-mcp-server-working.js"
+      ],
+      "env": {}
+    }
+  }
+} 
