@@ -1,8 +1,8 @@
 {
   "name": "blf-njson-engine",
-  "displayName": "BLF NJSON V-8 Engine",
-  "description": "Boolean Language Framework with the narrow bridge between chaos and control - AIc + 0.1 = BMqs processing engine",
-  "version": "1.0.0",
+  "displayName": "BLF NJSON V-8 Engine - Quantum Enhanced",
+  "description": "Boolean Language Framework with Quantum Speed Levels - The narrow bridge between chaos and control",
+  "version": "1.2.0",
   "publisher": "blf-team",
   "engines": {
     "vscode": "^1.74.0"
@@ -10,7 +10,9 @@
   "categories": [
     "Other",
     "Machine Learning",
-    "Data Science"
+    "Data Science",
+    "Debuggers",
+    "Formatters"
   ],
   "keywords": [
     "blf",
@@ -18,12 +20,13 @@
     "njson",
     "v8-engine",
     "cognitive",
-    "ai-alignment"
+    "ai-alignment",
+    "github-integration",
+    "file-watcher",
+    "terminal-tools"
   ],
   "activationEvents": [
-    "onCommand:blf.processText",
-    "onCommand:blf.engineStatus",
-    "onCommand:blf.validatePrecision"
+    "onStartupFinished"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -31,22 +34,172 @@
       {
         "command": "blf.processText",
         "title": "🎯 Process Text through BLF NJSON V-8 Engine",
-        "category": "BLF"
+        "category": "BLF Core"
       },
       {
         "command": "blf.engineStatus",
         "title": "🚗 BLF Engine Status Report",
-        "category": "BLF"
+        "category": "BLF Core"
       },
       {
         "command": "blf.validatePrecision",
         "title": "🧮 Validate BLF Mathematical Precision",
-        "category": "BLF"
+        "category": "BLF Core"
       },
       {
         "command": "blf.processSelection",
         "title": "🌉 Process Selected Text with BLF",
-        "category": "BLF"
+        "category": "BLF Core"
+      },
+      {
+        "command": "blf.processRepository",
+        "title": "📊 Process Repository through BLF GitHub Bridge",
+        "category": "BLF GitHub"
+      },
+      {
+        "command": "blf.generateRepositoryReport",
+        "title": "📋 Generate BLF Repository Health Report",
+        "category": "BLF GitHub"
+      },
+      {
+        "command": "blf.generateAdvancedRepositoryReport",
+        "title": "🔥 Generate Advanced BLF Repository Analysis",
+        "category": "BLF GitHub"
+      },
+      {
+        "command": "blf.startRealtimeRepositoryMonitoring",
+        "title": "📊 Start Real-time Repository Monitoring",
+        "category": "BLF GitHub"
+      },
+      {
+        "command": "blf.showRepositoryDashboard",
+        "title": "🚗 Show Repository Quantum Dashboard",
+        "category": "BLF GitHub"
+      },
+      {
+        "command": "blf.toggleFileWatcher",
+        "title": "🔄 Toggle BLF File Watcher",
+        "category": "BLF File Watcher"
+      },
+      {
+        "command": "blf.processAllFiles",
+        "title": "🗂️ Process All Files in Workspace",
+        "category": "BLF File Watcher"
+      },
+      {
+        "command": "blf.fileWatcherStats",
+        "title": "📈 Show File Watcher Statistics",
+        "category": "BLF File Watcher"
+      },
+      {
+        "command": "blf.createCLI",
+        "title": "⚡ Create BLF CLI Script",
+        "category": "BLF Terminal"
+      },
+      {
+        "command": "blf.openTerminal",
+        "title": "🖥️ Open BLF V-8 Terminal",
+        "category": "BLF Terminal"
+      },
+      {
+        "command": "blf.processCurrentFile",
+        "title": "📁 Process Current File in Terminal",
+        "category": "BLF Terminal"
+      },
+      {
+        "command": "blf.processSelectedTextCLI",
+        "title": "🔤 Process Selected Text in Terminal",
+        "category": "BLF Terminal"
+      },
+      {
+        "command": "blf.scanWorkspace",
+        "title": "🔍 Scan Workspace in Terminal",
+        "category": "BLF Terminal"
+      },
+      {
+        "command": "blf.showEngineStatusCLI",
+        "title": "🎛️ Show Engine Status in Terminal",
+        "category": "BLF Terminal"
+      },
+      {
+        "command": "blf.generateAliases",
+        "title": "🔗 Generate Terminal Aliases",
+        "category": "BLF Terminal"
+      },
+      {
+        "command": "blf.createInteractiveSession",
+        "title": "🚀 Create Interactive Terminal Session",
+        "category": "BLF Terminal"
+      },
+      {
+        "command": "blf.quickQuantumAnalysis",
+        "title": "⚡ Quick Quantum Analysis",
+        "category": "BLF Terminal"
+      },
+      {
+        "command": "blf.runLLSDTAnalysis",
+        "title": "🧠 Run LLSDT Analysis in Terminal",
+        "category": "BLF Terminal"
+      },
+      {
+        "command": "blf.startQuantumDashboard",
+        "title": "📊 Start Quantum Dashboard in Terminal",
+        "category": "BLF Terminal"
+      },
+      {
+        "command": "blf.batchProcessFiles",
+        "title": "🔄 Batch Process Files",
+        "category": "BLF Terminal"
+      },
+      {
+        "command": "blf.watchCurrentFile",
+        "title": "👁️ Watch Current File for Changes",
+        "category": "BLF Terminal"
+      },
+      {
+        "command": "blf.analyzeBranchingTheory",
+        "title": "🌿 Analyze Branching Theory (Selected Text)",
+        "category": "BLF Terminal"
+      },
+      {
+        "command": "blf.runFullDiagnostics",
+        "title": "🔥 Run Full BLF System Diagnostics",
+        "category": "BLF Diagnostics"
+      },
+      {
+        "command": "blf.configureLLSDT",
+        "title": "🧠 Configure LLSDT (Language Learning Speed Detection)",
+        "category": "BLF Quantum"
+      },
+      {
+        "command": "blf.processWithPattern",
+        "title": "🔍 Process with Quantum Pattern Recognition",
+        "category": "BLF Quantum"
+      },
+      {
+        "command": "blf.enableRealtimeMonitoring",
+        "title": "🛡️ Enable Real-time Heat Shield Monitoring",
+        "category": "BLF Quantum"
+      },
+      {
+        "command": "blf.configureBooleanProfile",
+        "title": "⚡ Configure Boolean Mind Profile",
+        "category": "BLF Quantum"
+      },
+      {
+        "command": "blf.analyzeWorkspace",
+        "title": "📊 Analyze Workspace Quantum Patterns",
+        "category": "BLF Quantum"
+      },
+      {
+        "command": "blf.generateSnippets",
+        "title": "🚗 Generate BLF Code Snippets",
+        "category": "BLF Tools"
+      },
+      {
+        "command": "blf.showQuantumDashboard",
+        "title": "📊 Show Quantum Workspace Dashboard",
+        "category": "BLF Quantum"
       }
     ],
     "menus": {
@@ -54,7 +207,31 @@
         {
           "when": "editorHasSelection",
           "command": "blf.processSelection",
-          "group": "blf"
+          "group": "blf@1"
+        },
+        {
+          "when": "editorHasSelection",
+          "command": "blf.processSelectedTextCLI",
+          "group": "blf@2"
+        },
+        {
+          "command": "blf.processWithPattern",
+          "group": "blf@3"
+        },
+        {
+          "command": "blf.quickQuantumAnalysis",
+          "group": "blf@4"
+        },
+        {
+          "when": "editorHasSelection",
+          "command": "blf.analyzeBranchingTheory",
+          "group": "blf@5"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "blf.processCurrentFile",
+          "group": "blf@1"
         }
       ],
       "commandPalette": [
@@ -70,6 +247,98 @@
         {
           "command": "blf.processSelection",
           "when": "editorHasSelection"
+        },
+        {
+          "command": "blf.processRepository"
+        },
+        {
+          "command": "blf.generateRepositoryReport"
+        },
+        {
+          "command": "blf.generateAdvancedRepositoryReport"
+        },
+        {
+          "command": "blf.startRealtimeRepositoryMonitoring"
+        },
+        {
+          "command": "blf.showRepositoryDashboard"
+        },
+        {
+          "command": "blf.toggleFileWatcher"
+        },
+        {
+          "command": "blf.processAllFiles"
+        },
+        {
+          "command": "blf.fileWatcherStats"
+        },
+        {
+          "command": "blf.createCLI"
+        },
+        {
+          "command": "blf.openTerminal"
+        },
+        {
+          "command": "blf.processCurrentFile"
+        },
+        {
+          "command": "blf.processSelectedTextCLI",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "blf.scanWorkspace"
+        },
+        {
+          "command": "blf.showEngineStatusCLI"
+        },
+        {
+          "command": "blf.generateAliases"
+        },
+        {
+          "command": "blf.createInteractiveSession"
+        },
+        {
+          "command": "blf.quickQuantumAnalysis"
+        },
+        {
+          "command": "blf.runLLSDTAnalysis"
+        },
+        {
+          "command": "blf.startQuantumDashboard"
+        },
+        {
+          "command": "blf.batchProcessFiles"
+        },
+        {
+          "command": "blf.watchCurrentFile"
+        },
+        {
+          "command": "blf.analyzeBranchingTheory",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "blf.runFullDiagnostics"
+        },
+        {
+          "command": "blf.configureLLSDT"
+        },
+        {
+          "command": "blf.processWithPattern"
+        },
+        {
+          "command": "blf.enableRealtimeMonitoring"
+        },
+        {
+          "command": "blf.configureBooleanProfile"
+        },
+        {
+          "command": "blf.analyzeWorkspace"
+        },
+        {
+          "command": "blf.generateSnippets"
+        },
+        {
+          "command": "blf.showQuantumDashboard"
         }
       ]
     },
@@ -90,6 +359,26 @@
           "type": "number",
           "default": 0.1,
           "description": "The narrow bridge constant (AIc + buffer = BMqs)"
+        },
+        "blf.maxFileSize": {
+          "type": "number",
+          "default": 1048576,
+          "description": "Maximum file size for automatic processing (bytes)"
+        },
+        "blf.showComplexityWarnings": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show warnings when high complexity is detected"
+        },
+        "blf.showEngineStatus": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show engine status notifications"
+        },
+        "blf.autoStartFileWatcher": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically start file watcher on activation"
         }
       }
     }
