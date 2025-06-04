@@ -128,27 +128,30 @@ public actor NJSON {
         // Ensure JavaScript engine is loaded
         try await loadJavaScriptEngine()
         
-        // Create processor instance
-        guard let processorClass = jsContext.objectForKeyedSubscript("NJSONBooleanProcessor"),
-              let processor = processorClass.construct(withArguments: []) else {
-            throw NJSONError.initializationFailed("Could not create NJSONBooleanProcessor instance")
+        // Use the new global function approach instead of constructor
+        guard let initFunction = jsContext.objectForKeyedSubscript("initializeProcessor") else {
+            throw NJSONError.initializationFailed("Could not find initializeProcessor global function")
         }
         
-        // Debug the created instance
-        print("🔍 Processor instance created")
-        print("🔍 Processor type: \(processor)")
-        print("🔍 Has initialize method: \(processor.hasProperty("initialize"))")
-        print("🔍 Has process method: \(processor.hasProperty("process"))")
-        print("🔍 Has applyHeatShield method: \(processor.hasProperty("applyHeatShield"))")
-        
-        self.processor = processor
-        
-        // Initialize the processor
-        guard let initMethod = processor.objectForKeyedSubscript("initialize"),
-              let initResult = initMethod.call(withArguments: []),
+        // Call the global initialization function
+        guard let initResult = initFunction.call(withArguments: []),
               initResult.toBool() else {
-            throw NJSONError.initializationFailed("Processor initialization failed")
+            throw NJSONError.initializationFailed("Global processor initialization failed")
         }
+        
+        // Get reference to the global processor
+        guard let globalProcessor = jsContext.objectForKeyedSubscript("globalProcessor") else {
+            throw NJSONError.initializationFailed("Could not access global processor")
+        }
+        
+        // Debug the global processor
+        print("🔍 Global processor accessed")
+        print("🔍 Global processor type: \(globalProcessor)")
+        print("🔍 Has initialize method: \(globalProcessor.hasProperty("initialize"))")
+        print("🔍 Has process method: \(globalProcessor.hasProperty("process"))")
+        print("🔍 Has validateCognitiveAlignment method: \(globalProcessor.hasProperty("validateCognitiveAlignment"))")
+        
+        self.processor = globalProcessor
         
         // Validate AMF formula alignment
         let alignment = validateCognitiveAlignment()
@@ -157,7 +160,7 @@ public actor NJSON {
         }
         
         isInitialized = true
-        print("✅ NJSON processor initialized with cognitive alignment verified")
+        print("✅ NJSON processor initialized with global functional approach")
     }
     
     /// Process text through the NJSON Boolean framework
@@ -166,15 +169,15 @@ public actor NJSON {
             try await initialize()
         }
         
-        guard let processor = self.processor,
-              let processMethod = processor.objectForKeyedSubscript("process") else {
-            throw NJSONError.processingFailed("Processor not available")
+        // Use the global processInput function instead of instance method
+        guard let processFunction = jsContext.objectForKeyedSubscript("processInput") else {
+            throw NJSONError.processingFailed("Global processInput function not available")
         }
         
-        // Call the JavaScript process method
+        // Call the global process function
         let arguments = bmId != nil ? [input, bmId!] : [input]
-        guard let result = processMethod.call(withArguments: arguments) else {
-            throw NJSONError.processingFailed("Process method call failed")
+        guard let result = processFunction.call(withArguments: arguments) else {
+            throw NJSONError.processingFailed("Global processInput function call failed")
         }
         
         // Convert JavaScript result to Swift
@@ -397,13 +400,27 @@ public actor NJSON {
     }
     
     /// Get AMF formula status with BLF metaphors and system health
-    public func getFormulaStatus() -> String {
-        let alignment = validateCognitiveAlignment()
-        
-        if alignment {
-            return "AMF Formula: Optimal - V-8 engine purring perfectly"
-        } else {
-            return "AMF Formula: Misalignment detected - Engine needs tuning"
+    public func getFormulaStatus() async -> String {
+        do {
+            let cognitiveReport = try await getCognitiveStateReport()
+            let formulaValid = cognitiveReport.formula.valid
+            let stability = cognitiveReport.formula.stability
+            
+            if formulaValid && stability >= 1.0 {
+                return "AMF Formula: Optimal - V-8 engine purring perfectly"
+            } else if formulaValid && stability >= 0.8 {
+                return "AMF Formula: Good - The narrow bridge between chaos and control is stable"
+            } else if formulaValid {
+                return "AMF Formula: Functional - Heat shield monitoring required"
+            } else {
+                return "AMF Formula: Warning - Cognitive alignment needs attention"
+            }
+        } catch {
+            // Fallback to basic validation
+            let basicValid = validateCognitiveAlignment()
+            return basicValid ? 
+                "AMF Formula: Basic validation passed - \(aiCognitive) + \(buffer) = \(booleanMindQs)" :
+                "AMF Formula: Critical - Basic validation failed"
         }
     }
 }

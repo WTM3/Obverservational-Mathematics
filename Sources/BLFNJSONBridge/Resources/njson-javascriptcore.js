@@ -334,9 +334,14 @@ function createNJSONProcessor(config) {
     },
 
     getCognitiveStateReport: function() {
+      const aiC = state.config.cognitiveProtocol.alignment.aiCognitive;
+      const buffer = state.config.cognitiveProtocol.alignment.buffer;
+      const bmQs = state.config.cognitiveProtocol.alignment.booleanMindQs;
+      const isValid = Math.abs((aiC + buffer) - bmQs) <= 0.0001;
+      
       return {
-        formula: `${state.config.cognitiveProtocol.alignment.aiCognitive} + ${state.config.cognitiveProtocol.alignment.buffer} = ${state.config.cognitiveProtocol.alignment.booleanMindQs}`,
-        alignment: this.validateCognitiveAlignment() ? 'valid' : 'invalid',
+        formula: `${aiC} + ${buffer} = ${bmQs}`,
+        alignment: isValid ? 'valid' : 'invalid',
         status: 'operational'
       };
     },
@@ -351,7 +356,11 @@ function createNJSONProcessor(config) {
     },
 
     calculateFormulaStability: function() {
-      return this.validateCognitiveAlignment() ? 1.000 : 0.000;
+      const aiC = state.config.cognitiveProtocol.alignment.aiCognitive;
+      const buffer = state.config.cognitiveProtocol.alignment.buffer;
+      const bmQs = state.config.cognitiveProtocol.alignment.booleanMindQs;
+      const isValid = Math.abs((aiC + buffer) - bmQs) <= 0.0001;
+      return isValid ? 1.000 : 0.000;
     }
   };
 }
