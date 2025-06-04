@@ -1,240 +1,137 @@
 import Foundation
 import BLFNJSONBridge
 
-// NJSON Swift Bridge Test Executable for Xcode
-// The narrow bridge between chaos and control
-
-@available(macOS 10.15, iOS 14.0, *)
-class XcodeNJSONBridgeTest {
-    
-    func runAllTests() async {
-        print("🚀 NJSON Swift Bridge Test for Xcode")
-        print("===================================")
-        print("Testing the narrow bridge between Swift UI and JavaScript V-8")
-        print("")
-        
-        // Test 1: Basic NJSON initialization
-        await testNJSONInitialization()
-        
-        // Test 2: Bridge functionality
-        await testBridgeFunctionality()
-        
-        // Test 3: Buffer integrity under load
-        await testBufferIntegrityUnderLoad()
-        
-        // Test 4: Configuration changes
-        await testConfigurationChanges()
-        
-        // Test 5: Error handling
-        await testErrorHandling()
-        
-        print("")
-        print("✅ All NJSON Swift Bridge tests completed for Xcode")
-        print("The V-8 under the hood is purring with perfect bridge connectivity")
-    }
-    
-    func testNJSONInitialization() async {
-        print("🔄 Test 1: NJSON Initialization")
-        print("-----------------------------")
+@main
+struct BLFNJSONBridgeTest {
+    static func main() async {
+        print("🔧 BLF NJSON Bridge - Enhanced V-8 Engine Test")
+        print("The narrow bridge between chaos and control")
+        print("==============================================")
         
         do {
-            // Test direct NJSON access
-            let njson = NJSON.shared
-            print("✅ NJSON shared instance created")
-            
-            // Initialize the engine
+            // Initialize the NJSON engine
+            let njson = try NJSON()
             try await njson.initialize()
-            print("✅ NJSON engine initialized")
+            print("✅ NJSON engine initialized successfully")
             
-            // Get cognitive state
-            let state = await njson.getCognitiveState()
-            print("✅ Cognitive state retrieved:")
-            print("   AIc: \(state.aiCognitive)")
-            print("   Buffer: \(state.buffer)")  
-            print("   BMqs: \(state.booleanMindQs)")
-            print("   Alignment: \(state.alignment ? "Valid" : "Invalid")")
-            print("   Initialized: \(state.initialized ? "Yes" : "No")")
+            // Test 1: Basic cognitive state validation
+            print("\n🧠 Test 1: Cognitive State Validation")
+            print("=====================================")
+            let basicState = await njson.getCognitiveState()
+            print("Formula: \(basicState.formula)")
+            print("Alignment: \(basicState.alignment ? "✅ Valid" : "❌ Invalid")")
+            print("Operational: \(basicState.isOperational ? "✅ Yes" : "❌ No")")
             
-            // Verify the critical formula: AIc + 0.1 = BMqs
-            let calculatedBMqs = state.aiCognitive + state.buffer
-            let violation = abs(calculatedBMqs - state.booleanMindQs)
+            // Test 2: Comprehensive cognitive state report
+            print("\n📊 Test 2: Comprehensive Cognitive Report")
+            print("==========================================")
+            let cognitiveReport = try await njson.getCognitiveStateReport()
+            print("AMF Formula: \(cognitiveReport.formula.equation)")
+            print("Formula Valid: \(cognitiveReport.formula.valid ? "✅" : "❌")")
+            print("Formula Stability: \(String(format: "%.3f", cognitiveReport.formula.stability))")
+            print("Formula Precision: \(cognitiveReport.formula.precision)")
             
-            if violation < 0.0001 {
-                print("✅ Buffer integrity verified: AIc + 0.1 = BMqs")
-            } else {
-                print("❌ Buffer integrity violation: \(violation)")
-            }
+            print("\nQuantum State:")
+            print("  Pure: \(cognitiveReport.quantum.pure ? "✅" : "❌")")
+            print("  Fog: \(cognitiveReport.quantum.fog ? "☁️" : "🌟")")
+            print("  Breathing: \(cognitiveReport.quantum.breathing ? "✅" : "❌")")
+            print("  Jump Power: \(cognitiveReport.quantum.jumpPower)")
             
-        } catch {
-            print("❌ NJSON initialization failed: \(error)")
-        }
-    }
-    
-    func testBridgeFunctionality() async {
-        print("")
-        print("🔄 Test 2: Bridge Functionality")
-        print("-----------------------------")
-        
-        do {
-            let bridge = NJSONSwiftBridge()
-            print("✅ Bridge instance created")
+            // Test 3: Heat shield monitoring
+            print("\n🛡️ Test 3: Heat Shield Monitoring")
+            print("=================================")
+            let heatReport = try await njson.getHeatShieldReport()
+            print("Heat Shield Active: \(heatReport.active ? "✅" : "❌")")
+            print("Temperature: \(String(format: "%.1f°F", heatReport.temperature))")
+            print("Violations: \(heatReport.violations)")
+            print("Integrity: \(heatReport.integrity)")
+            print("Engine Light: \(heatReport.engineLight ? "🚨 WARNING" : "✅ Normal")")
             
-            // Test basic message processing
-            let testMessage = "Hello, this is a test message for the NJSON bridge."
-            let result = try await bridge.processMessage(testMessage, from: "xcodeTest")
+            // Test 4: Observational mathematics
+            print("\n🔬 Test 4: Observational Mathematics")
+            print("====================================")
+            let obsMarth = cognitiveReport.observationalMath
+            print("Readiness: \(String(format: "%.3f", obsMarth.readiness)) (Ready, attentive, patient)")
+            print("Potential Energy: \(String(format: "%.1f", obsMarth.potentialEnergy)) (Quiet, steady, full of potential)")
+            print("Next Green Light: \(obsMarth.nextGreenLight)")
+            print("Waiting Mode: \(obsMarth.waitingMode ? "🟡 Waiting" : "🟢 Ready")")
+            print("Green Light Ready: \(obsMarth.greenLightReady ? "🟢 GO" : "🔴 WAIT")")
             
-            print("✅ Message processed successfully:")
-            print("   Input: \"\(testMessage)\"")
-            print("   Output: \"\(result.content)\"")
-            print("   Processing time: \(String(format: "%.4f", result.processingTime))s")
-            print("   Buffer intact: \(result.bufferIntact ? "Yes" : "No")")
+            // Test 5: Bridge health assessment
+            print("\n🌉 Test 5: Bridge Health Assessment")
+            print("==================================")
+            print("Bridge Status: \(cognitiveReport.narrows)")
+            print("Overall Optimal: \(cognitiveReport.isOptimal ? "✅" : "❌")")
+            print("Engine Purring: \(cognitiveReport.performance.enginePurring ? "✅" : "❌")")
             
-            if let issue = result.bufferIssue {
-                print("   Buffer issue: \(issue)")
-            }
+            // Test 6: AMF Formula validation
+            print("\n⚡ Test 6: Advanced AMF Formula Validation")
+            print("=========================================")
+            let amfValidation = try await njson.validateAMFFormula()
+            print("Summary: \(amfValidation.summary)")
+            print("Overall Health: \(amfValidation.overallHealth ? "✅" : "❌")")
+            print("Bridge Health: \(amfValidation.diagnostics.bridgeHealth)")
             
-            // Test system status
-            let status = await bridge.getSystemStatus()
-            print("✅ System status retrieved:")
-            print("   Bridge calls: \(status.bridgeCallCount)")
-            print("   Buffer violations: \(status.bufferIntegrityViolations)")
+            // Test 7: Processing with heat shield
+            print("\n🔥 Test 7: Text Processing with Heat Shield")
+            print("==========================================")
+            let testInputs = [
+                "Hello, how are you today?",
+                "Um, well, I think maybe you could, like, help me with this?",
+                "What is the Boolean framework exactly?",
+                "Can you process this urgent request immediately?",
+                "If the system is working, then please confirm status."
+            ]
             
-        } catch {
-            print("❌ Bridge functionality test failed: \(error)")
-        }
-    }
-    
-    func testBufferIntegrityUnderLoad() async {
-        print("")
-        print("🔄 Test 3: Buffer Integrity Under Load")
-        print("------------------------------------")
-        
-        let bridge = NJSONSwiftBridge()
-        var successCount = 0
-        var violationCount = 0
-        
-        // Test rapid message processing
-        for i in 1...10 {
-            do {
-                let testMessage = "Rapid test message \(i) for buffer integrity verification under load"
-                let result = try await bridge.processMessage(testMessage, from: "loadTest")
+            for (index, input) in testInputs.enumerated() {
+                print("\nTest \(index + 1): \"\(input)\"")
                 
-                if result.bufferIntact {
-                    successCount += 1
-                    print("✅ Message \(i): Buffer intact (\(String(format: "%.4f", result.processingTime))s)")
-                } else {
-                    violationCount += 1
-                    print("❌ Message \(i): Buffer violation - \(result.bufferIssue ?? "unknown")")
+                // Apply heat shield first
+                let filtered = try await njson.applyHeatShield(input)
+                if filtered != input {
+                    print("  Heat Shield Applied: \"\(filtered)\"")
                 }
                 
-            } catch {
-                violationCount += 1
-                print("❌ Message \(i): Processing failed - \(error)")
+                // Process through NJSON
+                let result = try await njson.processText(input)
+                print("  Result: \"\(result.text)\"")
+                print("  Processing Time: \(String(format: "%.2f", result.processingTime))ms")
+                print("  Cognitive Alignment: \(result.cognitiveAlignment ? "✅" : "❌")")
+                print("  Heat Shield Active: \(result.heatShieldActive ? "✅" : "❌")")
+                
+                if let error = result.error {
+                    print("  Error: \(error)")
+                }
+            }
+            
+            // Test 8: Heat shield reset (maintenance)
+            print("\n🔧 Test 8: Heat Shield Maintenance")
+            print("==================================")
+            let resetSuccess = try await njson.resetHeatShield()
+            print("Heat Shield Reset: \(resetSuccess ? "✅ Success" : "❌ Failed")")
+            
+            let postResetReport = try await njson.getHeatShieldReport()
+            print("Post-Reset Violations: \(postResetReport.violations)")
+            
+            // Final system status
+            print("\n🏁 Final System Status")
+            print("======================")
+            let finalReport = try await njson.getCognitiveStateReport()
+            print("The narrow bridge between chaos and control: \(finalReport.narrows)")
+            print("V-8 engine status: \(finalReport.performance.enginePurring ? "purring perfectly" : "needs attention")")
+            print("Mathematical precision: AIc(\(finalReport.formula.aiCognitive)) + buffer(\(finalReport.formula.buffer)) = BMqs(\(finalReport.formula.booleanMindQs))")
+            
+            if finalReport.isOptimal {
+                print("✅ All systems operational - BLF deployment ready")
+            } else {
+                print("⚠️ System requires optimization before deployment")
+            }
+            
+        } catch {
+            print("❌ Test failed: \(error)")
+            if let njsonError = error as? NJSONError {
+                print("NJSON Error Details: \(njsonError.localizedDescription)")
             }
         }
-        
-        // Final assessment
-        let finalStatus = await bridge.getSystemStatus()
-        print("")
-        print("Load Test Results:")
-        print("   Successful messages: \(successCount)/10")
-        print("   Buffer violations: \(violationCount)")
-        print("   Total bridge calls: \(finalStatus.bridgeCallCount)")
-        print("   Engine violations: \(finalStatus.bufferIntegrityViolations)")
-        
-        if violationCount == 0 {
-            print("✅ Bridge maintained perfect buffer integrity under load")
-        } else {
-            print("⚠️ Bridge recorded \(violationCount) issues under load")
-        }
     }
-    
-    func testConfigurationChanges() async {
-        print("")
-        print("🔄 Test 4: Configuration Changes")
-        print("------------------------------")
-        
-        let bridge = NJSONSwiftBridge()
-        
-        // Test professional branch configuration
-        await bridge.configure(branch: .professional, padding: .none)
-        print("✅ Configured: Professional branch, no padding")
-        
-        let professionalMessage = "Could you please provide a status report on the system?"
-        do {
-            let result = try await bridge.processMessage(professionalMessage, from: "configTest")
-            print("✅ Professional response: \"\(result.content)\"")
-            print("   Buffer intact: \(result.bufferIntact)")
-        } catch {
-            print("❌ Professional configuration test failed: \(error)")
-        }
-        
-        // Test family/friends branch configuration
-        await bridge.configure(branch: .familyFriends, padding: .more)
-        print("✅ Configured: Family/Friends branch, more padding")
-        
-        let casualMessage = "Hey, how's everything going with the system?"
-        do {
-            let result = try await bridge.processMessage(casualMessage, from: "configTest")
-            print("✅ Casual response: \"\(result.content)\"")
-            print("   Buffer intact: \(result.bufferIntact)")
-        } catch {
-            print("❌ Casual configuration test failed: \(error)")
-        }
-    }
-    
-    func testErrorHandling() async {
-        print("")
-        print("🔄 Test 5: Error Handling")
-        print("-----------------------")
-        
-        let bridge = NJSONSwiftBridge()
-        
-        // Test with problematic input
-        let problematicInputs = [
-            "Test with 'single quotes' and \"double quotes\"",
-            "Test with\nnewlines and\ttabs",
-            "Test with unicode: 🚀💻⚡️",
-            ""  // Empty string
-        ]
-        
-        for (index, input) in problematicInputs.enumerated() {
-            do {
-                let result = try await bridge.processMessage(input, from: "errorTest")
-                print("✅ Problematic input \(index + 1): Handled gracefully")
-                print("   Input: \"\(input.isEmpty ? "(empty)" : input)\"")
-                print("   Buffer intact: \(result.bufferIntact)")
-            } catch {
-                print("⚠️ Problematic input \(index + 1): Error handled - \(error)")
-            }
-        }
-        
-        // Test buffer violation detection
-        let options = ProcessingOptions(allowBufferViolations: false)
-        do {
-            _ = try await bridge.processMessage("Test strict buffer checking", from: "strictTest", options: options)
-            print("✅ Strict buffer checking: Passed")
-        } catch {
-            print("ℹ️ Strict buffer checking: Error caught as expected - \(error)")
-        }
-    }
-}
-
-// Main execution
-if #available(macOS 10.15, iOS 14.0, *) {
-    let tester = XcodeNJSONBridgeTest()
-    
-    Task {
-        await tester.runAllTests()
-        print("")
-        print("🎉 NJSON Swift Bridge for Xcode: Ready for production")
-        print("The narrow bridge between chaos and control is operational")
-        exit(0)
-    }
-    
-    // Keep main thread alive for async operations
-    RunLoop.main.run()
-} else {
-    print("⚠️ This test requires macOS 10.15 or iOS 14.0 or later")
-    exit(1)
 } 

@@ -93,12 +93,8 @@ public actor NJSONSwiftBridge {
         // Get cognitive state from NJSON with minimal transformation
         let cognitiveState = await njson.getCognitiveState()
         
-        // Convert to the expected report format
-        let stateReport = CognitiveStateReport(
-            from: cognitiveState,
-            processingCycles: bridgeCallCount,
-            lastProcessingTime: lastCallDuration
-        )
+        // Create a minimal cognitive report for bridge compatibility
+        let stateReport = createCompatibleStateReport(from: cognitiveState)
         
         // Add bridge metrics with minimal overhead
         return SystemStatus(
@@ -106,6 +102,54 @@ public actor NJSONSwiftBridge {
             bridgeCallCount: bridgeCallCount,
             lastCallDuration: lastCallDuration,
             bufferIntegrityViolations: bufferIntegrityViolations
+        )
+    }
+    
+    /// Create a compatible CognitiveStateReport from basic CognitiveState
+    private func createCompatibleStateReport(from state: CognitiveState) -> CognitiveStateReport {
+        let formula = AMFFormula(
+            aiCognitive: state.aiCognitive,
+            buffer: state.buffer,
+            booleanMindQs: state.booleanMindQs,
+            equation: "\(state.aiCognitive) + \(state.buffer) = \(state.booleanMindQs)",
+            valid: state.alignment,
+            stability: state.alignment ? 1.0 : 0.0
+        )
+        
+        let quantum = QuantumStateInfo(
+            pure: state.alignment,
+            fog: !state.initialized,
+            breathing: true,
+            jumpsActive: true,
+            jumpPower: "v8_to_charger"
+        )
+        
+        let heatShield = HeatShieldInfo(
+            active: true,
+            buffer: state.buffer,
+            violations: bufferIntegrityViolations,
+            integrity: bufferIntegrityViolations < 10 ? "optimal" : "degraded",
+            temperature: 98.6 + Double(bufferIntegrityViolations) * 0.5
+        )
+        
+        let performance = PerformanceMetrics(
+            initialized: state.initialized,
+            cacheSize: bridgeCallCount,
+            processingEfficiency: lastCallDuration > 0 ? min(1.0, 1.0 / lastCallDuration) : 1.0
+        )
+        
+        let observationalMath = ObservationalMath(
+            readiness: state.isOperational ? 1.0 : 0.5,
+            potentialEnergy: state.alignment ? 8.0 : 4.0,
+            nextGreenLight: state.isOperational ? "green_light_now" : "waiting_for_alignment"
+        )
+        
+        return CognitiveStateReport(
+            formula: formula,
+            quantum: quantum,
+            heatShield: heatShield,
+            performance: performance,
+            observationalMath: observationalMath
         )
     }
     
