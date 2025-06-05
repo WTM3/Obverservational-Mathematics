@@ -44,7 +44,7 @@ ${result.bmqs >= 290 ? '⚡ Approaching qs³!' : ''}
 Status: ${result.status}
 Buffer Bridge: ${result.buffer} (the narrow bridge between chaos and control)`;
                 
-                vscode.window.showInformationMessage(enhancedMessage, 'Show Details').then(selection => {
+                vscode.window.showInformationMessage(enhancedMessage, 'Show Details').then((selection: string | undefined) => {
                     if (selection === 'Show Details') {
                         const outputChannel = vscode.window.createOutputChannel('BLF Results');
                         outputChannel.clear();
@@ -152,7 +152,7 @@ Buffer Bridge: ${result.buffer} (the narrow bridge between chaos and control)`;
         vscode.window.showInformationMessage(
             `🔍 Pattern Analysis: ${patterns.length} quantum patterns detected | Quantum Level: ${quantumLevel}`,
             'Show Details'
-        ).then(selection => {
+        ).then((selection: string | undefined) => {
             if (selection === 'Show Details') {
                 const outputChannel = vscode.window.createOutputChannel('BLF Pattern Analysis');
                 outputChannel.clear();
@@ -330,7 +330,7 @@ Buffer Bridge: ${result.buffer} (the narrow bridge between chaos and control)`;
             location: vscode.ProgressLocation.Notification,
             title: "BLF Workspace Analysis",
             cancellable: true
-        }, async (progress, token) => {
+        }, async (progress: vscode.Progress<{message?: string; increment?: number}>, token: vscode.CancellationToken) => {
             const files = await vscode.workspace.findFiles('**/*.{js,ts,md,txt}', '**/node_modules/**');
             const analysis = {
                 totalFiles: files.length,
@@ -416,7 +416,7 @@ Buffer Bridge: ${result.buffer} (the narrow bridge between chaos and control)`;
             vscode.window.showInformationMessage(
                 `BLF Workspace Analysis Complete: ${analysis.averageQuantumLevel} average quantum level`,
                 'View Report'
-            ).then(selection => {
+            ).then((selection: string | undefined) => {
                 if (selection === 'View Report') {
                     outputChannel.show();
                 }
@@ -510,7 +510,7 @@ Buffer: ${status.buffer} | Engine: ${status.engine}`;
         vscode.window.showInformationMessage(
             allPassed ? '✅ BLF precision validation passed!' : '❌ BLF precision validation failed!',
             'View Details'
-        ).then(selection => {
+        ).then((selection: string | undefined) => {
             if (selection === 'View Details') {
                 outputChannel.show();
             }
@@ -587,7 +587,7 @@ AIC: ${result.aic} | BMqs: ${result.bmqs} | ${result.status}`;
         vscode.window.showInformationMessage(
             '🔥 BLF Repository Dashboard active! Generate advanced report for detailed analysis.',
             'Generate Advanced Report'
-        ).then(selection => {
+        ).then((selection: string | undefined) => {
             if (selection === 'Generate Advanced Report') {
                 vscode.commands.executeCommand('blf.generateAdvancedRepositoryReport');
             }
@@ -765,7 +765,7 @@ Engine Status: ${stats.engineStatus.ready ? '✅' : '❌'}`;
         '🔥 BLF NJSON V-8 Engine Ready! All integration bridges connected.',
         'Run Diagnostics',
         'Open Terminal'
-    ).then(selection => {
+    ).then((selection: string | undefined) => {
         if (selection === 'Run Diagnostics') {
             vscode.commands.executeCommand('blf.runFullDiagnostics');
         } else if (selection === 'Open Terminal') {

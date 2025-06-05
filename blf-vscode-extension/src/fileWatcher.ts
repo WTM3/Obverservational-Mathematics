@@ -90,17 +90,17 @@ export class BLFFileWatcher {
             const watcher = vscode.workspace.createFileSystemWatcher(pattern);
             
             // File created
-            watcher.onDidCreate(uri => {
+            watcher.onDidCreate((uri: vscode.Uri) => {
                 this.queueFileProcessing(uri.fsPath, 'created');
             });
             
             // File changed
-            watcher.onDidChange(uri => {
+            watcher.onDidChange((uri: vscode.Uri) => {
                 this.queueFileProcessing(uri.fsPath, 'changed');
             });
             
             // File deleted
-            watcher.onDidDelete(uri => {
+            watcher.onDidDelete((uri: vscode.Uri) => {
                 this.handleFileDeleted(uri.fsPath);
             });
 
@@ -726,7 +726,7 @@ Boolean Mind Files: ${stats.booleanMindFiles}
             location: vscode.ProgressLocation.Notification,
             title: "BLF Quantum Analysis - All Files",
             cancellable: true
-        }, async (progress, token) => {
+        }, async (progress: vscode.Progress<{message?: string; increment?: number}>, token: vscode.CancellationToken) => {
             const files = await this.getAllFiles(workspaceFolder.uri.fsPath);
             const totalFiles = files.length;
             let processed = 0;
@@ -757,7 +757,7 @@ Boolean Mind Files: ${stats.booleanMindFiles}
             vscode.window.showInformationMessage(
                 `BLF Quantum scan complete: ${processed} files processed, ${finalStats.avgQuantumLevel} average quantum level`,
                 'Show Dashboard'
-            ).then(selection => {
+            ).then((selection: string | undefined) => {
                 if (selection === 'Show Dashboard') {
                     vscode.commands.executeCommand('blf.showQuantumDashboard');
                 }

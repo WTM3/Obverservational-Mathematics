@@ -675,7 +675,7 @@ module.exports = { BLFEngine, commands };
             }
 
             this.outputChannel.appendLine(`✅ BLF Quantum CLI script created: ${scriptPath}`);
-            vscode.window.showInformationMessage('🔥 BLF Quantum CLI script created successfully!', 'Open Terminal', 'Try Dashboard').then(selection => {
+            vscode.window.showInformationMessage('🔥 BLF Quantum CLI script created successfully!', 'Open Terminal', 'Try Dashboard').then((selection: string | undefined) => {
                 if (selection === 'Open Terminal') {
                     this.openTerminalWithBLF();
                 } else if (selection === 'Try Dashboard') {
@@ -778,7 +778,7 @@ module.exports = { BLFEngine, commands };
                 }
                 return undefined;
             }
-        }).then(personalityFactor => {
+        }).then((personalityFactor: string | undefined) => {
             if (personalityFactor) {
                 this.runBLFCommand('llsdt', personalityFactor);
             }
@@ -796,7 +796,7 @@ module.exports = { BLFEngine, commands };
         vscode.window.showInformationMessage(
             '🔥 Starting BLF Quantum Dashboard - Press "q" in terminal to quit',
             'Start Dashboard'
-        ).then(selection => {
+        ).then((selection: string | undefined) => {
             if (selection === 'Start Dashboard') {
                 this.runBLFCommand('dashboard');
             }
@@ -811,7 +811,7 @@ module.exports = { BLFEngine, commands };
             placeHolder: '*.js',
             prompt: 'Enter file pattern for batch processing (e.g., src/**/*.ts)',
             value: '*.js'
-        }).then(pattern => {
+        }).then((pattern: string | undefined) => {
             if (pattern) {
                 this.runBLFCommand('batch', `"${pattern}"`);
             }
@@ -832,7 +832,7 @@ module.exports = { BLFEngine, commands };
         vscode.window.showInformationMessage(
             `🔥 Starting file watcher for ${filePath} - Press Ctrl+C in terminal to stop`,
             'Start Watching'
-        ).then(selection => {
+        ).then((selection: string | undefined) => {
             if (selection === 'Start Watching') {
                 this.runBLFCommand('watch', `"${filePath}"`);
             }
@@ -934,7 +934,7 @@ module.exports = { BLFEngine, commands };
         ], {
             placeHolder: 'Select workspace analysis type',
             title: 'BLF Workspace Analysis'
-        }).then(selection => {
+        }).then((selection: {label: string; description: string; command: string; args?: string} | undefined) => {
             if (selection) {
                 this.runBLFCommand(selection.command, selection.args);
             }
@@ -1031,9 +1031,9 @@ echo "  🔧 Core: blf, blf-status, blf-help, blf-file, blf-process, blf-watch, 
                 '🔥 BLF Quantum alias script created! Add to your shell profile?',
                 'View Script',
                 'Copy Source Command'
-            ).then(selection => {
+            ).then((selection: string | undefined) => {
                 if (selection === 'View Script') {
-                    vscode.workspace.openTextDocument(aliasPath).then(doc => {
+                    vscode.workspace.openTextDocument(aliasPath).then((doc: vscode.TextDocument) => {
                         vscode.window.showTextDocument(doc);
                     });
                 } else if (selection === 'Copy Source Command') {
@@ -1067,7 +1067,7 @@ echo "  🔧 Core: blf, blf-status, blf-help, blf-file, blf-process, blf-watch, 
         vscode.window.showInformationMessage(
             '🔥 BLF Terminal Profiles created! Add this to your VS Code settings:',
             'Copy Config'
-        ).then(selection => {
+        ).then((selection: string | undefined) => {
             if (selection === 'Copy Config') {
                 vscode.env.clipboard.writeText(JSON.stringify(profileConfig, null, 2));
                 vscode.window.showInformationMessage('Profile config copied to clipboard!');

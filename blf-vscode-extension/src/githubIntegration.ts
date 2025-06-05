@@ -729,7 +729,7 @@ ${gitAnalysis.quantumJumps.slice(0, 5).map(jump =>
                 vscode.window.showInformationMessage(
                     `🔥 Advanced BLF Analysis Complete! Quantum Level: ${this.mapBMqsToQuantumLevel(blfResult.bmqs)}`,
                     'View Report'
-                ).then(selection => {
+                ).then((selection: string | undefined) => {
                     if (selection === 'View Report') {
                         vscode.commands.executeCommand('workbench.action.files.openFile', reportPath);
                     }
