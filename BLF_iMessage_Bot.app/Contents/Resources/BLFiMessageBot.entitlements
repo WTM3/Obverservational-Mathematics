@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Allow AppleScript execution -->
+    <key>com.apple.security.scripting-targets</key>
+    <dict>
+        <key>com.apple.Messages</key>
+        <array>
+            <string>com.apple.Messages</string>
+        </array>
+    </dict>
+    
+    <!-- Allow Apple Events -->
+    <key>com.apple.security.automation.apple-events</key>
+    <true/>
+    
+    <!-- Allow file system access for logging -->
+    <key>com.apple.security.files.user-selected.read-write</key>
+    <true/>
+    
+    <!-- Allow home directory access for message database -->
+    <key>com.apple.security.files.user-selected.read-only</key>
+    <true/>
+    
+    <!-- Allow network access for potential future features -->
+    <key>com.apple.security.network.client</key>
+    <true/>
+    
+    <!-- Disable App Sandbox for full system access -->
+    <key>com.apple.security.app-sandbox</key>
+    <false/>
+    
+    <!-- Allow accessibility features -->
+    <key>com.apple.security.device.audio-input</key>
+    <false/>
+    
+    <!-- Allow AppleScript automation -->
+    <key>com.apple.security.automation.apple-events</key>
+    <true/>
+</dict>
+</plist> 
