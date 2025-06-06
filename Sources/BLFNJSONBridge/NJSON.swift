@@ -267,15 +267,28 @@ public actor NJSON {
         )
     }
     
+    /// Apply heat shield filtering to input text
+    public func applyHeatShield(_ input: String) async throws -> String {
+        if !isInitialized {
+            try await initialize()
+        }
+        
+        guard let heatShieldFunction = jsContext.objectForKeyedSubscript("globalApplyHeatShield"),
+              let result = heatShieldFunction.call(withArguments: [input]) else {
+            throw NJSONError.heatShieldFailure
+        }
+        
+        return result.toString()
+    }
+    
     /// Get comprehensive cognitive state report with observational mathematics
     public func getCognitiveStateReport() async throws -> CognitiveStateReport {
         if !isInitialized {
             try await initialize()
         }
         
-        guard let processor = self.processor,
-              let reportMethod = processor.objectForKeyedSubscript("getCognitiveStateReport"),
-              let jsReport = reportMethod.call(withArguments: []) else {
+        guard let reportFunction = jsContext.objectForKeyedSubscript("globalGetCognitiveStateReport"),
+              let jsReport = reportFunction.call(withArguments: []) else {
             throw NJSONError.processingFailed("Could not generate cognitive state report")
         }
         
@@ -288,9 +301,8 @@ public actor NJSON {
             try await initialize()
         }
         
-        guard let processor = self.processor,
-              let heatMethod = processor.objectForKeyedSubscript("getHeatShieldReport"),
-              let jsReport = heatMethod.call(withArguments: []) else {
+        guard let heatFunction = jsContext.objectForKeyedSubscript("globalGetHeatShieldReport"),
+              let jsReport = heatFunction.call(withArguments: []) else {
             throw NJSONError.heatShieldFailure
         }
         
@@ -299,9 +311,12 @@ public actor NJSON {
     
     /// Reset heat shield violations - maintenance function
     public func resetHeatShield() async throws -> Bool {
-        guard let processor = self.processor,
-              let resetMethod = processor.objectForKeyedSubscript("resetHeatShield"),
-              let result = resetMethod.call(withArguments: []) else {
+        if !isInitialized {
+            try await initialize()
+        }
+        
+        guard let resetFunction = jsContext.objectForKeyedSubscript("globalResetHeatShield"),
+              let result = resetFunction.call(withArguments: []) else {
             throw NJSONError.heatShieldFailure
         }
         
@@ -398,16 +413,7 @@ public actor NJSON {
         )
     }
     
-    /// Apply heat shield to filter input
-    public func applyHeatShield(_ input: String) async throws -> String {
-        guard let processor = self.processor,
-              let heatShieldMethod = processor.objectForKeyedSubscript("applyHeatShield"),
-              let result = heatShieldMethod.call(withArguments: [input]) else {
-            throw NJSONError.processingFailed("Heat shield method not available")
-        }
-        
-        return result.toString() ?? input
-    }
+
     
     /// Get AMF formula status with BLF metaphors and system health
     public func getFormulaStatus() async -> String {
