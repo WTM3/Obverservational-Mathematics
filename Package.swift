@@ -35,7 +35,13 @@ let package = Package(
             targets: ["DropdownMenuTest"]),
         .executable(
             name: "CommandLineTest",
-            targets: ["CommandLineTest"])
+            targets: ["CommandLineTest"]),
+        .executable(
+            name: "ASPDValidationRunner",
+            targets: ["ASPDValidationRunner"]),
+        .executable(
+            name: "DebugCasualAcademic",
+            targets: ["DebugCasualAcademic"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -80,6 +86,14 @@ let package = Package(
         .executableTarget(
             name: "CommandLineTest",
             dependencies: ["CursorXcodeExtension", "BLFNJSONBridge"]
+        ),
+        .executableTarget(
+            name: "ASPDValidationRunner",
+            dependencies: ["BLFNJSONBridge"]
+        ),
+        .executableTarget(
+            name: "DebugCasualAcademic",
+            dependencies: ["BLFNJSONBridge"]
         ),
         .testTarget(
             name: "BLFNJSONBridgeTests",
