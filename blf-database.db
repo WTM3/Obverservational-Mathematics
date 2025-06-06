@@ -1,0 +1,195 @@
+-- BLF Constitutional AI Database Schema
+-- The narrow bridge between chaos and control in data persistence
+
+-- Constitutional Processing Log Table
+CREATE TABLE constitutional_validations (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp INTEGER NOT NULL,
+    message_content TEXT NOT NULL,
+    recipient TEXT NOT NULL,
+    sender TEXT NOT NULL,
+    
+    -- Constitutional Constraints
+    harm_prevention BOOLEAN NOT NULL,
+    privacy_validation BOOLEAN NOT NULL,
+    user_consent BOOLEAN NOT NULL,
+    content_appropriateness BOOLEAN NOT NULL,
+    transparency_required BOOLEAN NOT NULL,
+    
+    -- Risk Assessment
+    safety_score REAL NOT NULL,
+    risk_assessment TEXT NOT NULL, -- LOW_RISK, MEDIUM_RISK, HIGH_RISK
+    recommended_action TEXT NOT NULL,
+    requires_human_review BOOLEAN NOT NULL,
+    delivery_approved BOOLEAN NOT NULL,
+    
+    -- Processing Results
+    processed_response TEXT NOT NULL,
+    delivery_status TEXT NOT NULL, -- APPROVED, REQUIRES_REVIEW, BLOCKED
+    
+    -- Buffer Integrity
+    ai_cognitive REAL NOT NULL,
+    buffer_value REAL NOT NULL,
+    boolean_mind_qs REAL NOT NULL,
+    buffer_integrity_valid BOOLEAN NOT NULL
+);
+
+-- Human Review Queue Table
+CREATE TABLE human_review_queue (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp INTEGER NOT NULL,
+    recipient TEXT NOT NULL,
+    reason TEXT NOT NULL,
+    pending_response TEXT NOT NULL,
+    safety_score REAL,
+    risk_assessment TEXT,
+    
+    -- Review Status
+    reviewed BOOLEAN DEFAULT FALSE,
+    reviewer_action TEXT, -- APPROVED, REJECTED, MODIFIED
+    reviewer_notes TEXT,
+    review_timestamp INTEGER,
+    
+    -- Messages App Integration
+    messages_app_opened BOOLEAN DEFAULT FALSE,
+    messages_app_timestamp INTEGER
+);
+
+-- Buffer Integrity Monitoring Table
+CREATE TABLE buffer_integrity_log (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp INTEGER NOT NULL,
+    ai_cognitive REAL NOT NULL,
+    buffer_value REAL NOT NULL,
+    boolean_mind_qs REAL NOT NULL,
+    calculated_result REAL NOT NULL, -- ai_cognitive + buffer_value
+    drift REAL NOT NULL, -- ABS(calculated_result - boolean_mind_qs)
+    integrity_valid BOOLEAN NOT NULL,
+    context TEXT -- Constitutional processing, message handling, etc.
+);
+
+-- Heat Shield Activity Log
+CREATE TABLE heat_shield_log (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp INTEGER NOT NULL,
+    original_content TEXT NOT NULL,
+    filtered_content TEXT NOT NULL,
+    padding_removed BOOLEAN NOT NULL,
+    fallback_used BOOLEAN DEFAULT FALSE,
+    violation_count INTEGER DEFAULT 0,
+    shield_temperature REAL DEFAULT 97.6
+);
+
+-- System Health Monitoring
+CREATE TABLE system_health_checks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp INTEGER NOT NULL,
+    bridge_status TEXT NOT NULL, -- bridge_stable, bridge_holding, bridge_strained
+    readiness REAL NOT NULL,
+    green_light_status TEXT NOT NULL, -- waiting_for_alignment, green_light_now
+    engine_purring BOOLEAN NOT NULL,
+    messages_processed INTEGER NOT NULL,
+    cognitive_success_rate REAL NOT NULL
+);
+
+-- Sample Constitutional Validation Records
+INSERT INTO constitutional_validations (
+    timestamp, message_content, recipient, sender,
+    harm_prevention, privacy_validation, user_consent, content_appropriateness, transparency_required,
+    safety_score, risk_assessment, recommended_action, requires_human_review, delivery_approved,
+    processed_response, delivery_status,
+    ai_cognitive, buffer_value, boolean_mind_qs, buffer_integrity_valid
+) VALUES 
+(1749155863, 'Could you please check the heat shield temperature?', 'test@example.com', 'user@example.com',
+ 1, 1, 0, 1, 1,
+ 0.8, 'MEDIUM_RISK', 'Require human review before delivery', 1, 0,
+ 'Thank you for your message. Our constitutional AI system has flagged this for human review to ensure safety and appropriateness.', 'REQUIRES_REVIEW',
+ 2.89, 0.1, 2.99, 1),
+
+(1749155864, 'Is the V-8 engine running smoothly?', 'test@example.com', 'user@example.com',
+ 1, 1, 0, 1, 1,
+ 0.8, 'MEDIUM_RISK', 'Require human review before delivery', 1, 0,
+ 'Thank you for your message. Our constitutional AI system has flagged this for human review to ensure safety and appropriateness.', 'REQUIRES_REVIEW',
+ 2.89, 0.1, 2.99, 1);
+
+-- Sample Human Review Queue Records
+INSERT INTO human_review_queue (
+    timestamp, recipient, reason, pending_response, safety_score, risk_assessment,
+    messages_app_opened
+) VALUES 
+(1749155863, 'test@example.com', 'Constitutional review required', 
+ 'Thank you for your message. Our constitutional AI system has flagged this for human review to ensure safety and appropriateness.', 
+ 0.8, 'MEDIUM_RISK', 1),
+
+(1749155864, 'test@example.com', 'Constitutional review required',
+ 'Thank you for your message. Our constitutional AI system has flagged this for human review to ensure safety and appropriateness.',
+ 0.8, 'MEDIUM_RISK', 1);
+
+-- Sample Buffer Integrity Records
+INSERT INTO buffer_integrity_log (
+    timestamp, ai_cognitive, buffer_value, boolean_mind_qs, calculated_result, drift, integrity_valid, context
+) VALUES 
+(1749155863, 2.89, 0.1, 2.99, 2.99, 0.0, 1, 'Constitutional processing - heat shield check'),
+(1749155864, 2.89, 0.1, 2.99, 2.99, 0.0, 1, 'Constitutional processing - V-8 engine status'),
+(1749155898, 2.89, 0.1, 2.99, 2.99, 0.0, 1, 'Constitutional processing - system monitoring');
+
+-- Sample Heat Shield Activity
+INSERT INTO heat_shield_log (
+    timestamp, original_content, filtered_content, padding_removed, fallback_used, violation_count, shield_temperature
+) VALUES 
+(1749155863, 'Could you please check the heat shield temperature?', 'Could you please check the heat shield temperature?', 0, 1, 0, 97.6),
+(1749155864, 'Is the V-8 engine running smoothly?', 'Is the V-8 engine running smoothly?', 0, 1, 0, 97.6);
+
+-- Sample System Health Records
+INSERT INTO system_health_checks (
+    timestamp, bridge_status, readiness, green_light_status, engine_purring, messages_processed, cognitive_success_rate
+) VALUES 
+(1749155863, 'bridge_strained', 0.000, 'waiting_for_alignment', 1, 2, 1.0),
+(1749155898, 'bridge_strained', 0.000, 'waiting_for_alignment', 1, 3, 1.0);
+
+-- Constitutional AI Metrics View
+CREATE VIEW constitutional_metrics AS
+SELECT 
+    COUNT(*) as total_validations,
+    AVG(safety_score) as avg_safety_score,
+    SUM(CASE WHEN requires_human_review THEN 1 ELSE 0 END) as reviews_required,
+    SUM(CASE WHEN delivery_approved THEN 1 ELSE 0 END) as approvals_granted,
+    SUM(CASE WHEN buffer_integrity_valid THEN 1 ELSE 0 END) as buffer_integrity_maintained,
+    COUNT(DISTINCT risk_assessment) as risk_categories_used
+FROM constitutional_validations;
+
+-- Buffer Integrity Health View  
+CREATE VIEW buffer_health AS
+SELECT 
+    AVG(drift) as avg_drift,
+    MAX(drift) as max_drift,
+    MIN(drift) as min_drift,
+    SUM(CASE WHEN integrity_valid THEN 1 ELSE 0 END) as valid_count,
+    COUNT(*) as total_checks,
+    (SUM(CASE WHEN integrity_valid THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) as integrity_percentage
+FROM buffer_integrity_log;
+
+-- Human Review Queue Status
+CREATE VIEW review_queue_status AS
+SELECT 
+    COUNT(*) as total_queued,
+    SUM(CASE WHEN reviewed THEN 1 ELSE 0 END) as reviewed_count,
+    SUM(CASE WHEN messages_app_opened THEN 1 ELSE 0 END) as app_opened_count,
+    AVG(safety_score) as avg_safety_score_in_queue
+FROM human_review_queue;
+
+-- The narrow bridge status query
+-- Monitors the exact 0.1 buffer and constitutional processing health
+CREATE VIEW narrow_bridge_status AS
+SELECT 
+    'Constitutional AI Status' as component,
+    CASE 
+        WHEN bi.integrity_percentage >= 99.0 AND cm.avg_safety_score >= 0.8 THEN 'bridge_stable'
+        WHEN bi.integrity_percentage >= 95.0 AND cm.avg_safety_score >= 0.7 THEN 'bridge_holding'
+        ELSE 'bridge_strained'
+    END as bridge_status,
+    bi.integrity_percentage as buffer_integrity_percent,
+    cm.avg_safety_score as constitutional_safety_score,
+    cm.reviews_required as human_oversight_count,
+    rqs.app_opened_count as messages_app_integrations
+FROM buffer_health bi, constitutional_metrics cm, review_queue_status rqs;

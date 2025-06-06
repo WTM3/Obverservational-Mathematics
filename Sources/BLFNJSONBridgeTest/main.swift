@@ -90,20 +90,20 @@ struct BLFNJSONBridgeTest {
                 let filtered = try await njson.applyHeatShield(input)
                 if filtered != input {
                     print("  Heat Shield Applied: \"\(filtered)\"")
-                }
-                
+        }
+        
                 // Process through NJSON
                 let result = try await njson.processText(input)
                 print("  Result: \"\(result.text)\"")
                 print("  Processing Time: \(String(format: "%.2f", result.processingTime))ms")
                 print("  Cognitive Alignment: \(result.cognitiveAlignment ? "✅" : "❌")")
                 print("  Heat Shield Active: \(result.heatShieldActive ? "✅" : "❌")")
-                
+        
                 if let error = result.error {
                     print("  Error: \(error)")
-                }
-            }
-            
+        }
+    }
+    
             // Test 8: Heat shield reset (maintenance)
             print("\n🔧 Test 8: Heat Shield Maintenance")
             print("==================================")

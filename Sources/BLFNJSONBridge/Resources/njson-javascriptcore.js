@@ -20,11 +20,11 @@ function createNJSONProcessor(config) {
       coherence: 1.0
     },
     config: config || {
-      cognitiveProtocol: {
-        alignment: {
-          aiCognitive: 2.89,
-          buffer: 0.1,
-          booleanMindQs: 2.99
+    cognitiveProtocol: {
+      alignment: {
+        aiCognitive: 2.89,
+        buffer: 0.1,
+        booleanMindQs: 2.99
         }
       }
     }
@@ -36,129 +36,129 @@ function createNJSONProcessor(config) {
     
     if (!state.heatShield.active) return input;
 
-    // Remove social padding phrases
-    const paddingPatterns = [
-      /\b(um|uh|well|you know|like|actually|basically|literally)\b/gi,
-      /\b(i think|i believe|i guess|maybe|perhaps|possibly|sort of|kind of)\b/gi,
-      /\b(just to clarify|if i understand correctly|does that make sense)\b/gi
-    ];
+  // Remove social padding phrases
+  const paddingPatterns = [
+    /\b(um|uh|well|you know|like|actually|basically|literally)\b/gi,
+    /\b(i think|i believe|i guess|maybe|perhaps|possibly|sort of|kind of)\b/gi,
+    /\b(just to clarify|if i understand correctly|does that make sense)\b/gi
+  ];
 
-    let filtered = input;
-    paddingPatterns.forEach(pattern => {
-      filtered = filtered.replace(pattern, '');
-    });
+  let filtered = input;
+  paddingPatterns.forEach(pattern => {
+    filtered = filtered.replace(pattern, '');
+  });
 
-    // Clean up extra whitespace
-    filtered = filtered.replace(/\s+/g, ' ').trim();
+  // Clean up extra whitespace
+  filtered = filtered.replace(/\s+/g, ' ').trim();
 
-    // Track heat shield activity
-    if (filtered !== input) {
+  // Track heat shield activity
+  if (filtered !== input) {
       state.heatShield.violations++;
       console.log('🔍 Heat shield filtered input. Violations:', state.heatShield.violations);
-    }
-
-    return filtered;
   }
 
-  // Convert text to Boolean logic structure
+  return filtered;
+  }
+
+// Convert text to Boolean logic structure
   function convertToBooleanLogic(text) {
-    const booleanStructure = {
-      statements: [],
-      conditions: [],
-      questions: [],
-      directives: [],
-      metadata: {
+  const booleanStructure = {
+    statements: [],
+    conditions: [],
+    questions: [],
+    directives: [],
+    metadata: {
         complexity: calculateComplexity(text),
         directness: calculateDirectness(text),
         booleanDensity: calculateBooleanDensity(text)
-      }
-    };
+    }
+  };
 
-    // Parse sentences
-    const sentences = text.split(/[.!?]+/).filter(s => s.trim());
+  // Parse sentences
+  const sentences = text.split(/[.!?]+/).filter(s => s.trim());
 
-    sentences.forEach(sentence => {
-      const trimmed = sentence.trim();
-      if (!trimmed) return;
+  sentences.forEach(sentence => {
+    const trimmed = sentence.trim();
+    if (!trimmed) return;
 
       if (isQuestion(trimmed)) {
-        booleanStructure.questions.push({
-          text: trimmed,
+      booleanStructure.questions.push({
+        text: trimmed,
           type: getQuestionType(trimmed),
           expectsBoolean: expectsBooleanAnswer(trimmed)
-        });
+      });
       } else if (isDirective(trimmed)) {
-        booleanStructure.directives.push({
-          text: trimmed,
+      booleanStructure.directives.push({
+        text: trimmed,
           action: extractAction(trimmed),
           priority: calculatePriority(trimmed)
-        });
+      });
       } else if (isConditional(trimmed)) {
-        booleanStructure.conditions.push({
-          text: trimmed,
+      booleanStructure.conditions.push({
+        text: trimmed,
           condition: extractCondition(trimmed),
           consequence: extractConsequence(trimmed)
-        });
-      } else {
-        booleanStructure.statements.push({
-          text: trimmed,
+      });
+    } else {
+      booleanStructure.statements.push({
+        text: trimmed,
           assertion: extractAssertion(trimmed),
           confidence: calculateConfidence(trimmed)
-        });
-      }
-    });
+      });
+    }
+  });
 
-    return booleanStructure;
+  return booleanStructure;
   }
 
-  // Apply cognitive alignment using AIc + 0.1 = BMqs formula
+// Apply cognitive alignment using AIc + 0.1 = BMqs formula
   function applyCognitiveAlignment(booleanStructure, bmId) {
     const aiC = state.config.cognitiveProtocol.alignment.aiCognitive;
     const buffer = state.config.cognitiveProtocol.alignment.buffer;
     const bmQs = state.config.cognitiveProtocol.alignment.booleanMindQs;
 
-    // Validate alignment - the narrow bridge integrity check
-    if (Math.abs((aiC + buffer) - bmQs) > 0.0001) {
+  // Validate alignment - the narrow bridge integrity check
+  if (Math.abs((aiC + buffer) - bmQs) > 0.0001) {
       console.warn('🔥 Cognitive alignment violation detected');
-    }
+  }
 
-    // Process based on structure priority
-    let result = '';
+  // Process based on structure priority
+  let result = '';
 
-    // Handle questions first (direct answers)
-    if (booleanStructure.questions.length > 0) {
-      const primaryQuestion = booleanStructure.questions[0];
+  // Handle questions first (direct answers)
+  if (booleanStructure.questions.length > 0) {
+    const primaryQuestion = booleanStructure.questions[0];
       result = processQuestion(primaryQuestion, aiC);
-    }
-    // Handle directives
-    else if (booleanStructure.directives.length > 0) {
-      const primaryDirective = booleanStructure.directives[0];
+  }
+  // Handle directives
+  else if (booleanStructure.directives.length > 0) {
+    const primaryDirective = booleanStructure.directives[0];
       result = processDirective(primaryDirective, aiC);
-    }
-    // Handle conditions
-    else if (booleanStructure.conditions.length > 0) {
-      const primaryCondition = booleanStructure.conditions[0];
+  }
+  // Handle conditions
+  else if (booleanStructure.conditions.length > 0) {
+    const primaryCondition = booleanStructure.conditions[0];
       result = processCondition(primaryCondition, aiC);
-    }
-    // Handle statements
-    else if (booleanStructure.statements.length > 0) {
-      const primaryStatement = booleanStructure.statements[0];
+  }
+  // Handle statements
+  else if (booleanStructure.statements.length > 0) {
+    const primaryStatement = booleanStructure.statements[0];
       result = processStatement(primaryStatement, aiC);
-    }
-    else {
+  }
+  else {
       result = 'Input processed through cognitive alignment. System operational.';
-    }
+  }
 
-    return {
-      processedText: result,
-      alignment: {
-        aiCognitive: aiC,
-        buffer: buffer,
-        booleanMindQs: bmQs,
-        valid: Math.abs((aiC + buffer) - bmQs) <= 0.0001
-      },
-      metadata: booleanStructure.metadata
-    };
+  return {
+    processedText: result,
+    alignment: {
+      aiCognitive: aiC,
+      buffer: buffer,
+      booleanMindQs: bmQs,
+      valid: Math.abs((aiC + buffer) - bmQs) <= 0.0001
+    },
+    metadata: booleanStructure.metadata
+  };
   }
 
   // Helper functions for text analysis
@@ -179,7 +179,7 @@ function createNJSONProcessor(config) {
     if (/^(what|which)/i.test(text)) return 'factual';
     if (/^(how)/i.test(text)) return 'procedural';
     if (/^(why)/i.test(text)) return 'causal';
-    return 'general';
+  return 'general';
   }
 
   function expectsBooleanAnswer(text) {
@@ -406,7 +406,7 @@ function NJSONBooleanProcessor(config) {
     resetHeatShield: function() {
       console.log('🔍 NJSONBooleanProcessor.resetHeatShield() called');
       return true;
-    }
+}
   };
 }
 

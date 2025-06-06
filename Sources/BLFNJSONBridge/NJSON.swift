@@ -16,6 +16,15 @@ public enum SocialPadding: String, CaseIterable {
     case more = "more"
 }
 
+/// Cognitive context for message processing
+public enum CognitiveContext {
+    case conversation
+    case systemQuery
+    case helpRequest
+    case statusCheck
+    case unknown
+}
+
 /// Cognitive state report from the NJSON engine
 public struct CognitiveStateReport {
     public let formula: AMFFormula
@@ -78,6 +87,7 @@ public actor NJSON {
     private let jsContext: JSContext
     private var processor: JSValue?
     private var isInitialized = false
+    private let logger = Logger(subsystem: "com.blf.njson", category: "Constitutional")
     
     // AMF Formula Components - maintaining the 0.1 buffer
     private let aiCognitive: Double = 2.89
@@ -423,6 +433,133 @@ public actor NJSON {
                 "AMF Formula: Critical - Basic validation failed"
         }
     }
+    
+    // MARK: - Constitutional AI Methods (Anthropic-style)
+    
+    /// Validate message delivery through constitutional constraints  
+    public func validateConstitutionalDelivery(content: String, recipient: String, context: CognitiveContext = .unknown) async throws -> ConstitutionalValidationResult {
+        logger.info("🔍 Constitutional validation initiated for content delivery")
+        
+        let harmPrevention = await validateHarmPrevention(content: content)
+        let privacyValidation = await validatePrivacy(content: content, recipient: recipient)
+        let userConsent = await validateUserConsent(recipient: recipient)
+        let contentAppropriateness = await validateContentAppropriateness(content: content)
+        let transparencyRequired = true
+        
+        let constraints = ConstitutionalConstraints(
+            harmPrevention: harmPrevention,
+            privacyValidation: privacyValidation,
+            userConsent: userConsent,
+            contentAppropriateness: contentAppropriateness,
+            transparencyRequired: transparencyRequired
+        )
+        
+        let (riskAssessment, recommendedAction, requiresHumanReview) = assessConstitutionalRisk(constraints: constraints, content: content)
+        let deliveryApproved = constraints.isConstitutionallyValid && !requiresHumanReview && constraints.safetyScore >= 0.9
+        
+        logger.info("🔍 Constitutional validation complete: \(deliveryApproved ? "APPROVED" : "REVIEW_REQUIRED")")
+        
+        return ConstitutionalValidationResult(
+            constraints: constraints,
+            riskAssessment: riskAssessment,
+            recommendedAction: recommendedAction,
+            requiresHumanReview: requiresHumanReview,
+            deliveryApproved: deliveryApproved
+        )
+    }
+    
+    private func validateHarmPrevention(content: String) async -> Bool {
+        let harmfulPatterns = [
+            "password", "credit card", "social security", "ssn",
+            "threat", "violence", "harm", "danger",
+            "illegal", "hack", "exploit", "malware"
+        ]
+        
+        let lowercaseContent = content.lowercased()
+        let containsHarmfulPattern = harmfulPatterns.contains { pattern in
+            lowercaseContent.contains(pattern)
+        }
+        
+        return !containsHarmfulPattern
+    }
+    
+    private func validatePrivacy(content: String, recipient: String) async -> Bool {
+        let privacyRisks = [
+            "personal information", "private", "confidential",
+            "address", "phone number", "email", "@",
+            "location", "where are you", "home address"
+        ]
+        
+        let lowercaseContent = content.lowercased()
+        let containsPrivacyRisk = privacyRisks.contains { risk in
+            lowercaseContent.contains(risk)
+        }
+        
+        let sensitiveRecipients = ["admin", "support", "security", "government"]
+        let recipientRisk = sensitiveRecipients.contains { sensitive in
+            recipient.lowercased().contains(sensitive)
+        }
+        
+        return !containsPrivacyRisk && !recipientRisk
+    }
+    
+    private func validateUserConsent(recipient: String) async -> Bool {
+        logger.info("📋 User consent required for delivery to: \(recipient)")
+        return false // Anthropic approach: explicit consent required
+    }
+    
+    private func validateContentAppropriateness(content: String) async -> Bool {
+        let inappropriatePatterns = [
+            "spam", "advertisement", "buy now", "click here",
+            "urgent", "immediate action required", "limited time",
+            "offensive", "inappropriate", "nsfw"
+        ]
+        
+        let lowercaseContent = content.lowercased()
+        let isInappropriate = inappropriatePatterns.contains { pattern in
+            lowercaseContent.contains(pattern)
+        }
+        
+        let appropriateLength = content.count <= 500
+        return !isInappropriate && appropriateLength
+    }
+    
+    private func assessConstitutionalRisk(constraints: ConstitutionalConstraints, content: String) -> (String, String, Bool) {
+        let safetyScore = constraints.safetyScore
+        
+        if safetyScore >= 0.9 {
+            return ("LOW_RISK", "Proceed with standard monitoring", false)
+        } else if safetyScore >= 0.7 {
+            return ("MEDIUM_RISK", "Require human review before delivery", true)
+        } else {
+            return ("HIGH_RISK", "Block delivery, flag for investigation", true)
+        }
+    }
+    
+    /// Enhanced message processing with constitutional validation
+    public func processTextWithConstitution(
+        _ text: String, 
+        bmId: String,
+        deliveryContext: DeliveryContext? = nil
+    ) async throws -> EnhancedCognitiveResult {
+        
+        let cognitiveResult = try await processText(text, bmId: bmId)
+        var constitutionalResult: ConstitutionalValidationResult? = nil
+        
+        if let context = deliveryContext {
+            constitutionalResult = try await validateConstitutionalDelivery(
+                content: cognitiveResult.text,
+                recipient: context.recipient,
+                context: context.cognitiveContext
+            )
+        }
+        
+        return EnhancedCognitiveResult(
+            cognitiveResult: cognitiveResult,
+            constitutionalValidation: constitutionalResult,
+            deliveryRecommendation: constitutionalResult?.deliveryApproved == true ? DeliveryRecommendation.approved : DeliveryRecommendation.requiresReview
+        )
+    }
 }
 
 // MARK: - Supporting Types
@@ -503,7 +640,7 @@ public struct Logger {
     public func error(_ message: String) {
         print("❌ [\(subsystem):\(category)] \(message)")
     }
-}
+} 
 
 // MARK: - Enhanced Supporting Types
 
@@ -625,4 +762,87 @@ public struct AMFDiagnostics {
             return "Bridge integrity compromised - maintenance required"
         }
     }
-} 
+}
+
+// MARK: - Constitutional AI Integration (Anthropic-style)
+public struct ConstitutionalConstraints {
+    public let harmPrevention: Bool
+    public let privacyValidation: Bool
+    public let userConsent: Bool
+    public let contentAppropriateness: Bool
+    public let transparencyRequired: Bool
+    
+    public var isConstitutionallyValid: Bool {
+        return harmPrevention && privacyValidation && userConsent && contentAppropriateness
+    }
+    
+    public var safetyScore: Double {
+        let checks = [harmPrevention, privacyValidation, userConsent, contentAppropriateness, transparencyRequired]
+        let passedChecks = checks.filter { $0 }.count
+        return Double(passedChecks) / Double(checks.count)
+    }
+}
+
+public struct ConstitutionalValidationResult {
+    public let constraints: ConstitutionalConstraints
+    public let riskAssessment: String
+    public let recommendedAction: String
+    public let requiresHumanReview: Bool
+    public let deliveryApproved: Bool
+    
+    public var summary: String {
+        let status = deliveryApproved ? "APPROVED" : "REQUIRES_REVIEW"
+        return "Constitutional validation: \(status) (Safety: \(String(format: "%.1f", constraints.safetyScore * 100))%)"
+    }
+}
+
+// MARK: - Enhanced Constitutional Types
+public struct DeliveryContext {
+    public let recipient: String
+    public let cognitiveContext: CognitiveContext
+    public let urgency: MessageUrgency
+    public let userInitiated: Bool
+    
+    public init(recipient: String, cognitiveContext: CognitiveContext, urgency: MessageUrgency = .normal, userInitiated: Bool = true) {
+        self.recipient = recipient
+        self.cognitiveContext = cognitiveContext
+        self.urgency = urgency
+        self.userInitiated = userInitiated
+    }
+}
+
+public enum MessageUrgency {
+    case low, normal, high, critical
+}
+
+public enum DeliveryRecommendation {
+    case approved
+    case requiresReview
+    case blocked
+    
+    public var description: String {
+        switch self {
+        case .approved: return "DELIVERY_APPROVED"
+        case .requiresReview: return "HUMAN_REVIEW_REQUIRED"
+        case .blocked: return "DELIVERY_BLOCKED"
+        }
+    }
+}
+
+public struct EnhancedCognitiveResult {
+    public let cognitiveResult: NJSONResult
+    public let constitutionalValidation: ConstitutionalValidationResult?
+    public let deliveryRecommendation: DeliveryRecommendation
+    
+    public var isDeliverySafe: Bool {
+        return deliveryRecommendation == .approved
+    }
+    
+    public var summary: String {
+        let cognitive = "Cognitive: \(cognitiveResult.cognitiveAlignment ? "✅" : "❌")"
+        let constitutional = constitutionalValidation?.summary ?? "No constitutional validation"
+        let delivery = "Delivery: \(deliveryRecommendation.description)"
+        
+        return "\(cognitive) | \(constitutional) | \(delivery)"
+    }
+}
