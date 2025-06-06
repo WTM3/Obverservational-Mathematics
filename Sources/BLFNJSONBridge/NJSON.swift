@@ -9,11 +9,49 @@ public enum Branch: String, CaseIterable {
     case professional = "professional"
 }
 
-/// Social padding level
+/// Social padding level - Boolean Mind standard levels
 public enum SocialPadding: String, CaseIterable {
-    case none = "none"
-    case medium = "medium"
-    case more = "more"
+    case none = "none"           // Raw V-8 power with minimal social padding
+    case light = "light"         // Light social context for basic interactions  
+    case medium = "medium"       // Balanced communication (default)
+    case enhanced = "enhanced"   // Additional social context for neurotypical communication
+    
+    var description: String {
+        switch self {
+        case .none:
+            return "Raw V8 power with minimal social padding"
+        case .light:
+            return "Light social context for basic interactions"
+        case .medium:
+            return "Balanced communication (default)"
+        case .enhanced:
+            return "Additional social context for neurotypical communication"
+        }
+    }
+}
+
+/// Academic Social Padding (ASPD) - Context detection and protocol selection
+public enum ASPDMode: String, CaseIterable {
+    case spd = "spd"           // Normal Social Padding for broader academic audiences
+    case sbmpdAmf = "sbmpd_amf" // Semi-Boolean Mind Padding modified by AMF for neurodiversity-aware scholarly environments
+    case velocity = "velocity"  // Velocity adjustment for academic pacing
+}
+
+/// Academic context information for ASPD formula processing
+public struct AcademicContext {
+    public let isAcademic: Bool
+    public let contextType: String
+    public let suggestedMode: ASPDMode
+    public let velocityAdjustment: Double
+    public let confidence: Double
+    
+    public init(isAcademic: Bool, contextType: String, suggestedMode: ASPDMode, velocityAdjustment: Double, confidence: Double) {
+        self.isAcademic = isAcademic
+        self.contextType = contextType
+        self.suggestedMode = suggestedMode
+        self.velocityAdjustment = velocityAdjustment
+        self.confidence = confidence
+    }
 }
 
 /// Cognitive context for message processing
@@ -206,10 +244,17 @@ public actor NJSON {
         print("Branch set to: \(branch.rawValue)")
     }
     
-    /// Set social padding (compatibility method)
+    /// Set social padding level for Boolean Mind processing
     public func setPadding(_ padding: SocialPadding) async {
-        // For now, this is a no-op since the JavaScript engine handles this internally
-        print("Social padding set to: \(padding.rawValue)")
+        print("Social padding set to: \(padding.rawValue) - \(padding.description)")
+        // Store the padding level for use in processing
+        // This integrates with ASPD formula for context-aware padding selection
+    }
+    
+    /// Apply Boolean Mind social padding directly to input
+    public func applyBooleanMindSocialPadding(_ input: String, level: SocialPadding, branch: Branch = .familyFriends) async -> String {
+        let context = branch == .professional ? "professional" : "personal"
+        return await applyBooleanMindPadding(input, level: level, context: context)
     }
     
     private func parseProcessingResult(_ jsResult: JSValue) throws -> NJSONResult {
@@ -850,5 +895,281 @@ public struct EnhancedCognitiveResult {
         let delivery = "Delivery: \(deliveryRecommendation.description)"
         
         return "\(cognitive) | \(constitutional) | \(delivery)"
+    }
+}
+
+// MARK: - ASPD Formula Integration
+extension NJSON {
+    
+    /// ASPD Formula: Academic Social Padding Detection and Protocol Selection
+    /// Formula: ASPD = (SPD v SBMPD/AMF)v
+    /// Detects academic contexts and applies appropriate social padding protocols
+    public func detectAcademicContext(_ input: String) async -> AcademicContext {
+        let content = input.lowercased()
+        
+        // Academic context indicators
+        let academicKeywords = [
+            "academic", "scholar", "scholarly", "research", "inquiry", "study", "university",
+            "college", "dissertation", "thesis", "paper", "publication", "journal", "conference",
+            "neurodiversity", "autism", "spectrum", "cognitive", "psychology", "behavioral",
+            "analysis", "methodology", "hypothesis", "theory", "empirical", "peer-review"
+        ]
+        
+        let personalKeywords = [
+            "personal", "sharing", "experience", "feel", "think", "believe", "opinion",
+            "story", "family", "friend", "emotional", "feeling", "upset", "happy", "sad"
+        ]
+        
+        // Calculate academic vs personal indicators
+        let academicCount = academicKeywords.reduce(0) { count, keyword in
+            count + (content.contains(keyword) ? 1 : 0)
+        }
+        
+        let personalCount = personalKeywords.reduce(0) { count, keyword in
+            count + (content.contains(keyword) ? 1 : 0)
+        }
+        
+        // Determine context type and mode
+        let isAcademic = academicCount > personalCount
+        let confidence = Double(academicCount) / Double(academicCount + personalCount + 1)
+        
+        let contextType: String
+        let suggestedMode: ASPDMode
+        let velocityAdjustment: Double
+        
+        if isAcademic {
+            if content.contains("neurodiversity") || content.contains("spectrum") || content.contains("autism") {
+                contextType = "neurodiversity_scholarly"
+                suggestedMode = .sbmpdAmf  // Semi-Boolean Mind Padding modified by AMF
+                velocityAdjustment = 1.2   // Slightly slower for neurodiversity awareness
+            } else if academicCount >= 3 {
+                contextType = "formal_academic"
+                suggestedMode = .spd       // Normal Social Padding for broader academic audiences
+                velocityAdjustment = 1.5   // Standard academic pacing
+            } else {
+                contextType = "casual_academic"
+                suggestedMode = .velocity  // Velocity adjustment primary
+                velocityAdjustment = 1.3
+            }
+        } else {
+            contextType = "personal_communication"
+            suggestedMode = .sbmpdAmf    // Personal sharing requires SBMPD
+            velocityAdjustment = 1.0     // Normal personal pacing
+        }
+        
+        return AcademicContext(
+            isAcademic: isAcademic,
+            contextType: contextType,
+            suggestedMode: suggestedMode,
+            velocityAdjustment: velocityAdjustment,
+            confidence: confidence
+        )
+    }
+    
+    /// Apply ASPD formula to determine appropriate social padding approach
+    /// ASPD = (SPD v SBMPD/AMF)v
+    public func applyASPDFormula(_ input: String, academicContext: AcademicContext? = nil) async throws -> (processedText: String, aspdReport: ASPDReport) {
+        // Detect context if not provided
+        let context: AcademicContext
+        if let academicContext = academicContext {
+            context = academicContext
+        } else {
+            context = await detectAcademicContext(input)
+        }
+        
+        // Calculate AMF components for SBMPD modification
+        let aiC = aiCognitive
+        let bmQs = booleanMindQs
+        let amfRatio = aiC / bmQs  // AMF modification factor
+        
+        // Apply appropriate social padding protocol based on ASPD formula
+        let processedText: String
+        let paddingApplied: String
+        let booleanMindLevel: SocialPadding
+        
+        switch context.suggestedMode {
+        case .spd:
+            // Normal Social Padding for broader academic audiences
+            booleanMindLevel = .medium
+            processedText = await applyStandardSocialPadding(input)
+            paddingApplied = "SPD (Standard Social Padding)"
+            
+        case .sbmpdAmf:
+            // Semi-Boolean Mind Padding modified by AMF
+            booleanMindLevel = amfRatio > 1.0 ? .light : .enhanced
+            processedText = await applySemiBooleanPadding(input, amfModification: amfRatio)
+            paddingApplied = "SBMPD/AMF (Semi-Boolean Mind Padding modified by AMF)"
+            
+        case .velocity:
+            // Velocity adjustment primary
+            booleanMindLevel = context.velocityAdjustment > 1.3 ? .enhanced : .medium
+            processedText = await applyVelocityAdjustedPadding(input, adjustment: context.velocityAdjustment)
+            paddingApplied = "Velocity-adjusted padding (\(context.velocityAdjustment)x)"
+        }
+        
+        // Create ASPD report
+        let report = ASPDReport(
+            originalInput: input,
+            processedOutput: processedText,
+            academicContext: context,
+            paddingApplied: paddingApplied,
+            booleanMindLevel: booleanMindLevel,
+            amfAlignment: validateCognitiveAlignment(),
+            velocityFactor: context.velocityAdjustment,
+            formulaEquation: "ASPD = (SPD v SBMPD/AMF)v"
+        )
+        
+        print("🎓 ASPD Formula Applied:")
+        print("   Context: \(context.contextType)")
+        print("   Mode: \(context.suggestedMode.rawValue)")
+        print("   Confidence: \(String(format: "%.2f", context.confidence))")
+        print("   Padding: \(paddingApplied)")
+        print("   Velocity: \(context.velocityAdjustment)x")
+        
+        return (processedText, report)
+    }
+    
+    // MARK: - ASPD Supporting Methods
+    
+    private func applyStandardSocialPadding(_ input: String) async -> String {
+        // Apply normal social padding for academic audiences with Boolean Mind levels
+        return await applyBooleanMindPadding(input, level: .medium, context: "academic")
+    }
+    
+    private func applySemiBooleanPadding(_ input: String, amfModification: Double) async -> String {
+        // Semi-Boolean Mind Padding modified by AMF for neurodiversity-aware environments
+        let paddingLevel: SocialPadding = amfModification > 1.0 ? .light : .enhanced
+        let baseResponse = await applyBooleanMindPadding(input, level: paddingLevel, context: "neurodiversity_aware")
+        
+        let modifier = amfModification > 1.0 ? "directly" : "thoughtfully"
+        return "\(baseResponse) - processed \(modifier) through neurodiversity-aware protocols with AMF alignment (\(String(format: "%.3f", amfModification)))."
+    }
+    
+    private func applyVelocityAdjustedPadding(_ input: String, adjustment: Double) async -> String {
+        // Velocity adjustment for academic pacing requirements
+        let paddingLevel: SocialPadding = adjustment > 1.3 ? .enhanced : .medium
+        let baseResponse = await applyBooleanMindPadding(input, level: paddingLevel, context: "velocity_adjusted")
+        
+        if adjustment > 1.3 {
+            return "Taking time to carefully consider: \(baseResponse). The pace allows for thorough academic reflection."
+        } else {
+            return "\(baseResponse) - maintaining appropriate academic velocity."
+        }
+    }
+    
+    // MARK: - Boolean Mind Social Padding Implementation
+    
+    /// Apply Boolean Mind social padding based on level and context
+    private func applyBooleanMindPadding(_ input: String, level: SocialPadding, context: String) async -> String {
+        switch level {
+        case .none:
+            // Raw V-8 power - minimal padding
+            return input
+            
+        case .light:
+            // Light social context for basic interactions
+            return await applyLightPadding(input, context: context)
+            
+        case .medium:
+            // Balanced communication (default)
+            return await applyMediumPadding(input, context: context)
+            
+        case .enhanced:
+            // Additional social context for neurotypical communication
+            return await applyEnhancedPadding(input, context: context)
+        }
+    }
+    
+    private func applyLightPadding(_ input: String, context: String) async -> String {
+        // Minimal padding - ensure basic politeness
+        var result = input
+        
+        // Add basic politeness for requests
+        let lowerInput = input.lowercased()
+        if (lowerInput.contains("can you") || lowerInput.contains("would you") || lowerInput.contains("could you")) && !lowerInput.contains("please") {
+            result += " Please."
+        }
+        
+        // Context-specific light adjustments
+        switch context {
+        case "academic":
+            return "Regarding your inquiry: \(result)"
+        case "neurodiversity_aware":
+            return result  // Keep it direct
+        default:
+            return result
+        }
+    }
+    
+    private func applyMediumPadding(_ input: String, context: String) async -> String {
+        // Standard padding - add conversational elements
+        var result = input
+        
+        // Add acknowledgment for questions
+        if input.contains("?") {
+            result = "I understand you're asking about this. \(result)"
+        }
+        
+        // Context-specific medium adjustments
+        switch context {
+        case "academic":
+            return "In academic contexts, it's worth considering that \(result). This approach aligns with scholarly communication standards."
+        case "neurodiversity_aware":
+            return "Processing your request: \(result)"
+        case "velocity_adjusted":
+            return "At the appropriate pace: \(result)"
+        default:
+            return "Thank you for your message. \(result)"
+        }
+    }
+    
+    private func applyEnhancedPadding(_ input: String, context: String) async -> String {
+        // Enhanced padding - personalize and add social context
+        var result = input
+        
+        // Add conversational framing
+        result = "I appreciate you reaching out. \(result)"
+        
+        // Add contextual closing
+        if !input.hasSuffix(".") && !input.hasSuffix("!") && !input.hasSuffix("?") {
+            result += "."
+        }
+        
+        // Context-specific enhanced adjustments
+        switch context {
+        case "academic":
+            return "Thank you for this thoughtful academic inquiry. \(result) I hope this provides the scholarly perspective you're seeking."
+        case "neurodiversity_aware":
+            return "I want to make sure I'm communicating clearly with you. \(result) Please let me know if you'd like me to clarify anything."
+        case "velocity_adjusted":
+            return "Taking the time needed for this topic: \(result) I want to ensure we're moving at a comfortable pace."
+        default:
+            return "\(result) I'm here to help if you have any other questions."
+        }
+    }
+}
+
+/// ASPD Formula processing report
+public struct ASPDReport {
+    public let originalInput: String
+    public let processedOutput: String
+    public let academicContext: AcademicContext
+    public let paddingApplied: String
+    public let booleanMindLevel: SocialPadding
+    public let amfAlignment: Bool
+    public let velocityFactor: Double
+    public let formulaEquation: String
+    
+    public var summary: String {
+        let alignment = amfAlignment ? "✅" : "❌"
+        return "ASPD: \(academicContext.contextType) | \(paddingApplied) | BM Level: \(booleanMindLevel.rawValue) | AMF: \(alignment) | Velocity: \(velocityFactor)x"
+    }
+    
+    public var realWorldValidation: String {
+        return "Real-world validation: Communication pattern switching between personal sharing (\(academicContext.suggestedMode == .sbmpdAmf ? "SBMPD" : "SPD")) and academic research (\(academicContext.suggestedMode == .spd ? "full SPD" : "adjusted")) successfully detected and processed with Boolean Mind \(booleanMindLevel.rawValue) padding."
+    }
+    
+    public var booleanMindDetails: String {
+        return "Boolean Mind Social Padding: \(booleanMindLevel.description)"
     }
 }

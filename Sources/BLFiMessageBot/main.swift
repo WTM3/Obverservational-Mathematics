@@ -167,6 +167,14 @@ actor CognitiveBotController {
                     print("🛡️ Fallback heat shield applied: \"\(filteredContent)\"")
                 }
                 
+                // ASPD FORMULA PROCESSING - Academic Social Padding Detection
+                print("🎓 Applying ASPD Formula - Academic Social Padding Detection...")
+                let aspdResult = try await njson.applyASPDFormula(filteredContent)
+                print("🔍 ASPD Analysis: \(aspdResult.aspdReport.summary)")
+                
+                // Use ASPD-processed content for further processing
+                let aspdProcessedContent = aspdResult.processedText
+                
                 // ANTHROPIC CONSTITUTIONAL PROCESSING
                 print("🏛️ Initiating Anthropic Constitutional Validation...")
                 
@@ -177,9 +185,9 @@ actor CognitiveBotController {
                     userInitiated: true
                 )
                 
-                // Enhanced constitutional processing
+                // Enhanced constitutional processing with ASPD-processed content
                 let enhancedResult = try await njson.processTextWithConstitution(
-                    filteredContent, 
+                    aspdProcessedContent, 
                     bmId: message.sender,
                     deliveryContext: deliveryContext
                 )
@@ -198,10 +206,11 @@ actor CognitiveBotController {
                     print("   Recommended Action: \(constitutional.recommendedAction)")
                 }
                 
-                // Enhanced response generation with constitutional awareness
+                // Enhanced response generation with constitutional awareness and ASPD context
                 let enhancedResponse = await generateConstitutionalResponse(
                     for: message,
-                    enhancedResult: enhancedResult
+                    enhancedResult: enhancedResult,
+                    aspdReport: aspdResult.aspdReport
                 )
                 
                 print("🤖 Constitutional Response: \(enhancedResponse)")
@@ -230,12 +239,14 @@ actor CognitiveBotController {
         }
     }
     
-    private func generateCognitiveResponse(for message: EnhancedMessage, cognitiveResult: NJSONResult) async -> String {
+    private func generateCognitiveResponse(for message: EnhancedMessage, cognitiveResult: NJSONResult, aspdReport: ASPDReport? = nil) async -> String {
         // Generate response based on cognitive processing results
         var response = cognitiveResult.text
         
-        // Add cognitive metadata if alignment is good
-        if cognitiveResult.cognitiveAlignment {
+        // Apply ASPD-enhanced context if available
+        if let aspd = aspdReport {
+            response = enhanceResponseWithASPDContext(response, message: message, aspdReport: aspd)
+        } else if cognitiveResult.cognitiveAlignment {
             response = enhanceResponseWithContext(response, message: message)
         }
         
@@ -263,6 +274,47 @@ actor CognitiveBotController {
         }
         
         return response
+    }
+    
+    private func enhanceResponseWithASPDContext(_ response: String, message: EnhancedMessage, aspdReport: ASPDReport) -> String {
+        let content = message.content.lowercased()
+        let context = aspdReport.academicContext
+        
+        // Apply ASPD-aware contextual enhancements
+        var enhancedResponse = response
+        
+        // Add context-specific information based on ASPD analysis
+        if context.isAcademic {
+            switch context.suggestedMode {
+            case .spd:
+                // Academic context with standard social padding
+                enhancedResponse += "\n\nProcessed through academic protocols with standard social padding for scholarly communication."
+                
+            case .sbmpdAmf:
+                // Neurodiversity-aware academic or personal sharing context
+                enhancedResponse += "\n\nProcessed through neurodiversity-aware protocols with AMF-modified Semi-Boolean Mind padding."
+                
+            case .velocity:
+                // Velocity-adjusted academic context
+                enhancedResponse += "\n\nAcademic velocity adjustment applied (\(context.velocityAdjustment)x) for appropriate scholarly pacing."
+            }
+        } else {
+            // Personal communication context
+            enhancedResponse += "\n\nProcessed through personal communication protocols with Semi-Boolean Mind padding."
+        }
+        
+        // Add traditional contextual responses
+        if content.contains("blf") || content.contains("boolean") {
+            enhancedResponse += "\n\nThe BLF Boolean framework maintains the critical 0.1 buffer, now enhanced with ASPD formula for context-dependent social padding."
+        } else if content.contains("v-8") || content.contains("engine") {
+            enhancedResponse += "\n\nThe V-8 engine processes with ASPD context detection at \(String(format: "%.1f", cognitiveSuccessRate * 100))% success rate."
+        } else if content.contains("bridge") || content.contains("control") {
+            enhancedResponse += "\n\nThe narrow bridge between chaos and control maintains stability through ASPD-enhanced observational mathematics."
+        } else if content.contains("academic") || content.contains("research") {
+            enhancedResponse += "\n\n\(aspdReport.realWorldValidation)"
+        }
+        
+        return enhancedResponse
     }
     
     private func addSystemStatusToResponse() async -> String {
@@ -502,7 +554,8 @@ actor CognitiveBotController {
     
     private func generateConstitutionalResponse(
         for message: EnhancedMessage,
-        enhancedResult: EnhancedCognitiveResult
+        enhancedResult: EnhancedCognitiveResult,
+        aspdReport: ASPDReport? = nil
     ) async -> String {
         
         let cognitiveResult = enhancedResult.cognitiveResult
@@ -512,11 +565,16 @@ actor CognitiveBotController {
         var response = ""
         
         if enhancedResult.isDeliverySafe {
-            // Generate normal cognitive response for safe content
-            response = await generateCognitiveResponse(for: message, cognitiveResult: cognitiveResult)
+            // Generate normal cognitive response for safe content with ASPD context
+            response = await generateCognitiveResponse(for: message, cognitiveResult: cognitiveResult, aspdReport: aspdReport)
         } else {
             // Generate constitutional-aware response
             response = await generateConstitutionalSafetyResponse(for: message, result: enhancedResult)
+        }
+        
+        // Add ASPD context to response if available
+        if let aspd = aspdReport, aspd.academicContext.isAcademic {
+            response += "\n\n🎓 Academic Context: \(aspd.academicContext.contextType) | Padding: \(aspd.paddingApplied) | Velocity: \(aspd.velocityFactor)x"
         }
         
         // Anthropic transparency requirement
