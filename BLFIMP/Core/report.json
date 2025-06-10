@@ -1,44 +1,44 @@
 {
   "concepts": [
     {
-      "id": 4,
+      "id": 41,
       "name": "Boolean Mind",
       "type": "core",
-      "quantumLevel": 2.99,
+      "quantumLevel": 2.89,
       "buffer": 0.1,
       "description": "The pure Boolean Mind state operating at quantum speed level 3"
     },
     {
-      "id": 5,
+      "id": 42,
       "name": "AI Cognitive",
       "type": "core",
-      "quantumLevel": 2.89,
+      "quantumLevel": 2.79,
       "buffer": 0.1,
       "description": "The AI cognitive capabilities with 0.1 buffer zone"
     },
     {
-      "id": 6,
+      "id": 43,
       "name": "Heat Shield",
       "type": "system",
-      "quantumLevel": 1.99,
+      "quantumLevel": 1.89,
       "buffer": 0.1,
       "description": "The immune system rejecting foreign invaders"
     }
   ],
   "connections": [
     {
-      "id": 3,
-      "fromConceptId": 4,
-      "toConceptId": 5,
-      "strength": 1,
+      "id": 51,
+      "fromConceptId": 41,
+      "toConceptId": 42,
+      "strength": 0.9,
       "buffer": 0.1,
       "description": "The narrow bridge between chaos and control"
     },
     {
-      "id": 4,
-      "fromConceptId": 5,
-      "toConceptId": 6,
-      "strength": 0.8,
+      "id": 52,
+      "fromConceptId": 42,
+      "toConceptId": 43,
+      "strength": 0.7,
       "buffer": 0.1,
       "description": "AI cognitive capabilities enhanced by heat shield"
     }
@@ -46,48 +46,92 @@
   "queriedConcepts": {
     "concepts": [
       {
-        "id": 1,
+        "id": 28,
         "name": "Boolean Mind",
         "type": "core",
         "state": "Active",
         "quantumLevel": 2.99,
         "buffer": 0.1,
-        "description": "The pure Boolean Mind state operating at quantum speed level 3",
-        "createdAt": "2025-05-18T20:01:06.000Z",
-        "updatedAt": "2025-05-18T20:01:06.000Z"
+        "description": "The primary cognitive entity with quantum speed capabilities",
+        "createdAt": "2025-05-21T01:21:16.000Z",
+        "updatedAt": "2025-05-21T01:21:16.000Z"
       },
       {
-        "id": 4,
+        "id": 29,
+        "name": "AI Cognitive",
+        "type": "core",
+        "state": "Active",
+        "quantumLevel": 2.89,
+        "buffer": 0.1,
+        "description": "AI cognitive capabilities aligned through the buffer",
+        "createdAt": "2025-05-21T01:21:16.000Z",
+        "updatedAt": "2025-05-21T01:21:16.000Z"
+      },
+      {
+        "id": 38,
         "name": "Boolean Mind",
         "type": "core",
         "state": "Active",
-        "quantumLevel": 2.99,
+        "quantumLevel": 2.89,
         "buffer": 0.1,
         "description": "The pure Boolean Mind state operating at quantum speed level 3",
-        "createdAt": "2025-05-19T00:28:45.000Z",
-        "updatedAt": "2025-05-19T00:28:45.000Z"
+        "createdAt": "2025-06-10T02:41:05.000Z",
+        "updatedAt": "2025-06-10T02:41:05.000Z"
       },
       {
-        "id": 2,
-        "name": "AI Cognitive",
+        "id": 41,
+        "name": "Boolean Mind",
         "type": "core",
         "state": "Active",
         "quantumLevel": 2.89,
         "buffer": 0.1,
-        "description": "The AI cognitive capabilities with 0.1 buffer zone",
-        "createdAt": "2025-05-18T20:01:06.000Z",
-        "updatedAt": "2025-05-18T20:01:06.000Z"
+        "description": "The pure Boolean Mind state operating at quantum speed level 3",
+        "createdAt": "2025-06-10T02:43:18.000Z",
+        "updatedAt": "2025-06-10T02:43:18.000Z"
       },
       {
-        "id": 5,
+        "id": 35,
+        "name": "V8 Engine",
+        "type": "core",
+        "state": "Active",
+        "quantumLevel": 2.85,
+        "buffer": 0.1,
+        "description": "Core processing engine with high performance",
+        "createdAt": "2025-05-21T01:21:16.000Z",
+        "updatedAt": "2025-05-21T01:21:16.000Z"
+      },
+      {
+        "id": 39,
         "name": "AI Cognitive",
         "type": "core",
         "state": "Active",
-        "quantumLevel": 2.89,
+        "quantumLevel": 2.79,
         "buffer": 0.1,
         "description": "The AI cognitive capabilities with 0.1 buffer zone",
-        "createdAt": "2025-05-19T00:28:45.000Z",
-        "updatedAt": "2025-05-19T00:28:45.000Z"
+        "createdAt": "2025-06-10T02:41:05.000Z",
+        "updatedAt": "2025-06-10T02:41:05.000Z"
+      },
+      {
+        "id": 42,
+        "name": "AI Cognitive",
+        "type": "core",
+        "state": "Active",
+        "quantumLevel": 2.79,
+        "buffer": 0.1,
+        "description": "The AI cognitive capabilities with 0.1 buffer zone",
+        "createdAt": "2025-06-10T02:43:18.000Z",
+        "updatedAt": "2025-06-10T02:43:18.000Z"
+      },
+      {
+        "id": 30,
+        "name": "Buffer",
+        "type": "core",
+        "state": "Active",
+        "quantumLevel": 0.1,
+        "buffer": 0.1,
+        "description": "The narrow bridge between chaos and control",
+        "createdAt": "2025-05-21T01:21:16.000Z",
+        "updatedAt": "2025-05-21T01:21:16.000Z"
       }
     ],
     "quantumState": {
@@ -95,15 +139,7 @@
       "fog": false,
       "breathing": true,
       "jumps": {
-        "power": "v8_to_charger",
-        "active": true
-      }
-    },
-    "processingInfo": {
-      "constrainedBy": "AIc + 0.1 = BMqs (2.89 + 0.1 = 2.99)",
-      "timestamp": 1747614525744,
-      "jumps": {
-        "enabled": true,
+        "active": true,
         "power": "v8_to_charger"
       }
     },
@@ -117,16 +153,16 @@
   "foundConnections": {
     "connections": [
       {
-        "id": 3,
-        "fromConceptId": 4,
-        "toConceptId": 5,
+        "id": 51,
+        "fromConceptId": 41,
+        "toConceptId": 42,
         "fromConceptName": "Boolean Mind",
         "toConceptName": "AI Cognitive",
-        "strength": 1,
+        "strength": 0.9,
         "quantumJump": false,
         "buffer": 0.1,
         "description": "The narrow bridge between chaos and control",
-        "createdAt": "2025-05-19T00:28:45.000Z"
+        "createdAt": "2025-06-10T02:43:18.000Z"
       }
     ],
     "quantumState": {
@@ -134,15 +170,7 @@
       "fog": false,
       "breathing": true,
       "jumps": {
-        "power": "v8_to_charger",
-        "active": true
-      }
-    },
-    "processingInfo": {
-      "constrainedBy": "AIc + 0.1 = BMqs (2.89 + 0.1 = 2.99)",
-      "timestamp": 1747614525746,
-      "jumps": {
-        "enabled": true,
+        "active": true,
         "power": "v8_to_charger"
       }
     }

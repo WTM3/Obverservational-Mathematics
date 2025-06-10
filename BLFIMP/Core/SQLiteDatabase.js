@@ -884,16 +884,15 @@ class SQLiteDatabase {
     // Ensure quantum state coherence
     const qsState = this.quantumState;
     
-    // Structure response
+    // Structure response with correct field names
     const processed = {
-      results: results,
+      items: results,
       quantumState: {
         pure: qsState.pure,
         fog: qsState.fog,
         breathing: qsState.breathing,
         jumps: qsState.jumps
       },
-      connections: results,
       cognitiveAlignment: this.config.cognitiveAlignment,
       processingTime: Date.now()
     };

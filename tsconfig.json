@@ -7,11 +7,15 @@
       "ES2020"
     ],
     "sourceMap": true,
-    "rootDir": "src",
     "strict": true
   },
+  "include": [
+    "src/**/*",
+    "BLFIMP/**/*"
+  ],
   "exclude": [
     "node_modules",
-    ".vscode-test"
+    ".vscode-test",
+    "blf-vscode-extension"
   ]
 } 
