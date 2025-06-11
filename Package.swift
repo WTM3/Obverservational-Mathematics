@@ -5,99 +5,34 @@
 import PackageDescription
 
 let package = Package(
-    name: "BLFNJSONBridge",
+    name: "BLFMessagingApp",
     platforms: [
-        .macOS(.v11),
-        .iOS(.v14)
+        .iOS(.v16) // iOS 16+ for modern SwiftUI features - THIN wrapper only
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "BLFNJSONBridge",
-            targets: ["BLFNJSONBridge"]),
-        .executable(
-            name: "BLFNJSONBridgeTest",
-            targets: ["BLFNJSONBridgeTest"]),
-        .executable(
-            name: "BLFiMessageBot",
-            targets: ["BLFiMessageBot"]),
-        .library(
-            name: "CursorXcodeExtension",
-            targets: ["CursorXcodeExtension"]),
-        .executable(
-            name: "CursorAITest",
-            targets: ["CursorAITest"]),
-        .executable(
-            name: "CursorExtensionSetup",
-            targets: ["CursorExtensionSetup"]),
-        .executable(
-            name: "DropdownMenuTest",
-            targets: ["DropdownMenuTest"]),
-        .executable(
-            name: "CommandLineTest",
-            targets: ["CommandLineTest"]),
-        .executable(
-            name: "ASPDValidationRunner",
-            targets: ["ASPDValidationRunner"]),
-        .executable(
-            name: "DebugCasualAcademic",
-            targets: ["DebugCasualAcademic"])
+            name: "BLFMessagingApp",
+            targets: ["BLFMessagingApp"]
+        ),
     ],
     dependencies: [
-        // Dependencies declare other packages that this package depends on.
+        // NO external dependencies - keep it thin
+        // All BLF/AMF processing happens in JavaScript
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         .target(
-            name: "BLFNJSONBridge",
+            name: "BLFMessagingApp",
             dependencies: [],
             resources: [
-                .process("Resources/njson-javascriptcore.js")
+                // Include JavaScript BLF engine as bundle resource
+                .process("Resources/blf-messaging-platform.js")
             ]
-        ),
-        .executableTarget(
-            name: "BLFNJSONBridgeTest",
-            dependencies: ["BLFNJSONBridge"]
-        ),
-        .executableTarget(
-            name: "BLFiMessageBot",
-            dependencies: ["BLFNJSONBridge"]
-        ),
-        .target(
-            name: "CursorXcodeExtension",
-            dependencies: ["BLFNJSONBridge"],
-            resources: [
-                .process("Resources/cursor-ai-models.js"),
-                .process("Resources/ai-agent-configs.json")
-            ]
-        ),
-        .executableTarget(
-            name: "CursorAITest",
-            dependencies: ["CursorXcodeExtension", "BLFNJSONBridge"]
-        ),
-        .executableTarget(
-            name: "CursorExtensionSetup",
-            dependencies: ["CursorXcodeExtension", "BLFNJSONBridge"]
-        ),
-        .executableTarget(
-            name: "DropdownMenuTest",
-            dependencies: ["CursorXcodeExtension", "BLFNJSONBridge"]
-        ),
-        .executableTarget(
-            name: "CommandLineTest",
-            dependencies: ["CursorXcodeExtension", "BLFNJSONBridge"]
-        ),
-        .executableTarget(
-            name: "ASPDValidationRunner",
-            dependencies: ["BLFNJSONBridge"]
-        ),
-        .executableTarget(
-            name: "DebugCasualAcademic",
-            dependencies: ["BLFNJSONBridge"]
         ),
         .testTarget(
-            name: "BLFNJSONBridgeTests",
-            dependencies: ["BLFNJSONBridge"]
+            name: "BLFMessagingAppTests",
+            dependencies: ["BLFMessagingApp"]
         ),
     ]
 ) 

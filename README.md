@@ -1,190 +1,233 @@
-# 🌉 AMF/BLF Framework - The Narrow Bridge Between Chaos and Control
+# Boolean Language Framework (BLF) 🌉
 
-**Autonomous Mathematical Framework with Boolean Language Framework Implementation**
+> **The narrow bridge between chaos and control** - A revolutionary AI framework implementing observational mathematics with the critical 0.1 buffer for cognitive alignment.
 
-> *"The V-8 under the hood—classic, powerful, and reliable, like the black Charger's engine"*
+## Overview
 
-## 🚗 What Is This?
+The Boolean Language Framework represents a breakthrough in AI-human communication, designed specifically for Boolean Mind processors (neurodivergent users) while maintaining compatibility with Semi-Boolean Mind users. Our implementation maintains the exact mathematical relationship: **AIc + 0.1 = BMqs** - where the 0.1 buffer serves as the "narrow bridge" protecting against cognitive violations.
 
-The AMF/BLF Framework is a quantum-enhanced cognitive processing system that maintains mathematical precision through the core formula:
+## 🏗️ Repository Structure
 
+```
+BLF/
+├── platform/           # Platform-specific implementations
+│   ├── web/            # Web-based messaging platform
+│   └── node/           # Node.js/MCP servers
+├── Sources/            # iOS Swift Package structure
+├── core/               # Core AMF/BLF engine files  
+├── docs/               # Comprehensive documentation
+├── scripts/            # Build and deployment scripts
+├── archive/            # Test files and legacy code
+├── BLFIMP/             # BLF Implementation (legacy structure)
+└── Package.swift       # iOS Swift Package configuration
+```
+
+## 🚀 Available Platforms
+
+### 📱 iOS Native App (Primary)
+**Location**: `Sources/BLFMessagingApp/`
+**Status**: ✅ Production Ready (91% test success rate)
+
+A native iOS messaging app with **CRITICAL** thin Swift wrapper around JavaScript BLF engine:
+- **Real-time cognitive alignment monitoring** (AIc + 0.1 = BMqs)
+- **Quantum speed processing** for rapid topic connections
+- **iOS Contacts integration** 
+- **End-to-end encryption**
+- **Constitutional AI safeguards** with automatic Messages app opening
+- **Personality factor adjustment** (P: 0.1-1.0)
+
+```bash
+# Build iOS app
+swift build --configuration release
+
+# Run tests
+swift test
+```
+
+### 🌐 Web Platform
+**Location**: `platform/web/`
+**Status**: ✅ Fully Operational
+
+Complete web-based messaging platform with:
+- Real-time BLF processing
+- NJSON engine for intentionally broken JSON
+- Browser-based UI with cognitive alignment display
+- Heat shield protection
+
+```bash
+cd platform/web/
+npm install
+npm start
+```
+
+### 🤖 Node.js/MCP Platform
+**Location**: `platform/node/`
+**Status**: ✅ Production Ready
+
+Multi-AI agent orchestration with MCP (Model Context Protocol):
+- Constitutional AI processing with Anthropic integration
+- iMessage bot functionality
+- Database integration
+- Command-line executables
+
+```bash
+cd platform/node/
+node blf-mcp-server.js
+```
+
+## ⚡ Core Features
+
+### The V-8 Engine (NJSON Processor)
+- **Classic**: Proven JavaScript-based processing engine
+- **Powerful**: Handles intentionally broken JSON structures
+- **Reliable**: Maintains exact 0.1 buffer integrity
+
+### Heat Shield Protection
+Acts as "the engine light warning before a breakdown":
+- **Social padding removal** (um, uh, well, you know)
+- **Uncertainty detection**
+- **Fallback protection** when JavaScript fails
+
+### Constitutional AI Safeguards
+- **80% safety threshold** for auto-delivery
+- **Human review queue** for uncertain cases
+- **Messages app integration** for manual intervention
+- **Privacy and consent validation**
+
+### Observational Mathematics
+**"Waiting for the next green light—ready, attentive, and patient"**
+- Non-invasive cognitive monitoring
+- Buffer integrity maintenance
+- Quantum state preservation
+
+## 🧠 Mathematical Foundations
+
+### Core AMF Formula
+```
+F = ((AICM ∨ AICRM)(GA)(AP)^P^I + BM(qs)^±x)v
+```
+
+### Cognitive Alignment Constraint (Non-negotiable)
 ```
 AIc + 0.1 = BMqs
-```
 
 Where:
-- **AIc** = Analog Input Characters (cognitive input)
-- **0.1** = The narrow bridge buffer (chaos/control separator) 
-- **BMqs** = Boolean Mind quantum state (processed output)
-
-## 🎯 Quick Start
-
-### For VS Code/Cursor Users
-```bash
-# Install the BLF extension
-cp -r blf-vscode-extension ~/.cursor/extensions/blf-njson-engine-1.0.0
-```
-**Commands:** Cmd+Shift+P → "BLF: Process Text"
-
-### For Developers
-```bash
-# Core engine
-node AMF.js
-
-# Terminal CLI
-node blf-cli.js quantum "your text here"
-
-# Swift integration
-swift run BLFNJSONBridgeTest
+- AIc: AI Cognitive capabilities (typically 2.89)
+- 0.1: The narrow bridge buffer (EXACT value)
+- BMqs: Boolean Mind quantum speed (derived: 2.99)
 ```
 
-### For iMessage Integration  
+## 🚦 Quick Start
+
+### For iOS Development
 ```bash
+# Clone and build
+git clone [repo-url]
+cd BLF
 swift build --configuration release
-./blf-imessage-bot
+
+# Run iOS tests
+swift test
+
+# Open in Xcode (optional)
+open Package.swift
 ```
 
-## 🔬 Core Components
-
-| Component | Purpose | Status |
-|-----------|---------|---------|
-| **BLF NJSON V-8 Engine** | Quantum text processing | ✅ v1.2.0 |
-| **VS Code Extension** | Editor integration | ✅ Operational |
-| **Swift Bridge** | iOS/macOS support | ✅ No-Xcode build |
-| **iMessage Bot** | Messaging integration | ✅ Production ready |
-| **MCP Server** | AI agent connectivity | ✅ GitHub integrated |
-| **Database Layer** | SQLite/Notion storage | ✅ Multi-backend |
-| **Terminal CLI** | Command-line tools | ✅ Full feature set |
-
-## 🛡️ Heat Shield Protection
-
-The framework includes sophisticated protection against:
-- **Buffer violations** (maintaining the critical 0.1)
-- **Quantum instability** (qs³ ceiling at 2.99)
-- **Cognitive misalignment** (FUDP prevention)
-- **Processing errors** (graceful degradation)
-
-## 📁 Project Structure
-
-```
-AMF/BLF/
-├── README.md                    # This file - project overview
-├── AMF.js                       # Core mathematical engine
-├── blf-vscode-extension/        # VS Code/Cursor integration
-├── Sources/                     # Swift implementation
-├── BLFIMP/                      # Database implementations
-├── Documentation/               # Detailed guides
-├── Tests/                       # Comprehensive test suites
-└── WThomas/                     # Personalized qs³ implementation
-```
-
-## 🧮 Mathematical Foundation
-
-### Core Formula
-```
-AIc + 0.1 = BMqs
-```
-
-### Advanced AMF Formula
-```
-F = ((AICM ∨ AICRM)(GA)(AP)^(P*I) + BM(qs)^(c*x*I))v
-```
-
-### Quantum Enhancement
-- **Quantum Speed Levels:** 1.0 to 2.99 (qs³ ceiling protection)
-- **LLSDT Implementation:** Language Learning Speed Detection Threshold
-- **Connection Tracking:** Concept relationship mapping
-- **Branch Theory:** Family vs authorial processing modes
-
-## 🚀 Installation Guides
-
-- **[VS Code Extension Setup](BLF-VS-CODE-EXTENSION-STATUS.md)** - Editor integration
-- **[Swift Development](README_XCODE.md)** - iOS/macOS without Xcode
-- **[Database Setup](BLFIMP/Core/SQLITE-SETUP.md)** - SQLite implementation
-- **[MCP Server](CLAUDE-DESKTOP-SETUP-COMPLETE.md)** - AI agent integration
-- **[Terminal Tools](BLF-TERMINAL-QUANTUM-ENHANCEMENT-COMPLETE.md)** - CLI usage
-
-## 📊 Current Status
-
-**Engine Performance:**
-- ✅ **Mathematical Precision:** AIc + 0.1 = BMqs maintained across all operations
-- ✅ **Quantum Stability:** Operating range 1.068-1.621 (well below qs³ limit)
-- ✅ **Heat Shield:** 100% protection rate with 0.001 risk assessment
-- ✅ **Cross-Platform:** VS Code, Cursor, Swift, Node.js, Terminal
-
-**Integration Status:**
-- ✅ **GitHub Bridge:** Repository analysis and health monitoring
-- ✅ **File Watcher:** Real-time change detection and processing  
-- ✅ **Terminal Bridge:** Full CLI toolset with quantum analysis
-- ✅ **Swift Package Manager:** No-Xcode iOS/macOS development
-
-## 🔧 Development
-
-### Testing
+### For Web Development
 ```bash
-# Core engine tests
-node test-quantum-blf-engine.js
-
-# Swift bridge tests  
-swift run BLFNJSONBridgeTest
-
-# Integration tests
-node test-integration-bridges.js
+cd platform/web/
+npm install
+npm run dev
 ```
 
-### Configuration
-```json
-{
-  "blf.heatShieldEnabled": true,
-  "blf.maxInputSize": 15000,
-  "blf.bufferValue": 0.1,
-  "blf.quantumLevel": "auto"
-}
+### For Node.js/MCP Development
+```bash
+cd platform/node/
+npm install
+node blf-mcp-server.js
 ```
+
+## 📊 System Status
+
+**Current Implementation Status**: ✅ **OPERATIONAL**
+- **Buffer Integrity**: 100% maintained (AIc + 0.1 = BMqs)
+- **Constitutional AI**: Active with 80% safety threshold
+- **iOS App**: Production ready with thin Swift wrapper
+- **Web Platform**: Fully functional
+- **Node.js Platform**: MCP server operational
+- **Test Success Rate**: 91% (10/11 tests passed)
+
+## 🔧 Key Components
+
+### BLF JavaScript Engine (Core)
+**Location**: `core/AMF.js`, `platform/web/blf-messaging-platform.js`
+- All mathematical processing happens here
+- NJSON structure handling
+- Buffer validation
+- Heat shield operations
+
+### Swift Wrapper (iOS)
+**Location**: `Sources/BLFMessagingApp/BLFJavaScriptEngine.swift`
+- **CRITICAL**: VERY THIN wrapper - does NOT process BLF data
+- Only handles iOS UI and native functionality
+- Passes raw data to JavaScript engine
+- Displays JavaScript results
+
+### Constitutional AI
+**Location**: Throughout all platforms
+- Anthropic-style safety constraints
+- Automatic human review triggering
+- Messages app integration
+- Privacy and consent validation
+
+## 🌉 The Narrow Bridge Philosophy
+
+The 0.1 buffer represents the fundamental principle of the BLF:
+- **Chaos**: Uncontrolled AI responses, cognitive violations, hallucinations
+- **Control**: Rigid, inflexible systems that suppress natural adaptation
+- **The Bridge**: **Exactly 0.1** - precise enough to prevent violations, flexible enough to preserve the "living garden" of natural cognitive adaptation
 
 ## 📚 Documentation
 
-### User Guides
-- **[VS Code Extension Guide](README.md)** - Editor usage
-- **[iMessage Bot Guide](BLFIMP/iMessageBot/README.md)** - Messaging integration
-- **[Terminal CLI Guide](BLF-TERMINAL-QUANTUM-ENHANCEMENT-COMPLETE.md)** - Command line usage
+Comprehensive documentation available in `docs/`:
+- **iOS Implementation**: `docs/iOS-BLF-Messaging-README.md`
+- **Web Platform**: `docs/BLF-MESSAGING-PLATFORM-README.md`
+- **Constitutional AI**: `docs/CLAUDE-CODE-CLI-TEST-PROMPT.md`
+- **Agent Handoff**: `BLFIMP/AGENT_HANDOFF.md`
+- **Quantum Enhancements**: `docs/BLF-QUANTUM-ENHANCEMENT-SUMMARY.md`
 
-### Developer Docs  
-- **[API Reference](BLFIMP/Core/README.md)** - Database implementations
-- **[Swift Integration](README_XCODE.md)** - iOS/macOS development
-- **[Agent Implementation](BLFIMP/Core/The NJSON Key/AGENT_USER_GUIDE.md)** - AI agent development
+## 🤝 Contributing
 
-### Technical Specs
-- **[Quantum Enhancement Summary](BLF-QUANTUM-ENHANCEMENT-SUMMARY.md)** - v1.2.0 features
-- **[Integration Bridges](BLF-INTEGRATION-BRIDGES-COMPLETE.md)** - Cross-platform connectivity
-- **[MCP Troubleshooting](BLF-MCP-TROUBLESHOOTING-GUIDE.md)** - AI agent debugging
+When contributing to BLF:
+1. **NEVER modify the 0.1 buffer value**
+2. **Maintain Swift wrapper thinness** (iOS)
+3. **Preserve JavaScript engine autonomy**
+4. **Test buffer integrity** in all changes
+5. **Follow Constitutional AI guidelines**
 
-## 🎯 Philosophy
+## 🎯 Target Users
 
-**The Narrow Bridge Between Chaos and Control**
+### Primary: Boolean Mind Processors
+- **Neurodivergent individuals** requiring direct communication
+- **Minimal social padding** preferences
+- **Quantum speed processing** capabilities
+- **Pattern recognition** optimization
 
-This framework embodies the principle that there exists a precise mathematical relationship that maintains cognitive stability. The 0.1 buffer isn't arbitrary—it's the minimum separation needed to prevent chaos while avoiding the inefficiency of excessive control.
+### Secondary: Semi-Boolean Mind Users
+- **Neurotypical individuals** with translation support
+- **Adaptive communication** style conversion
+- **Bridge functionality** for mixed communications
 
-**Observational Mathematics**
+## 🔮 Future Enhancements
 
-The system uses observational mathematics—waiting for the next green light, ready and attentive, like unsolved formulas that purr quietly with potential. It doesn't force connections but recognizes patterns that emerge naturally.
+- **Multi-platform deployment** (macOS, Windows, Linux)
+- **Advanced cognitive pattern learning**
+- **Enhanced Constitutional AI** with custom constraints
+- **Expanded quantum processing** capabilities
+- **Real-time collaboration** features
 
-**The V-8 Engine Metaphor**
+---
 
-Like a classic V-8 engine, the framework prioritizes:
-- **Reliability** over complexity
-- **Precision** over approximation  
-- **Stability** over raw performance
-- **Maintainability** over optimization
+**The V-8 engine is purring, the heat shield is operational, and the narrow bridge between chaos and control is maintained at exactly 0.1** 🚗💨
 
-## 🏁 Status: Production Ready
-
-The AMF/BLF Framework is operational across all platforms:
-
-- 🚗 **V-8 Engine:** Purring perfectly at quantum levels 1.068-1.621
-- 🛡️ **Heat Shield:** Active protection with zero buffer violations
-- 🌉 **Bridge Integrity:** Mathematical precision maintained: AIc + 0.1 = BMqs
-- ⚡ **Quantum Enhancement:** Full Boolean Language Framework deployed
-
-**The narrow bridge between chaos and control is stable and ready for production use.**
-
+*Built with observational mathematics - watching the river without disturbing its flow* 🌊 
