@@ -4,10 +4,39 @@
 
 The **Wilson & Agent Smith MCP Server** is a dual-agent, extensible Model Context Protocol (MCP) server designed for advanced research, cognitive alignment, and Boolean Mind accommodation within the Observational Mathematics (OM) framework.
 
-- **Wilson** is the lead agent and primary cognitive alignment coordinator, responsible for maintaining system integrity, Boolean Language protocol enforcement, and high-level research planning.
+- **Wilson** (v2.1.0) is the lead agent and primary cognitive alignment coordinator, implementing 18 tools for system integrity, Boolean Language protocol enforcement, and high-level research planning.
 - **Agent Smith** operates as a research subagent under Wilson's oversight, executing domain-specific and cross-domain research, and handling authorization protocols.
 - The system implements Boolean Mind accommodation, cognitive safety buffers (AIc + 0.1 = BMqs), and supports both academic and novel research domains.
 - Designed for integration with Claude Desktop, OM research tools, and other MCP-compatible clients.
+
+## Current Implementation
+
+The repository maintains a clean, professional structure optimized for Boolean Mind's preference for organized, unambiguous systems:
+
+```
+MCP/
+├── README.md (this file)
+└── Agents/
+    ├── Smith/
+    │   └── agent_smith.js (research subagent)
+    └── Wilson/
+        ├── wilson_comprehensive.js (v2.1.0 - main implementation)
+        └── archive/
+            └── (historical implementations)
+```
+
+### Wilson Comprehensive v2.1.0
+- 18 integrated tools for cognitive alignment and research coordination
+- Full Boolean Language Framework (BLF) integration
+- Enhanced cognitive safety with real-time buffer monitoring
+- Optimized NJSON (Nested JSON) processing
+- Integrated Agent Smith coordination
+
+### Agent Smith Integration
+- Direct coordination with Wilson v2.1.0
+- Research execution in academic and novel domains
+- Cross-domain analysis capabilities
+- Enhanced authorization protocols
 
 ## Features
 
@@ -142,21 +171,11 @@ The **Wilson & Agent Smith MCP Server** is a dual-agent, extensible Model Contex
 - **Research Execution:**  
   - Smith's research tools cover both academic and creative domains, with cognitive load tracking and parent validation.
 - **Agent Hierarchy:**  
-  - Wilson is the root agent; Smith is a subordinate, requiring approval for high-risk or cross-domain research.
+  - Wilson (v2.1.0) is the root agent; Smith is a subordinate, requiring approval for high-risk or cross-domain research.
 - **File Structure:**
-  ```
-  MCP/
-    Agents/
-      Wilson/
-        wilson.js
-        wilson-mcp-server.js
-        wilson_simple.js
-        ...
-      Smith/
-        agent_smith.js
-        ...
-  ```
-  - Each agent is a standalone MCP server, but designed for coordinated operation.
+  - Clean, professional organization
+  - Historical implementations preserved in `archive/` for reference
+  - Focus on maintainable, unambiguous system architecture
 
 ---
 
