@@ -1,0 +1,49 @@
+# System files
+.DS_Store
+*.log
+*.swp
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-*
+
+# Node.js
+node_modules/
+npm-debug.log*
+
+# Personal configuration files
+.bash_*
+.zsh*
+.config/
+.local/
+.cache/
+.npm/
+.nvm/
+
+# Application specific
+.cursor/
+.claude/
+.claude.json
+
+# macOS specific
+.Spotlight-V100
+.Trashes
+.AppleDouble
+.LSOverride
+Library/
+Applications/
+Desktop/
+Documents/
+Downloads/
+Movies/
+Music/
+Pictures/
+Public/
+
+# Other
+*.rtf
+*.pdf
+*.docx
+*.jpg
+.Trash/
