@@ -10,12 +10,17 @@ The **Wilson & Agent Smith MCP Server** is a dual-agent, extensible Model Contex
 MCP/
 ├── README.md (this file)
 └── Agents/
-    ├── Smith/
-    │   └── agent_smith.js (research subagent)
-    └── Wilson/
-        ├── wilson_comprehensive.js (v2.1.0 - main implementation)
-        └── archive/
-            └── (historical implementations)
+    ├── Claude/
+    │   ├── Smith/
+    │   │   └── agent_smith.js (research subagent)
+    │   └── Wilson/
+    │       └── wilson_comprehensive.js (v2.1.0 - main implementation)
+    │       └── archive/
+    │           └── (historical implementations)
+    └── Cursor/
+        └── BDB/
+            ├── Butch.js
+            └── V.js
 ```
 
 ### Core Components
@@ -60,7 +65,7 @@ MCP/
 ### Starting the Server
 
 ```sh
-cd Agents/Wilson
+cd Agents/Claude/Wilson
 node wilson_comprehensive.js
 ```
 
