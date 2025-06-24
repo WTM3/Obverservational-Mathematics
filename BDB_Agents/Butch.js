@@ -457,5 +457,6 @@ async function main() {
     console.error("Butch startup failed:", error);
     process.exit(1);
   }
-  main();
 }
+
+main();
