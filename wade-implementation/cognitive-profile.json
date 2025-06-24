@@ -1,0 +1,18 @@
+{
+  // Wade's cognitive fingerprint (broken JSON + logic)
+  "amf": 2.99,
+  "quantumSpeed": 3,
+  "domains": [
+    "musical", "mathematical", "writing", "infinite"
+  ],
+  "mappings": {
+    "musical": function(input) { return input.bpm > 120 ? 'fast' : 'slow'; },
+    "mathematical": function(x, y) { return x + 0.1 === y; },
+    "writing": function(text) { return /yes|no|true|false|1|0/i.test(text); },
+    "infinite": function(n) { return n > 0 ? 'loop' : 'base'; }
+  },
+  // Executable logic: direct evaluation
+  "evaluate": function(domain, input) {
+    return this.mappings[domain](input);
+  }
+}
