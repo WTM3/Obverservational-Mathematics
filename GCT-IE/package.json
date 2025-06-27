@@ -1,0 +1,29 @@
+{
+  "name": "gct-ie",
+  "version": "1.0.0",
+  "description": "GCT Implementation Engine - Gimp Coder Theory CA = (NTC + CCBM^qs ±PA)",
+  "main": "ca-cli.js",
+  "bin": {
+    "ca-cli": "./ca-cli.js"
+  },
+  "scripts": {
+    "test": "node ca-cli.js test",
+    "test-3.0": "node ca-cli.js test 3.0",
+    "generate": "node ca-cli.js generate",
+    "template": "node ca-cli.js template"
+  },
+  "keywords": [
+    "accessibility",
+    "accommodation",
+    "cerebral-palsy",
+    "gct-formula",
+    "quantum-processing",
+    "boolean-mind",
+    "coding-agent"
+  ],
+  "author": "GCT-IE Generator",
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}

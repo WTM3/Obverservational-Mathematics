@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCT-IE Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #2d2d2d;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #00ff88;
+            font-size: 2.5em;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+        }
+
+        .section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background-color: #3a3a3a;
+            border-radius: 8px;
+            border: 1px solid #555;
+        }
+
+        .section-title {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            color: #00ff88;
+            font-weight: bold;
+        }
+
+        .toggle-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .toggle-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #4a4a4a;
+            border-radius: 5px;
+        }
+
+        .toggle-label {
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background-color: #666;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .toggle-switch.active {
+            background-color: #00ff88;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background-color: white;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(30px);
+        }
+
+        .dropdown-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .dropdown-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .dropdown-label {
+            font-weight: bold;
+            color: #00ff88;
+        }
+
+        select {
+            padding: 10px;
+            background-color: #4a4a4a;
+            color: white;
+            border: 1px solid #666;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #00ff88;
+            box-shadow: 0 0 5px rgba(0, 255, 136, 0.3);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .btn-generate {
+            background-color: #00ff88;
+            color: #000;
+        }
+
+        .btn-generate:hover {
+            background-color: #00cc6a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-test {
+            background-color: #0088ff;
+            color: white;
+        }
+
+        .btn-test:hover {
+            background-color: #0066cc;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 136, 255, 0.3);
+        }
+
+        .formula-display {
+            text-align: center;
+            font-size: 1.5em;
+            color: #00ff88;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 10px;
+        }
+
+        .status-display {
+            text-align: center;
+            font-size: 1.2em;
+            color: #ffffff;
+            background-color: #4a4a4a;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .status-value {
+            color: #00ff88;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .toggle-group {
+                grid-template-columns: 1fr;
+            }
+            
+            .dropdown-group {
+                grid-template-columns: 1fr;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>GCT-IE Interface</h1>
+        
+        <div class="section">
+            <div class="section-title">System Toggles</div>
+            <div class="toggle-group">
+                <div class="toggle-item">
+                    <span class="toggle-label">Motor</span>
+                    <div class="toggle-switch" id="motor-toggle"></div>
+                </div>
+                <div class="toggle-item">
+                    <span class="toggle-label">Communication</span>
+                    <div class="toggle-switch" id="communication-toggle"></div>
+                </div>
+                <div class="toggle-item">
+                    <span class="toggle-label">Cognitive</span>
+                    <div class="toggle-switch" id="cognitive-toggle"></div>
+                </div>
+                <div class="toggle-item">
+                    <span class="toggle-label">Visual</span>
+                    <div class="toggle-switch" id="visual-toggle"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Configuration Settings</div>
+            <div class="dropdown-group">
+                <div class="dropdown-item">
+                    <label class="dropdown-label" for="accommodation-level">Physical Accommodation Level</label>
+                    <select id="accommodation-level">
+                        <option value="0.1">0.1 - Minimal</option>
+                        <option value="0.5">0.5 - Light</option>
+                        <option value="1.0">1.0 - Moderate</option>
+                        <option value="1.5">1.5 - High</option>
+                        <option value="2.0">2.0 - Significant</option>
+                        <option value="2.5">2.5 - Very High</option>
+                        <option value="3.0">3.0 - Maximum</option>
+                    </select>
+                </div>
+                <div class="dropdown-item">
+                    <label class="dropdown-label" for="accommodation-type">Accommodation Type</label>
+                    <select id="accommodation-type">
+                        <option value="all">All Types</option>
+                        <option value="motor">Motor Only</option>
+                        <option value="communication">Communication Only</option>
+                        <option value="cognitive">Cognitive Only</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Formula & Status</div>
+            <div class="formula-display">CA = (NTC + CCBM^qs ±PA)</div>
+            <div class="status-display">
+                PA: <span class="status-value" id="pa-value">3.0</span> | 
+                Type: <span class="status-value" id="type-value">all</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Actions</div>
+            <div class="button-group">
+                <button class="btn btn-generate" id="generate-btn">Generate Code</button>
+                <button class="btn btn-test" id="test-btn">Test Accommodations</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle functionality
+        const toggles = document.querySelectorAll('.toggle-switch');
+        const toggleStates = {
+            'motor-toggle': false,
+            'communication-toggle': false,
+            'cognitive-toggle': false,
+            'visual-toggle': false
+        };
+
+        toggles.forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                const toggleId = this.id;
+                toggleStates[toggleId] = !toggleStates[toggleId];
+                
+                if (toggleStates[toggleId]) {
+                    this.classList.add('active');
+                } else {
+                    this.classList.remove('active');
+                }
+                
+                console.log(`${toggleId.replace('-toggle', '')} toggled: ${toggleStates[toggleId] ? 'ON' : 'OFF'}`);
+            });
+        });
+
+        // Dropdown functionality
+        const accommodationLevel = document.getElementById('accommodation-level');
+        const accommodationType = document.getElementById('accommodation-type');
+        const paValue = document.getElementById('pa-value');
+        const typeValue = document.getElementById('type-value');
+
+        accommodationLevel.addEventListener('change', function() {
+            paValue.textContent = this.value;
+            console.log(`Physical Accommodation Level changed to: ${this.value}`);
+        });
+
+        accommodationType.addEventListener('change', function() {
+            typeValue.textContent = this.value;
+            console.log(`Accommodation Type changed to: ${this.value}`);
+        });
+
+        // Button functionality
+        const generateBtn = document.getElementById('generate-btn');
+        const testBtn = document.getElementById('test-btn');
+
+        generateBtn.addEventListener('click', function() {
+            console.log('Generate Code button clicked');
+            
+            // Collect current state
+            const currentState = {
+                toggles: toggleStates,
+                accommodationLevel: accommodationLevel.value,
+                accommodationType: accommodationType.value
+            };
+            
+            console.log('Current Configuration:', currentState);
+            
+            // Visual feedback
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 150);
+            
+            alert('Code generation initiated with current configuration!');
+        });
+
+        testBtn.addEventListener('click', function() {
+            console.log('Test Accommodations button clicked');
+            
+            // Count active toggles
+            const activeToggles = Object.values(toggleStates).filter(state => state).length;
+            
+            // Visual feedback
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 150);
+            
+            alert(`Testing accommodations...\nActive systems: ${activeToggles}/4\nAccommodation Level: ${accommodationLevel.value}\nType: ${accommodationType.value}`);
+        });
+
+        // Initialize default values
+        accommodationLevel.value = '3.0';
+        accommodationType.value = 'all';
+        
+        console.log('GCT-IE Interface initialized successfully');
+    </script>
+</body>
+</html>
