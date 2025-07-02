@@ -1,0 +1,10 @@
+{
+	"folders": [
+		{
+			"path": "../Projects/BLF"
+		}
+	],
+	"settings": {
+		"terminal.integrated.fontSize": 20
+	}
+}
