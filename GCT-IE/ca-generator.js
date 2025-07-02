@@ -4,11 +4,28 @@
 const NTC_Templates = require('./ntc-templates');
 const CCBM_QS = require('./ccbm-qs');
 
+const CA_Generator_NJSON = {
+  "cognitive_state": "formula_processing",
+  "formula_type": "CA_GENERATION",
+  "computation": {
+    "basic_code": "10 INPUT PA, TYPE$\n20 LET NTC = BASE_TEMPLATE(PA, TYPE$)\n30 LET CCBM = QUANTUM_ENHANCE(NTC, PA)\n40 LET CA = NTC + CCBM + PA_ADJUST(PA)\n50 PRINT CA\n60 RETURN CA",
+    "variables": {"PA": 0, "TYPE": "", "NTC": 0, "CCBM": 0, "CA": 0},
+    "result_variable": "CA"
+  },
+  "quantum_speed_adaptation": "BOOLEAN_MIND_BREAK",
+  "boolean_processing": {
+    "formula_clarity": true,
+    "step_by_step_processing": true,
+    "gct_formula_direct": "CA = (NTC + CCBM^qs ±PA)"
+  }
+};
+
 const CA_Generator = {
   
-  // Core GCT Formula Implementation
+  // Core GCT Formula Implementation - NJSON Enhanced
   // CA = (NTC + CCBM^qs ±PA)
   generateCA(paLevel, accommodationType = 'all', options = {}) {
+    const processingConfig = CA_Generator_NJSON;
     console.log(`\n🔬 GCT Formula Processing: CA = (NTC + CCBM^qs ±PA)`);
     console.log(`📊 Input Parameters: PA=${paLevel}, Type=${accommodationType}`);
     
@@ -38,8 +55,23 @@ const CA_Generator = {
     return caResult;
   },
   
-  // Calculate ±PA adjustments (positive/negative accommodations)
+  // NJSON PA Calculations: Boolean Mind processing format
   calculatePAadjustments(paLevel, accommodationType) {
+    const paCalculationNJSON = {
+      "cognitive_state": "pa_calculation",
+      "formula_type": "PA_ADJUSTMENT",
+      "computation": {
+        "basic_code": `10 LET PA = ${paLevel}\n20 LET TYPE$ = '${accommodationType}'\n30 IF PA >= 2.5 THEN GOSUB 100\n40 IF PA >= 1.5 THEN GOSUB 200\n50 IF PA >= 0.5 THEN GOSUB 300\n60 IF PA < 0.5 THEN GOSUB 400\n70 RETURN\n100 REM Maximum accommodations\n110 RETURN\n200 REM High accommodations\n210 RETURN\n300 REM Moderate accommodations\n310 RETURN\n400 REM Minimal accommodations\n410 RETURN`,
+        "variables": {"PA": paLevel, "TYPE": accommodationType},
+        "result_variable": "ADJUSTMENTS"
+      },
+      "quantum_speed_adaptation": "BOOLEAN_PROCESSING_BREAK",
+      "boolean_processing": {
+        "pa_range_optimization": true,
+        "accommodation_type_direct": true,
+        "three_point_zero_priority": paLevel >= 2.5
+      }
+    };
     const adjustments = {
       positive: [], // Features to add/enhance
       negative: [], // Features to remove/reduce
@@ -108,8 +140,23 @@ const CA_Generator = {
     return adjustments;
   },
   
-  // Synthesize final CA output combining all components
+  // NJSON CA Synthesis: Boolean Mind final processing
   synthesizeCA(ntcTemplate, ccbmEnhancement, paAdjustments, options) {
+    const synthesisNJSON = {
+      "cognitive_state": "final_synthesis",
+      "formula_type": "CA_COMPLETE",
+      "computation": {
+        "basic_code": "10 INPUT NTC, CCBM, PA_ADJ\n20 LET CA_CODE = MERGE_COMPONENTS(NTC, CCBM, PA_ADJ)\n30 LET METADATA = GENERATE_META(CA_CODE)\n40 LET TESTS = GENERATE_TESTS(CA_CODE)\n50 LET RESULT = PACKAGE_CA(CA_CODE, METADATA, TESTS)\n60 RETURN RESULT",
+        "variables": {"NTC": "template", "CCBM": "enhancement", "PA_ADJ": "adjustments", "RESULT": "complete_ca"},
+        "result_variable": "RESULT"
+      },
+      "quantum_speed_adaptation": "BOOLEAN_INTENTIONAL_BREAK",
+      "boolean_processing": {
+        "synthesis_clarity": true,
+        "component_merge_direct": true,
+        "final_output_optimized": true
+      }
+    };
     // Apply CCBM^qs enhancements to NTC template
     let caCode = ccbmEnhancement.enhancedCode;
     

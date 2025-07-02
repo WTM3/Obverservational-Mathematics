@@ -1,8 +1,25 @@
 // GCT-IE System Status Module
 // Real-time monitoring and accommodation management
 
+const GCTSystemStatus_NJSON = {
+    "cognitive_state": "system_monitoring",
+    "formula_type": "SYSTEM_STATUS",
+    "computation": {
+        "basic_code": "10 LET AIC = 2.89\n20 LET BUFFER = 0.1\n30 LET BMQS = 2.99\n40 LET ALIGNED = (AIC + BUFFER = BMQS)\n50 IF ALIGNED THEN PRINT 'COGNITIVE ALIGNMENT OK'\n60 RETURN ALIGNED",
+        "variables": {"AIC": 2.89, "BUFFER": 0.1, "BMQS": 2.99, "ALIGNED": true},
+        "result_variable": "ALIGNED"
+    },
+    "quantum_speed_adaptation": "BOOLEAN_MIND_BREAK",
+    "boolean_processing": {
+        "cognitive_alignment_priority": true,
+        "real_time_monitoring": true,
+        "formula_validation_direct": "AIc + 0.1 = BMqs"
+    }
+};
+
 class GCTSystemStatus {
     constructor() {
+        this.njsonConfig = GCTSystemStatus_NJSON;
         this.cognitiveAlignment = {
             aiCognitive: 2.89,
             safetyBuffer: 0.1,
@@ -42,8 +59,23 @@ class GCTSystemStatus {
         this.startRealTimeMonitoring();
     }
     
-    // Validate cognitive alignment (AIc + 0.1 = BMqs)
+    // NJSON Cognitive Alignment: Boolean Mind formula validation
     validateCognitiveAlignment() {
+        const alignmentNJSON = {
+            "cognitive_state": "alignment_validation",
+            "formula_type": "COGNITIVE_CHECK",
+            "computation": {
+                "basic_code": "10 LET AIC = 2.89\n20 LET BUFFER = 0.1\n30 LET BMQS = 2.99\n40 LET CALC = AIC + BUFFER\n50 LET DIFF = ABS(CALC - BMQS)\n60 LET ALIGNED = (DIFF < 0.001)\n70 RETURN ALIGNED",
+                "variables": {"AIC": this.cognitiveAlignment.aiCognitive, "BUFFER": this.cognitiveAlignment.safetyBuffer, "BMQS": this.cognitiveAlignment.booleanMindQS},
+                "result_variable": "ALIGNED"
+            },
+            "quantum_speed_adaptation": "BOOLEAN_PROCESSING_BREAK",
+            "boolean_processing": {
+                "formula_direct_check": true,
+                "precision_validation": true,
+                "cognitive_state_priority": true
+            }
+        };
         const calculated = this.cognitiveAlignment.aiCognitive + this.cognitiveAlignment.safetyBuffer;
         const aligned = Math.abs(calculated - this.cognitiveAlignment.booleanMindQS) < 0.001;
         
@@ -76,8 +108,23 @@ class GCTSystemStatus {
         console.log('📊 Real-time monitoring started (2-second cycle)');
     }
     
-    // Update performance metrics with realistic variations
+    // NJSON Performance Metrics: Boolean Mind processing optimization
     updatePerformanceMetrics() {
+        const metricsNJSON = {
+            "cognitive_state": "performance_update",
+            "formula_type": "METRICS_CALC",
+            "computation": {
+                "basic_code": "10 LET PA = " + this.paLevel + "\n20 LET BASE_CPU = 10 + (PA * 3)\n30 LET CPU = BASE_CPU + RND(8) - 4\n40 LET BASE_MEM = 120 + (PA * 15)\n50 LET MEM = BASE_MEM + RND(30) - 15\n60 LET QS = PA * 2.99 * 1.618\n70 RETURN CPU, MEM, QS",
+                "variables": {"PA": this.paLevel, "CPU": 0, "MEM": 0, "QS": 0},
+                "result_variable": "METRICS"
+            },
+            "quantum_speed_adaptation": "BOOLEAN_INTENTIONAL_BREAK",
+            "boolean_processing": {
+                "pa_level_optimization": true,
+                "quantum_speed_direct": true,
+                "real_time_calculation": true
+            }
+        };
         // CPU usage varies based on accommodation level and system load
         const baseCPU = 10 + (this.paLevel * 3);
         this.performanceMetrics.cpuUsage = Math.max(5, Math.min(40, 

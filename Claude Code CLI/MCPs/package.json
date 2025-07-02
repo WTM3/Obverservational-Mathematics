@@ -1,0 +1,28 @@
+{
+  "name": "njson-server",
+  "version": "0.1.0",
+  "description": "Simple MCP Server for JSON operations",
+  "type": "module",
+  "main": "njson-server.js",
+  "bin": {
+    "njson-server": "./njson-server.js"
+  },
+  "scripts": {
+    "start": "node njson-server.js",
+    "dev": "node --inspect njson-server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "mcp",
+    "json",
+    "server",
+    "model-context-protocol"
+  ],
+  "author": "",
+  "license": "MIT"
+}

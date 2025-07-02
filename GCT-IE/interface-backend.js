@@ -5,15 +5,47 @@ const CA_Generator = require('./ca-generator');
 const CCBM_QS = require('./ccbm-qs');
 const NTC_Templates = require('./ntc-templates');
 
+const GCT_Interface_Backend_NJSON = {
+    "cognitive_state": "dynamic",
+    "formula_type": "GCT-IE",
+    "constructor_data": {
+        "basic_code": "10 LET PA = 3.0\n20 LET TYPE$ = 'all'\n30 LET RESULTS = NULL\n40 RETURN",
+        "variables": {"PA": 3.0, "TYPE": "all", "RESULTS": null},
+        "initialization_state": "ready"
+    },
+    "quantum_speed_adaptation": "BOOLEAN_MIND_BREAK",
+    "boolean_processing": {
+        "clarity_priority": true,
+        "eliminate_social_padding": true,
+        "direct_computation": true
+    }
+};
+
 class GCT_Interface_Backend {
     constructor() {
+        this.njsonConfig = GCT_Interface_Backend_NJSON;
         this.currentPA = 3.0;
         this.currentType = 'all';
         this.generatedResults = null;
     }
     
-    // Generate code using actual core components
+    // Boolean Mind Processing: Generate code using NJSON architecture
     async generateCode(paLevel, accommodationType) {
+        const generationConfig = {
+            "cognitive_state": "active_processing",
+            "formula_type": "CA_GEN",
+            "computation": {
+                "basic_code": `10 LET PA = ${paLevel}\n20 LET TYPE$ = '${accommodationType}'\n30 LET RESULT = CA_FORMULA(PA, TYPE$)\n40 PRINT RESULT\n50 RETURN RESULT`,
+                "variables": {"PA": paLevel, "TYPE": accommodationType},
+                "result_variable": "RESULT"
+            },
+            "quantum_speed_adaptation": "BOOLEAN_PROCESSING_BREAK",
+            "boolean_processing": {
+                "direct_answers": true,
+                "eliminate_wrapper_code": true,
+                "pa_level_priority": true
+            }
+        };
         try {
             console.log(`🔬 Backend: Generating code for PA=${paLevel}, Type=${accommodationType}`);
             
@@ -42,8 +74,22 @@ class GCT_Interface_Backend {
         }
     }
     
-    // Test generated code
+    // Boolean Mind Testing: NJSON format validation
     testCode() {
+        const testConfig = {
+            "cognitive_state": "validation_mode",
+            "formula_type": "TEST_CA",
+            "computation": {
+                "basic_code": "10 IF RESULTS = NULL THEN GOTO 50\n20 LET VALID = TRUE\n30 PRINT 'TEST PASSED'\n40 GOTO 60\n50 PRINT 'NO CODE TO TEST'\n60 RETURN VALID",
+                "variables": {"VALID": true, "RESULTS": this.generatedResults},
+                "result_variable": "VALID"
+            },
+            "quantum_speed_adaptation": "BOOLEAN_BREAK",
+            "boolean_processing": {
+                "immediate_validation": true,
+                "clear_error_messages": true
+            }
+        };
         if (!this.generatedResults) {
             return {
                 success: false,
@@ -65,8 +111,23 @@ class GCT_Interface_Backend {
         };
     }
     
-    // Validate accommodations
+    // NJSON Accommodation Validation: Boolean Mind format
     validateAccommodations(paLevel, accommodationType) {
+        const validationNJSON = {
+            "cognitive_state": "validation_processing",
+            "formula_type": "PA_VALIDATION",
+            "computation": {
+                "basic_code": `10 LET PA = ${paLevel}\n20 LET TYPE$ = '${accommodationType}'\n25 LET VALID = FALSE\n30 IF PA >= 0.1 AND PA <= 3.0 THEN VALID = TRUE\n40 IF TYPE$ = 'all' OR TYPE$ = 'motor' OR TYPE$ = 'communication' OR TYPE$ = 'cognitive' THEN VALID = TRUE\n50 RETURN VALID`,
+                "variables": {"PA": paLevel, "TYPE": accommodationType, "VALID": false},
+                "result_variable": "VALID"
+            },
+            "quantum_speed_adaptation": "BOOLEAN_INTENTIONAL_BREAK",
+            "boolean_processing": {
+                "range_check_priority": true,
+                "type_validation_direct": true,
+                "pa_3_0_optimization": paLevel >= 2.5
+            }
+        };
         const validationResults = [];
         
         // PA Level validation
