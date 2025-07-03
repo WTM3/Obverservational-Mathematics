@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "Wilson": {
+      "entry": "MCPs/Agents/Claude/Wilson.js",
+      "command": "node MCPs/Agents/Claude/Wilson.js"
+    }
+  }
+} 
