@@ -1,0 +1,177 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# Personal and sensitive files
+API Key.rtf
+*.key
+*.pem
+*.p12
+*.pfx
+tensile-howl-465101-k6-273f8a77f192.json
+
+# Personal directories
+My Novels/
+Work Recepts/
+Desktop/
+Documents/
+Downloads/
+Pictures/
+Music/
+Movies/
+Applications/
+Applications (Parallels)/
+
+# Dropbox and cloud storage
+.dropbox
+Google Drive/
+OneDrive/
+iCloud Drive (Archive)/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# OS generated files
+.fseventsd
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# User-specific files
+.bash_history
+.bash_profile*
+.zsh_history
+.zshrc*
+.zprofile
+.zshenv
+.zcompdump*
+
+# Configuration files
+.config/
+.cache/
+.local/
+
+# Development tools
+.cursor/
+.claude/
+.anaconda/
+.condarc
+.ipython/
+.jupyter/
+.matplotlib/
+
+# Build outputs
+dist/
+build/
+out/
+
+# Test files
+test-results/
+coverage/
+
+# Documentation builds
+docs/_build/
+
+# OS specific
+*.dmg
+*.pkg
+*.app
+
+# Archive files
+*.zip
+*.tar.gz
+*.rar
+
+# Media files
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.mp4
+*.mov
+*.avi
+*.mp3
+*.wav
+*.ogg
+
+# Document files (personal)
+*.docx
+*.pdf
+*.rtf
+
+# Backup files
+*.backup
+*.old
+*.orig
+
+# Lock files
+*.lock
+
+# Cache directories
+.cache/
+.temp/
+.tmp/
+
+# User data
+Library/
+Preferences/
+Application Support/ 
